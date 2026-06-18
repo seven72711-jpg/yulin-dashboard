@@ -131,12 +131,14 @@ async function sha256(m){const e=new TextEncoder().encode(m);const h=await crypt
 async function checkPwd(){
   const hash=await sha256(document.getElementById('pwd').value);
   if(hash==='4dc7fea7cb41ccc8c0853e17d75281f6783dac1e252825ad58e2118b37bc0303'){
+    localStorage.setItem('yl_auth','1');
     document.getElementById('gate').style.display='none';
     document.getElementById('app').style.display='block';
   }else{
     document.getElementById('pwd-err').style.display='block';
   }
 }
+if(localStorage.getItem('yl_auth')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
 // ═══════════ 数据中心 ═══════════
 const D = {
   period: '2026-05',
