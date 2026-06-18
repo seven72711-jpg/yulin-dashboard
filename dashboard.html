@@ -42,6 +42,22 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 .kpi-dot { position: absolute; top: 16px; right: 16px; width: 6px; height: 6px; border-radius: 50%; }
 .kpi-dot.warn { background: var(--red); box-shadow: 0 0 10px rgba(224,69,90,0.4); }
 .kpi-dot.ok { background: var(--green); }
+
+/* Tooltips */
+[data-tip] { position: relative; cursor: help; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+[data-tip]:hover::after, [data-tip].tip-show::after {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--text-bright); color: var(--bg);
+  padding: 6px 12px; border-radius: 6px; font-size: 11px; font-family: var(--font-body);
+  font-weight: 400; text-transform: none; letter-spacing: 0; line-height: 1.4;
+  white-space: nowrap; z-index: 100; pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+[data-tip]:hover::before, [data-tip].tip-show::before {
+  content: ''; position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--text-bright); z-index: 100; pointer-events: none;
+}
 .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; margin-bottom: 40px; }
 .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s; }
@@ -141,6 +157,8 @@ async function checkPwd(){
   }
 }
 if(localStorage.getItem('yl_auth')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
+// Touch support for tooltips on mobile
+document.addEventListener('click',function(e){const t=e.target.closest('[data-tip]');if(!t)return;t.classList.toggle('tip-show');setTimeout(()=>t.classList.remove('tip-show'),2000);});
 // ═══════════ 数据中心 ═══════════
 const D = {
   period: '2026-05',
@@ -253,22 +271,22 @@ function pct(v) { return v.toFixed(1) + '%'; }
 // KPI 行
 function renderKPIs() {
   const mKpis = [
-    { label: '月营收', sub: `${D.period.slice(-2)}月`, val: (D.revenue/10000).toFixed(1), unit: '万', change: `▲ ${D.yoyGrowth}% YoY`, changeCls: 'up', dot: 'ok' },
-    { label: '净利润', sub: `${D.period.slice(-2)}月`, val: (D.profit/10000).toFixed(2), unit: '万', change: `▲ 净利率 ${D.margin}%`, changeCls: 'up', dot: 'ok' },
-    { label: '付薪比', sub: `${D.period.slice(-2)}月`, val: D.payRatio.toFixed(1), unit: '%', change: '目标 ≤55%', changeCls: 'down', dot: 'warn' },
-    { label: '折扣差额', sub: `${D.period.slice(-2)}月`, val: (D.discountGap/10000).toFixed(2), unit: '万', change: '门店100%承担', changeCls: 'down', dot: 'warn', valColor: 'var(--red)' },
-    { label: '跨月留存', sub: '1-5月均', val: D.retention.toFixed(1), unit: '%', change: '月换血 3/4', changeCls: 'down', dot: 'warn', valColor: 'var(--amber)' },
-    { label: '边际利润', sub: `${D.period.slice(-2)}月`, val: D.marginalProfit, unit: '/单', change: `保本点 ${(D.breakeven/10000).toFixed(1)}万`, changeCls: '', dot: 'ok' },
+    { label: '月营收', sub: `${D.period.slice(-2)}月`, val: (D.revenue/10000).toFixed(1), unit: '万', change: `▲ ${D.yoyGrowth}% YoY`, changeCls: 'up', dot: 'ok', tip: '当月技师的劳动业绩合计，即服务项目原价总和' },
+    { label: '净利润', sub: `${D.period.slice(-2)}月`, val: (D.profit/10000).toFixed(2), unit: '万', change: `▲ 净利率 ${D.margin}%`, changeCls: 'up', dot: 'ok', tip: '营收扣除所有成本（提成/租金/推广/税费）后的最终利润' },
+    { label: '付薪比', sub: `${D.period.slice(-2)}月`, val: D.payRatio.toFixed(1), unit: '%', change: '目标 ≤55%', changeCls: 'down', dot: 'warn', tip: '人力成本÷营收。技师提成+店长+前台+社保占营收的比例，行业健康线50-55%' },
+    { label: '折扣差额', sub: `${D.period.slice(-2)}月`, val: (D.discountGap/10000).toFixed(2), unit: '万', change: '门店100%承担', changeCls: 'down', dot: 'warn', valColor: 'var(--red)', tip: '技师按原价拿提成，但门店实收是折后价。差额¥32,295/月全部由门店利润承担' },
+    { label: '跨月留存', sub: '1-5月均', val: D.retention.toFixed(1), unit: '%', change: '月换血 3/4', changeCls: 'down', dot: 'warn', valColor: 'var(--amber)', tip: '本月有手机号的客户中，下个月再次到店的比例。1-5月均值23.7%' },
+    { label: '边际利润', sub: `${D.period.slice(-2)}月`, val: D.marginalProfit, unit: '/单', change: `保本点 ${(D.breakeven/10000).toFixed(1)}万`, changeCls: '', dot: 'ok', tip: '超出保本点后每多做1单门店到手利润。44元/单意味着做量不赚钱，提价才是杠杆' },
   ];
   const yKpis = [
-    { label: '累计营收', sub: '1-5月', val: (D.ytdRevenue/10000).toFixed(1), unit: '万', change: `${D.ytdOrders}单`, changeCls: '', dot: 'ok' },
-    { label: '累计净利润', sub: '1-5月', val: (D.ytdProfit/10000).toFixed(2), unit: '万', change: `净利率 ${D.ytdMargin}%`, changeCls: 'down', dot: 'warn', valColor: 'var(--amber)' },
-    { label: '累计付薪比', sub: '1-5月', val: D.ytdPayRatio.toFixed(1), unit: '%', change: '含3月刷单事件', changeCls: 'down', dot: 'warn' },
-    { label: '累计折扣', sub: '1-5月', val: (D.ytdDiscountGap/10000).toFixed(2), unit: '万', change: '门店承担100%', changeCls: 'down', dot: 'warn', valColor: 'var(--red)' },
-    { label: '月均营收', sub: '1-5月', val: (D.ytdRevenue/5/10000).toFixed(1), unit: '万', change: '比2025月均+8.4%', changeCls: 'up', dot: 'ok' },
-    { label: '月均订单', sub: '1-5月', val: Math.round(D.ytdOrders/5), unit: '单', change: `${D.rooms}间房${D.beds}床`, changeCls: '', dot: 'ok' },
+    { label: '累计营收', sub: '1-5月', val: (D.ytdRevenue/10000).toFixed(1), unit: '万', change: `${D.ytdOrders}单`, changeCls: '', dot: 'ok', tip: '2026年1-5月合计服务营收' },
+    { label: '累计净利润', sub: '1-5月', val: (D.ytdProfit/10000).toFixed(2), unit: '万', change: `净利率 ${D.ytdMargin}%`, changeCls: 'down', dot: 'warn', valColor: 'var(--amber)', tip: '1-5月净利润合计。3.6%的低净利率因3月刷单事件亏损拖累' },
+    { label: '累计付薪比', sub: '1-5月', val: D.ytdPayRatio.toFixed(1), unit: '%', change: '含3月刷单事件', changeCls: 'down', dot: 'warn', tip: '1-5月人力成本÷累计营收。65.1%偏高是因3月薪酬漏洞刷单导致工资异常' },
+    { label: '累计折扣', sub: '1-5月', val: (D.ytdDiscountGap/10000).toFixed(2), unit: '万', change: '门店承担100%', changeCls: 'down', dot: 'warn', valColor: 'var(--red)', tip: '1-5月原价与实收的累计差额，全部由门店利润承担，年化约¥38.7万' },
+    { label: '月均营收', sub: '1-5月', val: (D.ytdRevenue/5/10000).toFixed(1), unit: '万', change: '比2025月均+8.4%', changeCls: 'up', dot: 'ok', tip: '2026年1-5月平均月营收¥15.5万，对比2025全年月均¥14.3万增长8.4%' },
+    { label: '月均订单', sub: '1-5月', val: Math.round(D.ytdOrders/5), unit: '单', change: `${D.rooms}间房${D.beds}床`, changeCls: '', dot: 'ok', tip: '1-5月月均服务订单数。9间房17张床理论容量75单/天，当前利用率约35%' },
   ];
-  const card = (k, cls) => `<div class="kpi${cls?' '+cls:''}"><div class="kpi-dot ${k.dot}"></div><div class="kpi-label">${k.label} <span class="dim" style="font-size:9px;font-weight:400;">${k.sub}</span></div><div class="kpi-value"${k.valColor?` style="color:${k.valColor}"`:''}>${k.val}<span class="unit">${k.unit}</span></div><div class="kpi-change ${k.changeCls}">${k.change}</div></div>`;
+  const card = (k, cls) => `<div class="kpi${cls?' '+cls:''}"><div class="kpi-dot ${k.dot}"></div><div class="kpi-label"><span data-tip="${k.tip}">${k.label}</span> <span class="dim" style="font-size:9px;font-weight:400;">${k.sub}</span></div><div class="kpi-value"${k.valColor?` style="color:${k.valColor}"`:''}>${k.val}<span class="unit">${k.unit}</span></div><div class="kpi-change ${k.changeCls}">${k.change}</div></div>`;
   document.getElementById('kpi-row').innerHTML = 
     mKpis.map(k => card(k, 'kpi-m')).join('') + 
     yKpis.map(k => card(k, 'kpi-y')).join('');
