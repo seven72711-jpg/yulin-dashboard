@@ -281,59 +281,15 @@ body {
 .dim { color: var(--text-dim); }
 .mono { font-family: var(--font-mono); }
 
-@media (max-width: 900px) {
-  .container { padding: 16px; }
-  .kpi-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .kpi { padding: 16px 14px; }
-  .kpi-value { font-size: 24px; }
-  .kpi-label { font-size: 9px; }
-  .grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
-  .span-4, .span-6, .span-8, .span-12 { grid-column: span 1; }
-  .header { flex-direction: column; gap: 8px; margin-bottom: 24px; padding-bottom: 20px; }
-  .header h1 { font-size: 24px; }
-  .strategy-banner { padding: 20px 24px; margin-bottom: 24px; }
-  .strategy-banner h2 { font-size: 16px; }
-  .strategy-banner p { font-size: 12px; }
-  .section-title { margin: 32px 0 16px; }
-  .card { padding: 18px; }
-  .card-header { margin-bottom: 16px; }
-  .card-title { font-size: 12px; }
-  
-  /* Table scroll */
-  .data-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .data-table th { font-size: 10px; padding: 8px 8px; white-space: nowrap; }
-  .data-table td { font-size: 11px; padding: 8px 8px; white-space: nowrap; }
-  
-  /* Bar items */
-  .bar-label { min-width: 70px; font-size: 11px; }
-  .bar-val { font-size: 10px; min-width: 45px; }
-  .bar-item { font-size: 11px; gap: 8px; }
-  
-  /* Mini bars */
-  .mini-bars { gap: 4px; height: 80px; }
-  .mini-bar-label { font-size: 9px; }
-  
-  /* Sim */
-  .sim-big { font-size: 28px; }
-  .sim-slider { height: 6px; }
-  .sim-result { padding: 16px; }
-  
-  /* Insight */
-  .insight { font-size: 11px; padding: 12px 14px; }
+@media (max-width: 1200px) {
+  .container { padding: 24px; }
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .span-4, .span-6, .span-8 { grid-column: span 6; }
 }
-@media (max-width: 480px) {
-  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .kpi { padding: 12px 10px; }
-  .kpi-value { font-size: 20px; }
-  .kpi-change { font-size: 9px; }
-  .container { padding: 10px; }
-  .card { padding: 14px; border-radius: 8px; }
-  .strategy-banner { padding: 16px 18px; }
-  .bar-label { min-width: 55px; font-size: 10px; }
-  .bar-val { font-size: 9px; min-width: 35px; }
-  .bar-item { gap: 6px; }
-  .data-table th { font-size: 9px; padding: 6px 5px; }
-  .data-table td { font-size: 10px; padding: 6px 5px; }
+@media (max-width: 768px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+  .header h1 { font-size: 24px; }
 }
 </style>
 </head>
