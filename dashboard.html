@@ -198,13 +198,14 @@ const D = {
     { label: '直付', rate: 41.4, cls: 'green' },
   ],
 
-  // 技师矩阵
+  // 技师矩阵 (1-5月累计)
   technicians: [
-    { name: '林燕', grade: '特级', gradeCls: 'badge-t1', desRate: 65, desCls: 'green', private: 21, cardRate: 37, custs: 72, perf: 30880, note: '全链路标杆' },
-    { name: '梁雪华', grade: '高级', gradeCls: 'badge-t2', desRate: 36, desCls: '', private: 7, cardRate: 9, custs: 72, perf: 23349, note: '私定第二' },
-    { name: '唐善连', grade: '特级', gradeCls: 'badge-t1', desRate: 37, desCls: '', private: 4, cardRate: 19, custs: 82, perf: 21478, note: '走量型' },
-    { name: '禤妮', grade: '高级', gradeCls: 'badge-t2', desRate: 37, desCls: '', private: 5, cardRate: 28, custs: 75, perf: 21103, note: '均衡型' },
-    { name: '丘洁荣', grade: '中级', gradeCls: 'badge-t3', desRate: 15, desCls: 'red', private: 0, cardRate: 14, custs: 64, perf: 17100, note: '纯散客 ⚠' },
+    { name: '林燕', grade: '特级', gradeCls: 'badge-t1', desRate: 73, desCls: 'green', private: 47, cardAmt: 33220, custs: 125, perf: 90918, note: '全链路标杆' },
+    { name: '唐善连', grade: '特级', gradeCls: 'badge-t1', desRate: 58, desCls: '', private: 12, cardAmt: 22065, custs: 162, perf: 71796, note: '走量型' },
+    { name: '禤妮', grade: '高级', gradeCls: 'badge-t2', desRate: 53, desCls: '', private: 8, cardAmt: 14953, custs: 134, perf: 67883, note: '均衡型' },
+    { name: '梁雪华', grade: '高级', gradeCls: 'badge-t2', desRate: 64, desCls: 'green', private: 11, cardAmt: 8023, custs: 76, perf: 50343, note: '指定率高' },
+    { name: '姚梨', grade: '高级', gradeCls: 'badge-t2', desRate: 63, desCls: 'green', private: 8, cardAmt: 11704, custs: 83, perf: 39787, note: '高指定低估' },
+    { name: '丘洁荣', grade: '中级', gradeCls: 'badge-t3', desRate: 38, desCls: '', private: 0, cardAmt: 11152, custs: 125, perf: 51104, note: '纯散客 ⚠' },
   ],
 
   // 竞品
@@ -377,10 +378,10 @@ function renderCards() {
 <div class="section-title">人员 & 服务</div>
 <div class="grid">
   <div class="card span-8">
-    <div class="card-header"><div class="card-title">技师能力矩阵</div></div>
+    <div class="card-header"><div class="card-title">技师能力矩阵 · 1-5月累计</div></div>
     <table class="data-table">
-      <thead><tr><th>技师</th><th>等级</th><th>指定率</th><th>私定</th><th>卡金率</th><th>客数</th><th>业绩</th><th>特征</th></tr></thead>
-      <tbody>${D.technicians.map(t => `<tr><td>${t.name}</td><td><span class="badge ${t.gradeCls}">${t.grade}</span></td><td class="${t.desCls}">${t.desRate}%</td><td class="accent">${t.private}</td><td>${t.cardRate}%</td><td>${t.custs}</td><td>${fmt(t.perf)}</td><td>${t.note}</td></tr>`).join('')}</tbody>
+      <thead><tr><th>技师</th><th>等级</th><th>指定率</th><th>私定</th><th>开卡额</th><th>客数</th><th>YTD业绩</th><th>特征</th></tr></thead>
+      <tbody>${D.technicians.map(t => `<tr><td>${t.name}</td><td><span class="badge ${t.gradeCls}">${t.grade}</span></td><td class="${t.desCls}">${t.desRate}%</td><td class="accent">${t.private}</td><td>¥${(t.cardAmt/1000).toFixed(0)}K</td><td>${t.custs}</td><td>${fmt(t.perf)}</td><td>${t.note}</td></tr>`).join('')}</tbody>
     </table>
     <div class="dim" style="font-size:10px;margin-top:8px;">完整 11 人数据见数字孪生文档。低级别技师边际贡献率更高。</div>
   </div>
