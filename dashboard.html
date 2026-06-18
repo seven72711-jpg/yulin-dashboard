@@ -138,7 +138,21 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 </div>
 
 <div class="kpi-row" id="kpi-row"></div>
-<div class="strategy-banner" id="banner"></div>
+
+<div class="card" style="grid-column:span 12;margin-bottom:40px;">
+  <div class="card-header"><div class="card-title">月度营收趋势 · ${D.months} 个月</div><div class="card-subtitle">2024.01 – ${D.period} · 从月亏4.6万到月利1.7万</div></div>
+  <svg viewBox="0 0 640 160" style="width:100%;height:auto;">
+    <line x1="0" y1="48" x2="640" y2="48" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="75" x2="640" y2="75" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="102" x2="640" y2="102" stroke="#1e2633" stroke-width="0.5"/>
+    <text x="5" y="43" fill="#4a5568" font-size="9" font-family="monospace">15万</text><text x="5" y="70" fill="#4a5568" font-size="9" font-family="monospace">10万</text><text x="5" y="97" fill="#4a5568" font-size="9" font-family="monospace">5万</text>
+    <defs><linearGradient id="revG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2ea5de" stop-opacity="0.25"/><stop offset="100%" stop-color="#2ea5de" stop-opacity="0.01"/></linearGradient></defs>
+    <path d="M0,101 L21,97 L43,83 L64,82 L86,82 L107,73 L129,62 L150,57 L171,65 L193,57 L214,75 L236,73 L257,89 L279,57 L300,52 L321,57 L343,56 L364,39 L386,42 L407,39 L429,48 L450,36 L471,49 L493,47 L514,48 L536,60 L557,37 L579,46 L600,33" fill="url(#revG)" stroke="#2ea5de" stroke-width="1.2" fill="none"/>
+    <circle cx="600" cy="33" r="6" fill="#35a162"><animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/></circle>
+    <text x="0" y="148" fill="#4a5568" font-size="8">24/01</text><text x="193" y="148" fill="#4a5568" font-size="8">24/10</text><text x="300" y="148" fill="#4a5568" font-size="8">25/04</text><text x="429" y="148" fill="#4a5568" font-size="8">25/10</text><text x="600" y="148" fill="#35a162" font-size="8">${D.period} 🏆</text>
+  </svg>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:10px;color:var(--text-dim);">
+    <span>1-2月淡季(9-10万)</span><span>6-8月旺季(13-15万)</span><span class="green">${D.period} 历史新高</span>
+  </div>
+</div>
 
 <div id="cards"></div>
 
@@ -294,13 +308,6 @@ function renderKPIs() {
 }
 
 // Banner
-function renderBanner() {
-  document.getElementById('banner').innerHTML = `
-    <h2>利润增长最快路径不是多做客人，是<span class="highlight">提价 + 改制度</span></h2>
-    <p>¥${fmt(D.discountGap)}/月的平台折扣，100%由门店承担，技师拿原价提成。改为按实收提成 → <span class="highlight">月增¥16,500 · 年¥198,000</span>。涨价¥20 → 月增¥5,100。多做50单 → 仅¥2,200。门店已进入成熟期过渡（YoY增速从44.7%降至8.4%），不做结构性调整，2027年终局约年利¥20万。</p>`;
-}
-
-// 所有卡片
 function renderCards() {
   const h = document.getElementById('cards');
   h.innerHTML = `
@@ -360,18 +367,39 @@ function renderCards() {
 
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">定价杠杆模拟器</div><div class="card-subtitle">拖滑块看涨价效果 · 涨价¥20 > 多做116单</div></div>
-    <div class="sim-group"><div class="sim-label"><span>涨价幅度</span><span id="ps1" class="sim-val">¥0</span></div><input type="range" class="sim-slider" id="pr1" min="0" max="50" value="0" step="1" oninput="priceSim()"></div>
-    <div class="sim-group"><div class="sim-label"><span>需求弹性</span><span id="ps2" class="sim-val">0.30</span></div><input type="range" class="sim-slider" id="pr2" min="0.1" max="0.8" value="0.3" step="0.05" oninput="priceSim()"></div>
-    <div class="sim-result"><div class="dim" style="font-size:10px;margin-bottom:4px;">涨价对利润的影响</div><div id="price-profit" class="sim-big">¥0</div><div id="price-detail" class="sim-sub" style="font-size:11px;">拖动滑块查看效果</div></div>
+    <div class="card-header"><div class="card-title">月度目标进度</div><div class="card-subtitle">6月营收目标 ¥180,000</div></div>
+    <div style="margin:8px 0;">
+      <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;"><span>已完成 ¥93,906</span><span class="green">52.2%</span></div>
+      <div style="height:28px;background:var(--bg);border-radius:14px;overflow:hidden;">
+        <div style="height:100%;width:52.2%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:14px;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;margin-top:4px;color:var(--text-dim);"><span>剩余13天 · 需日均¥6,622</span><span>目标¥180,000</span></div>
+    </div>
+    <div style="margin-top:16px;">
+      <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;">充值目标 ¥70,000</div>
+      <div style="height:20px;background:var(--bg);border-radius:10px;overflow:hidden;">
+        <div style="height:100%;width:34.3%;background:var(--amber);border-radius:10px;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;margin-top:3px;color:var(--text-dim);"><span>已完成 ¥24,000 (34.3%)</span><span>需日均¥3,538</span></div>
+    </div>
   </div>
 
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">利润杠杆优先级</div></div>
-    <table class="data-table">
-      <thead><tr><th>排名</th><th>杠杆</th><th>月增</th><th>风险</th></tr></thead>
-      <tbody>${D.levers.map(l => `<tr><td>${l.rank}</td><td>${l.name}</td><td class="green">${l.gain}</td><td>${l.risk}</td></tr>`).join('')}</tbody>
-    </table>
+    <div class="card-header"><div class="card-title">品牌健康记分卡</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+      <div style="background:var(--surface-raised);padding:12px;border-radius:8px;text-align:center;">
+        <div style="font-size:24px;font-family:var(--font-mono);color:var(--amber);">${D.retention}%</div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;">跨月留存</div>
+      </div>
+      <div style="background:var(--surface-raised);padding:12px;border-radius:8px;text-align:center;">
+        <div style="font-size:24px;font-family:var(--font-mono);color:var(--red);">${D.brandRiskIndex}%</div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;">品牌风险指数</div>
+      </div>
+      <div style="background:var(--surface-raised);padding:12px;border-radius:8px;text-align:center;">
+        <div style="font-size:24px;font-family:var(--font-mono);color:var(--green);">56%</div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;">直付占比</div>
+      </div>
+      <div style="background:var(--surface-raised);padding:12px;border-radius:8px;text-align:center;">
+        <div style="font-size:24px;font-family:var(--font-mono);color:var(--cyan);">${D.rating}</div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;">美团评分</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -396,17 +424,6 @@ function renderCards() {
 
 <div class="section-title">趋势 & 运转</div>
 <div class="grid">
-  <div class="card span-6">
-    <div class="card-header"><div class="card-title">月度营收趋势 · ${D.months} 个月</div></div>
-    <svg viewBox="0 0 640 160" style="width:100%;height:auto;">
-      <line x1="0" y1="48" x2="640" y2="48" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="75" x2="640" y2="75" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="102" x2="640" y2="102" stroke="#1e2633" stroke-width="0.5"/>
-      <text x="5" y="43" fill="#4a5568" font-size="9" font-family="monospace">15万</text><text x="5" y="70" fill="#4a5568" font-size="9" font-family="monospace">10万</text><text x="5" y="97" fill="#4a5568" font-size="9" font-family="monospace">5万</text>
-      <defs><linearGradient id="revG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2ea5de" stop-opacity="0.25"/><stop offset="100%" stop-color="#2ea5de" stop-opacity="0.01"/></linearGradient></defs>
-      <path d="M0,101 L21,97 L43,83 L64,82 L86,82 L107,73 L129,62 L150,57 L171,65 L193,57 L214,75 L236,73 L257,89 L279,57 L300,52 L321,57 L343,56 L364,39 L386,42 L407,39 L429,48 L450,36 L471,49 L493,47 L514,48 L536,60 L557,37 L579,46 L600,33" fill="url(#revG)" stroke="#2ea5de" stroke-width="1.2" fill="none"/>
-      <circle cx="600" cy="33" r="6" fill="#35a162"><animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/></circle>
-      <text x="0" y="148" fill="#4a5568" font-size="8">24/01</text><text x="193" y="148" fill="#4a5568" font-size="8">24/10</text><text x="300" y="148" fill="#4a5568" font-size="8">25/04</text><text x="429" y="148" fill="#4a5568" font-size="8">25/10</text><text x="600" y="148" fill="#35a162" font-size="8">${D.period} 🏆</text>
-    </svg>
-  </div>
   <div class="card span-6">
     <div class="card-header"><div class="card-title">门店运转逻辑</div></div>
     <svg viewBox="0 0 560 240" style="width:100%;height:auto;">
@@ -513,7 +530,7 @@ function sim() {
   document.getElementById('sim-profit').style.color = p > 50000 ? '#35a162' : p > 25000 ? '#e2a654' : '#e0455a';
 }
 
-renderKPIs(); renderBanner(); renderCards();
+renderKPIs(); renderCards();
 priceSim(); sim();
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.bar-fill').forEach(b => { const w = b.style.width; b.style.width = '0%'; setTimeout(() => b.style.width = w, 200); });
