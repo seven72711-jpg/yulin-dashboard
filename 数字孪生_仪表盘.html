@@ -127,13 +127,14 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 </div><!-- /app -->
 
 <script>
-const PASSWORD = 'yulin2026';
-function checkPwd() {
-  if (document.getElementById('pwd').value === PASSWORD) {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-  } else {
-    document.getElementById('pwd-err').style.display = 'block';
+async function sha256(m){const e=new TextEncoder().encode(m);const h=await crypto.subtle.digest('SHA-256',e);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+async function checkPwd(){
+  const hash=await sha256(document.getElementById('pwd').value);
+  if(hash==='4dc7fea7cb41ccc8c0853e17d75281f6783dac1e252825ad58e2118b37bc0303'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+  }else{
+    document.getElementById('pwd-err').style.display='block';
   }
 }
 // ═══════════ 数据中心 ═══════════
