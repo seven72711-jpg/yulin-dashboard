@@ -572,7 +572,43 @@ body {
   </div>
 </div>
 
-<!-- Row 7: Lifecycle + Missing -->
+<!-- Row 7: Lifecycle + Brand Risk -->
+<div class="section-title">品牌 & 风险 · 新增维度</div>
+<div class="grid">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率</div><div class="card-subtitle">11人独占率78-88% · 前4名风险敞口¥100K</div></div>
+    <table class="data-table">
+      <thead><tr><th>技师</th><th>客户</th><th>独占率</th><th>收入风险</th></tr></thead>
+      <tbody>
+        <tr><td>林燕</td><td>71</td><td class="red">85%</td><td class="red">¥34,243</td></tr>
+        <tr><td>唐善连</td><td>81</td><td class="red">88%</td><td class="red">¥23,157</td></tr>
+        <tr><td>禤妮</td><td>74</td><td class="red">78%</td><td class="red">¥21,446</td></tr>
+        <tr><td>梁雪华</td><td>72</td><td class="red">81%</td><td class="red">¥21,436</td></tr>
+        <tr><td>姚梨</td><td>65</td><td class="red">82%</td><td class="red">¥23,085</td></tr>
+      </tbody>
+    </table>
+    <div class="insight insight-red" style="margin-top:12px;">
+      🔴 品牌资产缺失。客户忠于技师个人，不是忠于十三绝。前4名技师离职 = 57%营收风险。
+    </div>
+  </div>
+
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">客户LTV · 4月队列</div><div class="card-subtitle">直付客2月LTV ¥781 vs 美团 ¥621</div></div>
+    <table class="data-table">
+      <thead><tr><th>渠道</th><th>4月客户</th><th>留存率</th><th>人均4月</th><th>人均5月</th><th>2月LTV</th></tr></thead>
+      <tbody>
+        <tr><td>直付</td><td>186</td><td class="green">41.4%</td><td>¥250</td><td>¥531</td><td class="green">¥781</td></tr>
+        <tr><td>抖音</td><td>165</td><td class="red">16.4%</td><td>¥218</td><td>¥433</td><td>¥651</td></tr>
+        <tr><td>美团</td><td>260</td><td class="red">13.8%</td><td>¥220</td><td>¥401</td><td class="red">¥621</td></tr>
+      </tbody>
+    </table>
+    <div class="insight insight-amber" style="margin-top:12px;">
+      LTV差距会随月数拉大。直付客12月LTV预计¥3,000+ vs 美团客<¥1,000——3倍差。
+    </div>
+  </div>
+</div>
+
+<!-- Row 8: Lifecycle + Missing -->
 <div class="grid">
   <div class="card span-6">
     <div class="card-header"><div class="card-title">门店生命周期</div></div>
@@ -588,14 +624,16 @@ body {
   </div>
 
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">待补齐维度</div></div>
+    <div class="card-header"><div class="card-title">品牌战略驾驶舱 · 待补齐</div></div>
     <div style="font-size:11px;line-height:2;color:var(--text);">
-      <div><span class="red">P0</span> 竞品定价矩阵（决定涨价空间）</div>
-      <div><span class="red">P0</span> 客户画像（年龄/性别/职业）</div>
-      <div><span class="amber">P1</span> 评价内容分析（好评/差评关键词）</div>
-      <div><span class="amber">P1</span> 储值客活跃度（最后消费日分布）</div>
-      <div><span class="amber">P1</span> 技师流动率（12个月数据）</div>
-      <div class="dim">P2 客户 JTBD · 房间级利用 · 技师服务时长 · 退卡投诉 · 老客推荐率</div>
+      <div>✅ 技师独占率（品牌风险指数82%）</div>
+      <div>✅ 客户LTV分渠道模型</div>
+      <div>✅ 技师客户重叠网络</div>
+      <div><span class="red">P0</span> 评价语义分析（爬取美团/抖音评价NLP）</div>
+      <div><span class="red">P0</span> 竞品品牌地图（神秘顾客+定价矩阵）</div>
+      <div><span class="amber">P1</span> 品牌溢价PSM测试（客户价格敏感度）</div>
+      <div><span class="amber">P1</span> 品牌日历（经营数据×品牌事件对齐）</div>
+      <div class="dim">P2 技师流失预警 · 评价关键词追踪 · 品牌搜索量变化</div>
     </div>
   </div>
 </div>
