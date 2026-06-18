@@ -35,6 +35,8 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500; }
 .kpi-value { font-family: var(--font-mono); font-size: 32px; font-weight: 500; color: var(--text-bright); letter-spacing: -1px; }
 .kpi-value .unit { font-size: 14px; opacity: 0.4; }
+.kpi-y { opacity: 0.85; }
+.kpi-y .kpi-label { color: var(--accent); }
 .kpi-change { font-size: 11px; margin-top: 6px; font-family: var(--font-mono); font-weight: 400; }
 .kpi-change.up { color: var(--green); } .kpi-change.down { color: var(--red); }
 .kpi-dot { position: absolute; top: 16px; right: 16px; width: 6px; height: 6px; border-radius: 50%; }
@@ -144,6 +146,8 @@ const D = {
   period: '2026-05',
   months: 29,
   revenue: 176759, profit: 17285, margin: 9.8, payRatio: 61.6,
+  ytdRevenue: 775592, ytdProfit: 28251, ytdMargin: 3.6, ytdPayRatio: 65.1,
+  ytdDiscountGap: 161475, ytdOrders: 3753,
   discountGap: 32295, discountPct: 18.3, retention: 23.7,
   marginalProfit: 44, breakeven: 112000, yoyGrowth: 30.7,
   visitors: 1116, dailyAvg: 37, privatePct: 9.1,
@@ -248,7 +252,7 @@ function pct(v) { return v.toFixed(1) + '%'; }
 
 // KPI 行
 function renderKPIs() {
-  const kpis = [
+  const mKpis = [
     { label: '月营收', sub: `${D.period.slice(-2)}月`, val: (D.revenue/10000).toFixed(1), unit: '万', change: `▲ ${D.yoyGrowth}% YoY`, changeCls: 'up', dot: 'ok' },
     { label: '净利润', sub: `${D.period.slice(-2)}月`, val: (D.profit/10000).toFixed(2), unit: '万', change: `▲ 净利率 ${D.margin}%`, changeCls: 'up', dot: 'ok' },
     { label: '付薪比', sub: `${D.period.slice(-2)}月`, val: D.payRatio.toFixed(1), unit: '%', change: '目标 ≤55%', changeCls: 'down', dot: 'warn' },
@@ -256,12 +260,18 @@ function renderKPIs() {
     { label: '跨月留存', sub: '1-5月均', val: D.retention.toFixed(1), unit: '%', change: '月换血 3/4', changeCls: 'down', dot: 'warn', valColor: 'var(--amber)' },
     { label: '边际利润', sub: `${D.period.slice(-2)}月`, val: D.marginalProfit, unit: '/单', change: `保本点 ${(D.breakeven/10000).toFixed(1)}万`, changeCls: '', dot: 'ok' },
   ];
-  document.getElementById('kpi-row').innerHTML = kpis.map(k => `
-    <div class="kpi"><div class="kpi-dot ${k.dot}"></div>
-      <div class="kpi-label">${k.label} <span class="dim" style="font-size:9px;font-weight:400;">${k.sub}</span></div>
-      <div class="kpi-value"${k.valColor ? ` style="color:${k.valColor}"` : ''}>${k.val}<span class="unit">${k.unit}</span></div>
-      <div class="kpi-change ${k.changeCls}">${k.change}</div>
-    </div>`).join('');
+  const yKpis = [
+    { label: '累计营收', sub: '1-5月', val: (D.ytdRevenue/10000).toFixed(1), unit: '万', change: `${D.ytdOrders}单`, changeCls: '', dot: 'ok' },
+    { label: '累计净利润', sub: '1-5月', val: (D.ytdProfit/10000).toFixed(2), unit: '万', change: `净利率 ${D.ytdMargin}%`, changeCls: 'down', dot: 'warn', valColor: 'var(--amber)' },
+    { label: '累计付薪比', sub: '1-5月', val: D.ytdPayRatio.toFixed(1), unit: '%', change: '含3月刷单事件', changeCls: 'down', dot: 'warn' },
+    { label: '累计折扣', sub: '1-5月', val: (D.ytdDiscountGap/10000).toFixed(2), unit: '万', change: '门店承担100%', changeCls: 'down', dot: 'warn', valColor: 'var(--red)' },
+    { label: '月均营收', sub: '1-5月', val: (D.ytdRevenue/5/10000).toFixed(1), unit: '万', change: '比2025月均+8.4%', changeCls: 'up', dot: 'ok' },
+    { label: '月均订单', sub: '1-5月', val: Math.round(D.ytdOrders/5), unit: '单', change: `${D.rooms}间房${D.beds}床`, changeCls: '', dot: 'ok' },
+  ];
+  const card = (k, cls) => `<div class="kpi${cls?' '+cls:''}"><div class="kpi-dot ${k.dot}"></div><div class="kpi-label">${k.label} <span class="dim" style="font-size:9px;font-weight:400;">${k.sub}</span></div><div class="kpi-value"${k.valColor?` style="color:${k.valColor}"`:''}>${k.val}<span class="unit">${k.unit}</span></div><div class="kpi-change ${k.changeCls}">${k.change}</div></div>`;
+  document.getElementById('kpi-row').innerHTML = 
+    mKpis.map(k => card(k, 'kpi-m')).join('') + 
+    yKpis.map(k => card(k, 'kpi-y')).join('');
 }
 
 // Banner
