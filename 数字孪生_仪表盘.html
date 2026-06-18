@@ -128,7 +128,7 @@ const D = {
   marginalProfit: 44, breakeven: 112000, yoyGrowth: 30.7,
   visitors: 1116, dailyAvg: 37, privatePct: 9.1,
   rooms: 9, beds: 17, utilization: 35, peakOrders: 75,
-  brandRisk: 75, techCount: 11, storeAge: '8周年',
+  brandRiskIndex: 75, techCount: 11, storeAge: '8周年',
   rating: 5.0, reviews: 6558, avgPrice: 81,
 
   // 成本瀑布 (per ¥100)
@@ -399,7 +399,7 @@ function renderCards() {
 <div class="section-title">品牌 & 风险</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（3-5月）</div><div class="card-subtitle">全店风险指数${D.brandRisk}% · 87.5%客户只消费1个技师</div></div>
+    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（3-5月）</div><div class="card-subtitle">全店风险指数${D.brandRiskIndex}% · 87.5%客户只消费1个技师</div></div>
     <table class="data-table">
       <thead><tr><th>技师</th><th>客户</th><th>独占率</th><th>单月偏</th><th>收入风险</th></tr></thead>
       <tbody>${D.brandRisk.map(b => `<tr><td>${b.name}</td><td>${b.custs}</td><td class="red">${b.rate}%</td><td>${b.desc}</td><td class="red">¥${fmt(b.risk)}</td></tr>`).join('')}</tbody>
