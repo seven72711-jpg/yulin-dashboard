@@ -522,7 +522,7 @@ function sim() {
 
 renderKPIs(); renderCards();
 document.querySelectorAll('.dyn-period').forEach(el => el.textContent = D.period);
-priceSim(); sim();
+sim();
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.bar-fill').forEach(b => { const w = b.style.width; b.style.width = '0%'; setTimeout(() => b.style.width = w, 200); });
 });
