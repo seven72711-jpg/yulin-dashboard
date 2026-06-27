@@ -273,7 +273,7 @@ function renderContent(){
   </div>
   <div class="card span-4">
     <div class="card-header"><div class="card-title">服务 TOP5</div></div>
-    <div class="bar-list">${D.services.map(s=>`<div class="bar-item"><div class="bar-label${s.a?' accent':''}">${s.n}</div><div class="bar-track"><div class="bar-fill" style="width:${s.p}%;background:var(--${s.a?'accent':'cyan')};opacity:${s.a?1:0.4+s.p/200}"></div></div><div class="bar-val mono${s.a?' accent':''}">${s.c}</div></div>`).join('')}</div>
+    <div class="bar-list">${D.services.map(s=>{var lbl=s.a?' accent':'';return '<div class="bar-item"><div class="bar-label'+lbl+'">'+s.n+'</div><div class="bar-track"><div class="bar-fill" style="width:'+s.p+'%;background:var(--'+(s.a?'accent':'cyan')+');opacity:'+(s.a?1:0.4+s.p/200)+'"></div></div><div class="bar-val mono'+lbl+'">'+s.c+'</div></div>';}).join('')}</div>
     <div class="dim" style="font-size:10px;margin-top:8px;">私定均价 <span class="accent">¥450</span></div>
   </div>
 </div></div>
