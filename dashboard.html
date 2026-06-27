@@ -472,10 +472,10 @@ function renderCards(){
     <div style="display:flex;align-items:flex-end;gap:4px;height:90px;padding-top:4px;">
       ${D.techMay.map(t=>{
         const maxD=6.6,h=t.d/maxD*80,color=t.d>=5?'#2ea5de':t.d>=4?'var(--cyan)':'#1e2633';
-        return `<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${h}px;background:${color};opacity:${0.4+t.d/maxD*0.5};" title="${t.n} ${t.d}单/天"></div><div style="font-size:8px;color:${t.d>=5?'var(--text)':'var(--text-dim)'};line-height:1.3;margin-top:4px;">${t.n.slice(0,1)}<br><span style="color:var(--cyan);font-family:monospace;font-size:9px;">${t.d}</span></div></div>`;
+        return `<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${h}px;background:${color};opacity:${0.4+t.d/maxD*0.5};" title="${t.n} ${t.d}单/天"></div><div style="font-size:8px;color:${t.d>=5?'var(--text)':'var(--text-dim)'};line-height:1.3;margin-top:4px;">${t.n}<br><span style="color:var(--cyan);font-family:monospace;font-size:9px;">${t.d}</span></div></div>`;
       }).join('')}
     </div>
-    <table class="data-table" style="margin-top:8px;"><thead><tr><th>技师</th><th>5月单量</th><th>日均</th><th>级别</th></tr></thead><tbody>${D.techMay.map(t=>`<tr><td>${t.name}</td><td class="mono">${t.o}</td><td class="mono ${t.d>=5?'green':t.d<3?'red':''}">${t.d}</td><td>${t.d>=5?'核心':t.d>=4?'稳定':t.d<3?'⚠低位':'普通'}</td></tr>`).join('')}</tbody></table>
+    <table class="data-table" style="margin-top:8px;"><thead><tr><th>技师</th><th>5月单量</th><th>日均</th><th>级别</th></tr></thead><tbody>${D.techMay.map(t=>`<tr><td>${t.n}</td><td class="mono">${t.o}</td><td class="mono ${t.d>=5?'green':t.d<3?'red':''}">${t.d}</td><td>${t.d>=5?'核心':t.d>=4?'稳定':t.d<3?'⚠低位':'普通'}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-red" style="margin-top:12px;">陈燕军2.1单/天——边际贡献接近负数。周末排满核心技师，工作日让低效技师上。</div>
   </div>
   <div class="card span-4">
