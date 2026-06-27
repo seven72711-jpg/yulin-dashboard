@@ -382,7 +382,7 @@ function renderCards(){
 <div class="grid">
   <div class="card span-8">
     <div class="card-header"><div class="card-title">技师能力矩阵 · 1-5月累计</div></div>
-    <table class="data-table"><thead><tr><th>技师</th><th>等级</th><th>指定率</th><th>私定</th><th>开卡额</th><th>客数</th><th>YTD业绩</th><th>特征</th></tr></thead><tbody>${D.technicians.map(t=>`<tr><td>${t.n}</td><td><span class="badge ${t.gc}">${t.grade}</span></td><td class="${t.dc}">${t.dr}%</td><td class="accent">${t.pv}</td><td>¥${(t.ca/1000).toFixed(0)}K</td><td>${t.cs}</td><td>${f(t.pf)}</td><td>${t.nn}</td></tr>`).join('')}</tbody></table>
+    <table class="data-table"><thead><tr><th>技师</th><th>等级</th><th>指定率</th><th>私定</th><th>开卡额</th><th>客数</th><th>YTD业绩</th><th>特征</th></tr></thead><tbody>${D.technicians.map(t=>`<tr><td>${t.name}</td><td><span class="badge ${t.gc}">${t.grade}</span></td><td class="${t.dc}">${t.dr}%</td><td class="accent">${t.pv}</td><td>¥${(t.ca/1000).toFixed(0)}K</td><td>${t.cs}</td><td>${f(t.pf)}</td><td>${t.n}</td></tr>`).join('')}</tbody></table>
     <div class="dim" style="font-size:10px;margin-top:8px;">完整 11 人数据见数字孪生文档。低级别技师边际贡献率更高。</div>
   </div>
   <div class="card span-4">
@@ -400,7 +400,7 @@ function renderCards(){
         return `<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${h}px;background:${color};opacity:${0.4+t.d/maxD*0.5};" title="${t.n} ${t.d}单/天"></div><div style="font-size:8px;color:${t.d>=5?'var(--text)':'var(--text-dim)'};line-height:1.3;margin-top:4px;">${t.n.slice(0,1)}<br><span style="color:var(--cyan);font-family:monospace;font-size:9px;">${t.d}</span></div></div>`;
       }).join('')}
     </div>
-    <table class="data-table" style="margin-top:8px;"><thead><tr><th>技师</th><th>5月单量</th><th>日均</th><th>级别</th></tr></thead><tbody>${D.techMay.map(t=>`<tr><td>${t.n}</td><td class="mono">${t.o}</td><td class="mono ${t.d>=5?'green':t.d<3?'red':''}">${t.d}</td><td>${t.d>=5?'核心':t.d>=4?'稳定':t.d<3?'⚠低位':'普通'}</td></tr>`).join('')}</tbody></table>
+    <table class="data-table" style="margin-top:8px;"><thead><tr><th>技师</th><th>5月单量</th><th>日均</th><th>级别</th></tr></thead><tbody>${D.techMay.map(t=>`<tr><td>${t.name}</td><td class="mono">${t.o}</td><td class="mono ${t.d>=5?'green':t.d<3?'red':''}">${t.d}</td><td>${t.d>=5?'核心':t.d>=4?'稳定':t.d<3?'⚠低位':'普通'}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-red" style="margin-top:12px;">陈燕军2.1单/天——边际贡献接近负数。周末排满核心技师，工作日让低效技师上。</div>
   </div>
   <div class="card span-4">
