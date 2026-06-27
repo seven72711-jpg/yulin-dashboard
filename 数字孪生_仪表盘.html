@@ -347,14 +347,16 @@ function renderCards(){
 <div class="grid">
   <div class="card span-12">
     <div class="card-header"><div class="card-title">盈亏月历 · 29个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
-    <div style="display:flex;gap:8px;overflow-x:auto;">
+    <style>@media(max-width:600px){.mcal{flex-direction:column!important;gap:16px!important}.mcalYr{min-width:auto!important;width:100%!important}.mcalG{grid-template-columns:repeat(6,1fr)!important;gap:4px!important}.mcalC{min-height:32px!important;font-size:10px!important}.mcalL{display:inline!important}}</style>
+    <div class="mcal" style="display:flex;gap:8px;overflow-x:auto;">
       ${[['2024',0],['2025',12],['2026',24]].map(([yr,start])=>{
-        return `<div style="flex:1;min-width:280px;"><div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;">${yr}</div><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:3px;">${Array.from({length:12},(_,mi)=>{
+        const mnames=['1','2','3','4','5','6','7','8','9','10','11','12'];
+        return `<div class="mcalYr" style="flex:1;min-width:260px;"><div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">${yr}</div><div class="mcalG" style="display:grid;grid-template-columns:repeat(12,1fr);gap:3px;">${Array.from({length:12},(_,mi)=>{
           const idx=start+mi;
           if(idx>=29) return '<div></div>';
           const p=D.monthlyProfit[idx], m=D.monthlyMargin[idx];
           const isProf=p>=0, color=isProf?(m>8?'#35a162':m>3?'#2ea5de':'#4a8'):(m<-20?'#e0455a':m<-5?'#d4912a':'#8b5ce5');
-          return `<div style="aspect-ratio:1;background:${color};border-radius:3px;opacity:${0.3+Math.abs(m)/100};display:flex;align-items:center;justify-content:center;font-size:8px;font-family:monospace;color:var(--text-bright);" title="${D.monthlyRev[idx]/10000}万 ${isProf?'+':''}${p/10000}万">${m>=0?'+':''}${m}%</div>`;
+          return `<div class="mcalC" style="aspect-ratio:1;background:${color};border-radius:4px;opacity:${0.3+Math.abs(m)/100};display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-family:monospace;color:var(--text-bright);line-height:1.2;" title="${yr}.${mi+1} ${D.monthlyRev[idx]/10000}万 ${isProf?'+':''}${p/10000}万"><span class="mcalL" style="display:none;font-size:8px;color:var(--text-dim);">${mi+1}月</span>${m>=0?'+':''}${m}%</div>`;
         }).join('')}</div></div>`;
       }).join('')}
     </div>
