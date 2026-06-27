@@ -1,0 +1,22 @@
+{
+  "period": "2026-05",
+  "revenue": 176759.49,
+  "net_profit": 17285.33,
+  "net_margin": 9.8,
+  "labor_ratio": 61.6,
+  "marketing_ratio": 6.2,
+  "payroll": 107004.45,
+  "rent": 14766.0,
+  "promotion_fee": 11004.44,
+  "mgmt_fee": 8837.97,
+  "stored_value_in": 54164.0,
+  "stored_value_out": 27053.05,
+  "stored_value_net": 27110.95,
+  "updated_at": "2026-06-11T21:37:19.215158",
+  "total_months": 29,
+  "avg_revenue_3m": 166187.91,
+  "avg_profit_3m": 8949.78,
+  "yoy_revenue": 135248.12,
+  "yoy_profit": 9684.54,
+  "yoy_revenue_change": 30.7
+}
