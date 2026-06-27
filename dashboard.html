@@ -40,7 +40,7 @@ body::before { content:''; position:fixed; inset:0; background: radial-gradient(
 .kpi-value .unit { font-size: 14px; color: var(--text-dim); font-weight:400; margin-left:2px; }
 .kpi-y { background: var(--surface-accent); border-color: rgba(0,184,212,0.12); }
 .kpi-y .kpi-label { color: var(--accent); }
-.kpi-change { font-size: 10px; margin-top: 12px; font-family: var(--font-mono); font-weight: 500; color: var(--text-dim); }
+.kpi-change { font-size: 10px; margin-top: 12px; font-family: var(--font-mono); font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
 .kpi-change.up { color: var(--green); } .kpi-change.down { color: var(--red); }
 .kpi-dot { display:none; }
 [data-tip] { position: relative; cursor: help; border-bottom: 1px dotted rgba(255,255,255,0.15); }
@@ -150,6 +150,11 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .bar-fill { transition: none; }
   .kpi, .card { transition: none; animation: none; }
   .kpi:hover, .card:hover { transform: none; }
+}
+@media (hover: none) {
+  .kpi:hover, .card:hover { border-color: var(--border); }
+  .kpi:hover { border-color: var(--border); }
+  .card-accent:hover { border-color: rgba(0,184,212,0.3); box-shadow: none; }
 }
 </style>
 </head>
