@@ -252,8 +252,8 @@ const D = {
     {n:'开背',c:39,p:10},{n:'私人定制',c:34,p:9,a:true},
   ],
   // === 新增：小马宋框架补充指标 ===
-  hourlyPct:[0,0,0,0,0,0,0,0,0,0,0,0.6,3.0,3.3,7.7,9.5,9.9,9.1,7.9,6.5,9.1,10.7,8.9,11.7],
-  dayOrders:[107,104,87,104,134,148,172],
+  hourlyPct:[1.4,0.1,0,0,0,0,0,0,0,0,0,0.8,2.6,3.7,6.7,9.5,9.1,9.9,8.1,7.4,7.4,11.1,11.3,10.9],
+  dayOrders:[564,535,507,518,588,648,721],
   priceBands:[
     {b:'<¥80',o:17,p:2.0},{b:'¥80-120',o:153,p:17.9},{b:'¥120-160',o:151,p:17.6},
     {b:'¥160-200',o:125,p:14.6},{b:'¥200-260',o:173,p:20.2},{b:'¥260+',o:237,p:27.7},
@@ -396,7 +396,7 @@ function renderCards(){
 <div class="section-title">5月运营特写</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">时段热力图 · 5月</div><div class="card-subtitle">${D.bedTurnover.monthOrders}单 · 11:00起</div></div>
+    <div class="card-header"><div class="card-title">时段热力图 · 1-5月</div><div class="card-subtitle">4,081单 · 5个月合计</div></div>
     <svg viewBox="0 0 520 160" style="width:100%;height:auto;">
       <line x1="40" y1="8" x2="40" y2="130" stroke="#1e2633" stroke-width="0.5"/>
       ${['11时','12时','13时','14时','15时','16时','17时','18时','19时','20时','21时','22时','23时'].map((l,i)=>{
@@ -405,7 +405,7 @@ function renderCards(){
       }).join('')}
     </svg>
     <div style="display:flex;gap:16px;margin-top:4px;font-size:10px;color:var(--text-dim);">
-      <span>🏔 高峰21-23时(31.3%)</span><span>🏔 次峰14-16时(27.1%)</span><span class="amber">🌙 闲时11-13时(6.9%)</span>
+      <span>🏔 高峰21-23时(33.3%)</span><span>🏔 次峰15-17时(28.5%)</span><span class="amber">🌙 闲时11-13时(7.1%)</span>
     </div>
     <div class="insight insight-amber" style="margin-top:12px;">闲时填到峰值一半→月增85单/¥2.1万。11-13点推午休快按。</div>
   </div>
