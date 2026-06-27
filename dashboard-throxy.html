@@ -230,7 +230,7 @@ function renderContent(){
     <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了（5月）</div></div>
     <div class="bar-list">
       <div class="bar-item"><div class="bar-label">营收</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--cyan)"></div></div><div class="bar-val mono">¥100.0</div></div>
-      ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:var(--${w.cls==='accent'?'accent':w.cls});opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
+      ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:${w.cls==='accent'?'accent':w.cls};opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
     </div>
     <div class="insight insight-red">每收¥100，¥${D.discountPct}折扣由门店担。改实收提成→每¥100多留¥9.3。</div>
   </div>
@@ -254,12 +254,12 @@ function renderContent(){
 <div class="grid">
   <div class="card span-6">
     <div class="card-header"><div class="card-title">跨月留存 · 1-5月均值 ${D.retention}%</div></div>
-    <div class="mini-bars">${D.retentionPairs.map(r=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${r.rate*2.5}px;background:var(--${r.cls});opacity:0.6;"></div><div class="mini-bar-label">${r.label}<br><span class="${r.cls}">${r.rate}%</span></div></div>`).join('')}</div>
+    <div class="mini-bars">${D.retentionPairs.map(r=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${r.rate*2.5}px;background:${r.cls};opacity:0.6;"></div><div class="mini-bar-label">${r.label}<br><span class="${r.cls}">${r.rate}%</span></div></div>`).join('')}</div>
     <div class="insight insight-green">回头客溢价连续4月 +60%。留一个老客 = 1.6个新客。</div>
   </div>
   <div class="card span-6">
     <div class="card-header"><div class="card-title">渠道留存差异</div></div>
-    <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:var(--${c.cls});opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
+    <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:${c.cls};opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
     <div class="insight insight-amber">每多一个直付新客，长期价值是平台客的 3 倍。</div>
   </div>
 </div></div>
