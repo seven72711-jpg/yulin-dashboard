@@ -1,0 +1,78 @@
+{
+  "tokens": {
+    "color": {
+      "bg": "#1c1e26",
+      "surface": "#252831",
+      "surface-accent": "#282636",
+      "surface-raised": "#2c2f3a",
+      "border": "#323540",
+      "border-active": "#444858",
+      "text": "#b4b8c4",
+      "text-dim": "#787c88",
+      "text-bright": "#eceef4",
+      "accent": "#8b7ec8",
+      "green": "#68c090",
+      "red": "#d4686e",
+      "amber": "#c89040",
+      "cyan": "#68b8d0",
+      "gold": "#c89840",
+      "purple": "#8b7ec8"
+    },
+    "typography": {
+      "display": {
+        "family": "Noto Serif SC",
+        "weight": 900,
+        "size": "52px"
+      },
+      "body": {
+        "family": "Noto Sans SC",
+        "weight": 400
+      },
+      "mono": {
+        "family": "DM Mono",
+        "weight": 400
+      },
+      "kpi-value": {
+        "size": "38px"
+      },
+      "card-title": {
+        "size": "11px",
+        "weight": 700,
+        "spacing": "2.5px"
+      },
+      "section-title": {
+        "size": "28px",
+        "weight": 900
+      }
+    },
+    "spacing": {
+      "section-gap": "72px",
+      "card-gap": "16px",
+      "card-padding": "28px",
+      "kpi-padding": "28px 24px"
+    },
+    "radius": "10px",
+    "motion": {
+      "card-reveal": "0.4s ease-out-quart",
+      "stagger": "0.05s"
+    },
+    "components": [
+      "kpi",
+      "card",
+      "card-accent",
+      "data-table",
+      "bar-chart",
+      "badge",
+      "insight",
+      "section-header"
+    ]
+  },
+  "northStar": "Editorial data dashboard — 数字本身就是内容，装饰让路。紫作为唯一强调色，统一暗色调，长时间观看不疲劳。",
+  "rules": [
+    "所有文字对比度 ≥ 4.5:1",
+    "卡片间距 bass-4 的倍数",
+    "数据用 DM Mono，标签用 Noto Sans SC，标题用 Noto Serif SC",
+    "hover 仅 desktop，touch 设备禁用",
+    "animation 遵循 prefers-reduced-motion"
+  ]
+}

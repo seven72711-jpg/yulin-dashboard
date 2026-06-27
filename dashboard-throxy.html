@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉林万达店 · 数字孪生</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* === Design System — throxy-inspired === */
+/* See DESIGN.md for full token reference */
+:root {
+  --bg: #1c1e26; --surface: #252831; --surface-accent: #282636; --surface-raised: #2c2f3a; --border: #323540; --border-active: #444858;
+  --text: #b4b8c4; --text-dim: #787c88; --text-bright: #eceef4;
+  --accent: #8b7ec8; --accent-bright: #a092e0;
+  --gold: #c89840;
+  --cyan: #68b8d0; --green: #68c090; --red: #d4686e; --amber: #c89040; --purple: #8b7ec8;
+  --radius: 10px;
+  --font-mono: 'DM Mono', 'SF Mono', monospace;
+  --font-display: 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; line-height: 1.55; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+.container { max-width: 1400px; margin: 0 auto; padding: 64px 56px; }
+/* Header */
+.header { text-align: center; margin-bottom: 64px; }
+.header h1 { font-family: var(--font-display); font-size: 52px; font-weight: 900; color: var(--text-bright); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 12px; }
+.header h1 em { font-style: normal; color: var(--accent); }
+.header .meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); letter-spacing: 1px; }
+/* Hero KPI row */
+.kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 0 0 64px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: border-color 0.2s, transform 0.2s; }
+.kpi:hover { border-color: var(--accent); transform: translateY(-2px); }
+.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 14px; font-weight: 700; }
+.kpi-value { font-family: var(--font-mono); font-size: 38px; font-weight: 400; color: var(--text-bright); letter-spacing: -1px; line-height:1; }
+.kpi-value .unit { font-size: 14px; color: var(--text-dim); font-weight:400; margin-left:2px; }
+.kpi-y { background: var(--surface-accent); border-color: rgba(139,126,200,0.2); }
+.kpi-y .kpi-label { color: var(--accent); }
+.kpi-change { font-size: 10px; margin-top: 8px; font-family: var(--font-mono); font-weight: 500; color: var(--text-dim); }
+.kpi-change.up { color: var(--green); } .kpi-change.down { color: var(--red); }
+/* Section */
+.section { margin-bottom: 72px; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-title { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: var(--text-bright); letter-spacing: -0.5px; margin-bottom: 8px; }
+.section-sub { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+/* Card grid */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+@keyframes revealUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s; }
+.card:nth-child(1){animation:revealUp 0.4s 0s cubic-bezier(0.22,1,0.36,1) both}
+.card:nth-child(2){animation:revealUp 0.4s 0.05s cubic-bezier(0.22,1,0.36,1) both}
+.card:nth-child(3){animation:revealUp 0.4s 0.1s cubic-bezier(0.22,1,0.36,1) both}
+.card:hover { border-color: var(--border-active); }
+.card-accent { border-color: rgba(139,126,200,0.25); background: var(--surface-accent); }
+.card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 22px; }
+.card-title { font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--text); }
+.card-subtitle { font-size: 10px; color: var(--text-dim); font-family: var(--font-mono); }
+/* Shared components */
+.bar-list { display: flex; flex-direction: column; gap: 6px; }
+.bar-item { display: flex; align-items: center; gap: 10px; font-size: 11px; }
+.bar-label { min-width: 80px; text-align: right; color: var(--text); font-size:10px; font-weight:500; }
+.bar-track { flex:1; height:18px; background:var(--surface-raised); border-radius:9px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:9px; transition:width 1.2s cubic-bezier(0.22,1,0.36,1); }
+.bar-val { min-width:50px; font-family:var(--font-mono); font-size:10px; color:var(--text); text-align:right; }
+.data-table { width:100%; font-size:12px; border-collapse:collapse; }
+.data-table th { text-align:left; padding:9px 10px 9px 0; font-weight:700; color:var(--text-dim); font-size:9px; text-transform:uppercase; letter-spacing:1.5px; border-bottom:1px solid var(--border); }
+.data-table td { padding:10px 10px 10px 0; font-family:var(--font-mono); font-size:12px; }
+.data-table tr:not(:last-child) td { border-bottom:1px solid rgba(50,53,64,0.3); }
+.data-table tbody tr:nth-child(even) td { background:rgba(255,255,255,0.012); }
+.data-table td:last-child, .data-table th:last-child { padding-right:0; text-align:right; }
+.data-table td:first-child, .data-table th:first-child { font-family:var(--font-body); font-size:12px; }
+.badge { display:inline-block; padding:2px 8px; border-radius:2px; font-size:9px; font-weight:700; }
+.badge-t1 { background:#1a1824; color:var(--purple); } .badge-t2 { background:#1c2028; color:var(--cyan); } .badge-t3 { background:#1c1a14; color:var(--amber); }
+.insight { padding:12px 0 0; font-size:11px; line-height:1.6; margin-top:12px; color:var(--text-dim); border-top:1px solid var(--border); }
+.insight-red { color:var(--red); } .insight-amber { color:var(--amber); } .insight-green { color:var(--green); }
+.mini-bars { display:flex; align-items:flex-end; gap:5px; height:85px; padding:0 4px; }
+.mini-bar { flex:1; border-radius:2px 2px 0 0; min-width:12px; }
+.mini-bar-label { text-align:center; font-size:9px; margin-top:6px; color:var(--text-dim); font-weight:500; }
+.sim-group { margin-bottom:12px; }
+.sim-label { display:flex; justify-content:space-between; font-size:11px; margin-bottom:6px; color:var(--text); }
+.sim-val { font-family:var(--font-mono); color:var(--accent); font-weight:600; font-size:13px; }
+.sim-slider { width:100%; accent-color:var(--accent); height:4px; }
+.sim-result { margin-top:12px; padding:20px; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius); text-align:center; }
+.sim-big { font-family:var(--font-mono); font-size:36px; color:var(--accent); font-weight:300; }
+.sim-sub { font-size:11px; color:var(--green); margin-top:6px; }
+.accent { color:var(--accent); } .cyan { color:var(--cyan); } .red { color:var(--red); } .green { color:var(--green); } .dim { color:var(--text-dim); } .mono { font-family:var(--font-mono); }
+[data-tip] { position:relative; cursor:help; border-bottom:1px dotted rgba(255,255,255,0.12); }
+[data-tip]:hover::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 8px); left:0; background:var(--surface); color:var(--text-bright); border:1px solid var(--accent); padding:8px 14px; border-radius:4px; font-size:11px; font-family:var(--font-mono); white-space:nowrap; z-index:100; pointer-events:none; }
+@media (max-width:900px) {
+  .container { padding:20px; } .header h1 { font-size:32px; }
+  .kpi-row { grid-template-columns: repeat(3,1fr); gap:10px; } .kpi { padding:18px 14px; } .kpi-value { font-size:26px; }
+  .grid { grid-template-columns:1fr; } .span-4,.span-6,.span-8,.span-12 { grid-column:span 1; }
+  .section-title { font-size:22px; } .section { margin-bottom:48px; } .card { padding:20px; }
+}
+@media (max-width:480px) {
+  .kpi-row { grid-template-columns: repeat(2,1fr); gap:8px; } .kpi-value { font-size:22px; }
+  .card { padding:16px; border-radius:6px; } .section-title { font-size:18px; }
+}
+@media (prefers-reduced-motion:reduce) { .bar-fill,.card { transition:none; animation:none; } }
+@media (hover:none) { .kpi:hover,.card:hover { border-color:var(--border); transform:none; } }
+</style>
+</head>
+<body>
+
+<div id="gate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);">
+  <div style="text-align:center;max-width:360px;padding:40px;">
+    <div style="font-family:var(--font-display);font-size:24px;color:var(--text-bright);margin-bottom:8px;">玉林万达店 · 数字孪生</div>
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:32px;">请输入访问密码</div>
+    <input id="pwd" type="password" placeholder="密码" style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text-bright);font-size:16px;text-align:center;outline:none;font-family:var(--font-mono);" onkeydown="if(event.key==='Enter')checkPwd()" autofocus>
+    <div id="pwd-err" style="color:var(--red);font-size:12px;margin-top:8px;display:none;">密码错误</div>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+<div class="container">
+
+<div class="header">
+  <h1>玉林万达店 <em>·</em> 数字孪生</h1>
+  <div class="meta">29个月数据 · 2024.01 — <span id="hd-date">2026.05</span> · 10间包间 · 17张床 · 11技师+5店员</div>
+</div>
+
+<div class="kpi-row" id="kpi-row"></div>
+
+<div id="content"></div>
+
+</div>
+</div>
+
+<script>
+const D = {
+  period:'2026-05',months:29,
+  revenue:176759,profit:17285,margin:9.8,payRatio:61.6,
+  monthlyRev:[53238,60830,85022,86565,86682,102822,123549,133086,118877,131923,100358,104246,74249,132437,141909,132389,135248,164980,160579,165792,148818,170359,148017,150866,149729,127300,168682,153122,176759],
+  monthlyProfit:[-46025,-30062,-10312,-36902,-253,-2163,21399,21734,11797,15332,-10738,-9570,-21737,19463,12564,1335,12542,2268,12349,8540,9510,7213,4,6727,4825,-3423,-2231,11795,17285],
+  monthlyMargin:[-86.5,-49.4,-12.1,-42.6,-0.3,-2.1,17.3,16.3,9.9,11.6,-10.7,-9.2,-29.3,14.7,8.9,1.0,9.3,1.4,7.7,5.2,6.4,4.2,0.0,4.5,3.2,-2.7,-1.3,7.7,9.8],
+  ytdRevenue:775592,ytdProfit:28251,ytdMargin:3.6,ytdPayRatio:65.1,
+  ytdDiscountGap:161475,ytdOrders:3753,
+  discountGap:32295,discountPct:18.3,retention:23.7,
+  marginalProfit:44,breakeven:112000,yoyGrowth:30.7,
+  waterfall:[
+    {label:'技师提成',pct:60.5,cls:'red',opac:0.7},{label:'租金',pct:8.4,cls:'amber',opac:1},
+    {label:'推广费',pct:6.2,cls:'amber',opac:1},{label:'管理费5%',pct:5.0,cls:'amber',opac:1},
+    {label:'水电耗材',pct:5.0,cls:'amber',opac:1},{label:'其他税费',pct:4.5,cls:'amber',opac:1},
+    {label:'折扣差额',pct:18.3,cls:'red',opac:0.35},{label:'净利润',pct:9.8,cls:'accent',opac:1},
+  ],
+  retentionPairs:[{label:'1→2',rate:23.1,cls:'green'},{label:'2→3',rate:27.3,cls:'green'},{label:'3→4',rate:21.5,cls:'amber'},{label:'4→5',rate:22.8,cls:'amber'}],
+  channelRetention:[{label:'美团',rate:13.8,cls:'red'},{label:'抖音',rate:16.4,cls:'red'},{label:'直付',rate:41.4,cls:'green'}],
+  technicians:[
+    {name:'林燕',grade:'特级',gc:'badge-t1',dr:73,dc:'green',pv:47,ca:33220,cs:125,pf:90918,n:'全链路标杆'},
+    {name:'唐婉清',grade:'特级',gc:'badge-t1',dr:58,dc:'',pv:12,ca:22065,cs:162,pf:71796,n:'走量型'},
+    {name:'禤妮',grade:'高级',gc:'badge-t2',dr:53,dc:'',pv:8,ca:14953,cs:134,pf:67883,n:'均衡型'},
+    {name:'梁雪华',grade:'高级',gc:'badge-t2',dr:64,dc:'green',pv:11,ca:8023,cs:76,pf:50343,n:'指定率高'},
+    {name:'姚梨',grade:'高级',gc:'badge-t2',dr:63,dc:'green',pv:8,ca:11704,cs:83,pf:39787,n:'高指定低估'},
+    {name:'丘洁荣',grade:'中级',gc:'badge-t3',dr:38,dc:'',pv:0,ca:11152,cs:125,pf:51104,n:'纯散客 ⚠'},
+  ],
+  specEcon:[
+    {d:'实收',s:'¥200',c:'¥181',df:'+¥19',dc:'green'},{d:'技师提成',s:'¥114',c:'¥86.6',df:'+¥27.4',dc:'red'},
+    {d:'门店留利',s:'¥86',c:'¥94.4',df:'-¥8.4',dc:'red'},{d:'跨月留存',s:'41.4%',c:'13.8%',df:'3×',dc:'green'},
+    {d:'12月LTV',s:'¥618',c:'¥239',df:'2.6×',dc:'green'},
+  ],
+  lifecycle:[
+    {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥76K',nc:'red'},
+    {s:'成长期',p:'2025',r:'¥144K',n:'YoY +45.4%',nc:'green'},
+    {s:'成熟过渡',p:'2026 Q2',r:'¥155K',n:'YoY +7.9% ↓83%',nc:'amber'},
+  ],
+  competitors:[
+    {n:'十三绝',r:5.0,rc:'green',p:81,d:'—',df:'效果型推拿·正骨'},
+    {n:'舒体养生',r:3.9,rc:'red',p:103,d:'<500m',df:'足疗按摩'},
+    {n:'刘氏推拿',r:4.4,rc:'',p:82,d:'958m',df:'古法推拿'},
+    {n:'云上云',r:4.4,rc:'',p:129,d:'1.7km',df:'轻奢推拿院'},
+    {n:'春源SPA',r:4.5,rc:'',p:150,d:'842m',df:'泡泡浴·精油SPA'},
+  ],
+  brandRisk:[
+    {n:'唐婉清',cs:162,rt:80,rk:38722},{n:'禤妮',cs:134,rt:77,rk:32593},
+    {n:'林燕',cs:125,rt:83,rk:50521},{n:'丘洁荣',cs:125,rt:80,rk:24483},
+    {n:'陈宇华',cs:144,rt:75,rk:25714},
+  ],
+  ltv:[
+    {ch:'直付',cs:186,rt:41.4,rc:'green',m4:250,m5:531,lv:781,lc:'green'},
+    {ch:'抖音',cs:165,rt:16.4,rc:'red',m4:218,m5:433,lv:651,lc:''},
+    {ch:'美团',cs:260,rt:13.8,rc:'red',m4:220,m5:401,lv:621,lc:'red'},
+  ],
+  milestones:[
+    {d:'2024.01',t:'开店首月',r:53238,p:-46025,pc:'red'},{d:'2024.07',t:'首次盈利',r:123549,p:21399,pc:'green'},
+    {d:'2025.08',t:'暑期高峰',r:165792,p:8540,pc:'amber'},{d:'2025.12',t:'年末收官',r:150866,p:6727,pc:'green'},
+    {d:'2026.03',t:'薪资改革+刷单',r:168682,p:-2231,pc:'red'},{d:'2026.05',t:'历史新高🏆',r:176759,p:17285,pc:'green'},
+  ],
+  hourlyPct:[1.4,0.1,0,0,0,0,0,0,0,0,0,0.8,2.6,3.7,6.7,9.5,9.1,9.9,8.1,7.4,7.4,11.1,11.3,10.9],
+  techMay:[{n:'唐婉清',o:186,d:6.6},{n:'林燕',o:182,d:6.5},{n:'梁雪华',o:153,d:5.5},{n:'陈宇华',o:152,d:5.4},{n:'禤妮',o:150,d:5.4},{n:'郑家珍',o:140,d:5.0},{n:'姚梨',o:139,d:5.0},{n:'丘洁荣',o:132,d:4.7},{n:'谭庆彬',o:122,d:4.4},{n:'吕茜茜',o:113,d:4.0},{n:'陈燕军',o:58,d:2.1}],
+  services:[{n:'中式推拿',c:379,p:100},{n:'精油SPA',c:111,p:29},{n:'70min SPA',c:104,p:27},{n:'开背',c:39,p:10},{n:'私人定制',c:34,p:9}],
+  bedTurnover:{daily:27.6,perBed:1.62,wkdy:24,wknd:36,monthOrders:856},
+};
+
+const f=n=>n.toLocaleString();
+
+async function sha256(m){const e=new TextEncoder().encode(m);const h=await crypto.subtle.digest('SHA-256',e);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+async function checkPwd(){const hash=await sha256(document.getElementById('pwd').value);if(hash==='4dc7fea7cb41ccc8c0853e17d75281f6783dac1e252825ad58e2118b37bc0303'){localStorage.setItem('yl_auth','1');document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('pwd-err').style.display='block';}}
+if(localStorage.getItem('yl_auth')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
+document.addEventListener('click',function(e){const t=e.target.closest('[data-tip]');if(!t)return;t.classList.toggle('tip-show');setTimeout(()=>t.classList.remove('tip-show'),2000);});
+
+function renderKPIs(){
+  const mk=[
+    {l:'月营收',s:'5月',v:(D.revenue/10000).toFixed(1),u:'万',c:'▲ '+D.yoyGrowth+'% YoY',cl:'up',d:'ok',t:'当月技师的劳动业绩合计'},
+    {l:'净利润',s:'5月',v:(D.profit/10000).toFixed(2),u:'万',c:'▲ 净利率 '+D.margin+'%',cl:'up',d:'ok',t:'营收扣除所有成本后的最终利润'},
+    {l:'付薪比',s:'5月',v:D.payRatio.toFixed(1),u:'%',c:'目标 ≤55%',cl:'down',d:'warn',t:'人力成本÷营收。行业健康线50-55%'},
+    {l:'折扣差额',s:'5月',v:(D.discountGap/10000).toFixed(2),u:'万',c:'门店100%承担',cl:'down',d:'warn',vc:'var(--red)',t:'技师按原价拿提成，折扣全由门店承担'},
+    {l:'跨月留存',s:'均',v:D.retention.toFixed(1),u:'%',c:'月换血 3/4',cl:'down',d:'warn',vc:'var(--amber)',t:'本月客户中下月再次到店的比例'},
+    {l:'边际利润',s:'5月',v:D.marginalProfit,u:'/单',c:'保本点 11.2万',cl:'',d:'ok',t:'超保本点后每多一单的纯利润'},
+  ];
+  const yk=[
+    {l:'累计营收',s:'1-5月',v:(D.ytdRevenue/10000).toFixed(1),u:'万',c:D.ytdOrders+'单',cl:'',d:'ok',t:'2026年1-5月合计服务营收'},
+    {l:'累计净利',s:'1-5月',v:(D.ytdProfit/10000).toFixed(2),u:'万',c:'净利率 '+D.ytdMargin+'%',cl:'down',d:'warn',vc:'var(--amber)',t:'1-5月净利合计。3.6%因3月刷单拖累'},
+    {l:'累计付薪比',s:'1-5月',v:D.ytdPayRatio.toFixed(1),u:'%',c:'含3月刷单事件',cl:'down',d:'warn',t:'1-5月人力成本÷累计营收'},
+    {l:'累计折扣',s:'1-5月',v:(D.ytdDiscountGap/10000).toFixed(2),u:'万',c:'门店承担100%',cl:'down',d:'warn',vc:'var(--red)',t:'1-5月原价与实收累计差额'},
+    {l:'月均营收',s:'1-5月',v:(D.ytdRevenue/5/10000).toFixed(1),u:'万',c:'比2025月均+8.4%',cl:'up',d:'ok',t:'2026月均¥15.5万 vs 2025月均¥14.3万'},
+    {l:'月均订单',s:'1-5月',v:Math.round(D.ytdOrders/5),u:'单',c:'10间房17床',cl:'',d:'ok',t:'月均服务订单数'},
+  ];
+  const card=(k,cls)=>`<div class="kpi${cls?' '+cls:''}"><div class="kpi-label"><span data-tip="${k.t}">${k.l}</span> <span class="dim" style="font-size:8px;">${k.s}</span></div><div class="kpi-value"${k.vc?` style="color:${k.vc}"`:''}>${k.v}<span class="unit">${k.u}</span></div><div class="kpi-change ${k.cl}">${k.c}</div></div>`;
+  document.getElementById('kpi-row').innerHTML=mk.map(k=>card(k)).join('')+yk.map(k=>card(k,'kpi-y')).join('');
+}
+
+function renderContent(){
+  document.getElementById('content').innerHTML=`
+<div class="section"><div class="section-header"><div class="section-title">Revenue Engine</div><div class="section-sub">营收瀑布 + 成本效率</div></div>
+<div class="grid">
+  <div class="card card-accent span-6">
+    <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了（5月）</div></div>
+    <div class="bar-list">
+      <div class="bar-item"><div class="bar-label">营收</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--cyan)"></div></div><div class="bar-val mono">¥100.0</div></div>
+      ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:var(--${w.cls==='accent'?'accent':w.cls});opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
+    </div>
+    <div class="insight insight-red">每收¥100，¥${D.discountPct}折扣由门店担。改实收提成→每¥100多留¥9.3。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">成本效率趋势 · 付薪比 vs 净利率</div></div>
+    <svg viewBox="0 0 580 140" style="width:100%;height:auto;">
+      <line x1="0" y1="30" x2="580" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="0" y1="70" x2="580" y2="70" stroke="var(--border)" stroke-width="0.5"/><line x1="0" y1="110" x2="580" y2="110" stroke="var(--border)" stroke-width="0.5"/>
+      ${(()=>{
+        let lp='',mp='',maxL=Math.max(...D.monthlyMargin),minL=Math.min(...D.monthlyMargin);
+        for(let i=0;i<29;i++){const x=i*20,yl=120-(D.monthlyMargin[i]-minL)/(maxL-minL+20)*90,ym=110-D.monthlyMargin[i]/1.5*0.8;lp+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,ym))+' ';mp+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,yl))+' ';}
+        return`<path d="${lp}" fill="none" stroke="var(--red)" stroke-width="1.2" opacity="0.6"/><path d="${mp}" fill="none" stroke="var(--green)" stroke-width="1.5"/>`;
+      })()}
+      <line x1="0" y1="55" x2="580" y2="55" stroke="var(--amber)" stroke-width="0.5" stroke-dasharray="2 3"/>
+      <text x="560" y="15" text-anchor="end" fill="var(--red)" font-size="8">付薪比</text><text x="560" y="28" text-anchor="end" fill="var(--green)" font-size="8">净利率</text>
+    </svg>
+    <div class="insight insight-red">付薪比长期在60%+运行，净利率被压制在个位数。改实收提成是唯一破局点。</div>
+  </div>
+</div></div>
+
+<div class="section"><div class="section-header"><div class="section-title">Customer Health</div><div class="section-sub">留存 + 渠道效率</div></div>
+<div class="grid">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">跨月留存 · 1-5月均值 ${D.retention}%</div></div>
+    <div class="mini-bars">${D.retentionPairs.map(r=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${r.rate*2.5}px;background:var(--${r.cls});opacity:0.6;"></div><div class="mini-bar-label">${r.label}<br><span class="${r.cls}">${r.rate}%</span></div></div>`).join('')}</div>
+    <div class="insight insight-green">回头客溢价连续4月 +60%。留一个老客 = 1.6个新客。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">渠道留存差异</div></div>
+    <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:var(--${c.cls});opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
+    <div class="insight insight-amber">每多一个直付新客，长期价值是平台客的 3 倍。</div>
+  </div>
+</div></div>
+
+<div class="section"><div class="section-header"><div class="section-title">Team Performance</div><div class="section-sub">技师能力矩阵 + 人效排名</div></div>
+<div class="grid">
+  <div class="card span-8">
+    <div class="card-header"><div class="card-title">技师能力矩阵 · 1-5月累计</div></div>
+    <table class="data-table"><thead><tr><th>技师</th><th>等级</th><th>指定率</th><th>私定</th><th>开卡额</th><th>客数</th><th>YTD业绩</th><th>特征</th></tr></thead><tbody>${D.technicians.map(t=>`<tr><td>${t.name}</td><td><span class="badge ${t.gc}">${t.grade}</span></td><td class="${t.dc}">${t.dr}%</td><td class="accent">${t.pv}</td><td>¥${(t.ca/1000).toFixed(0)}K</td><td>${t.cs}</td><td>${f(t.pf)}</td><td>${t.n}</td></tr>`).join('')}</tbody></table>
+    <div class="dim" style="font-size:10px;margin-top:8px;">完整 11 人数据见数字孪生文档。</div>
+  </div>
+  <div class="card span-4">
+    <div class="card-header"><div class="card-title">服务 TOP5</div></div>
+    <div class="bar-list">${D.services.map(s=>`<div class="bar-item"><div class="bar-label${s.a?' accent':''}">${s.n}</div><div class="bar-track"><div class="bar-fill" style="width:${s.p}%;background:var(--${s.a?'accent':'cyan')};opacity:${s.a?1:0.4+s.p/200}"></div></div><div class="bar-val mono${s.a?' accent':''}">${s.c}</div></div>`).join('')}</div>
+    <div class="dim" style="font-size:10px;margin-top:8px;">私定均价 <span class="accent">¥450</span></div>
+  </div>
+</div></div>
+
+<div class="section"><div class="section-header"><div class="section-title">Strategic Overview</div><div class="section-sub">趋势 + 风险 + 竞品</div></div>
+<div class="grid">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">盈亏双线 · 29个月</div></div>
+    <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
+      <line x1="0" y1="40" x2="580" y2="40" stroke="var(--border)" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="var(--border)" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="var(--border)" stroke-width="0.5"/>
+      <text x="4" y="36" fill="var(--text-dim)" font-size="8" font-family="monospace">15万</text><text x="4" y="86" fill="var(--text-dim)" font-size="8">5万</text><text x="4" y="136" fill="var(--text-dim)" font-size="8">-5万</text>
+      ${(()=>{
+        let rp='',pp='',mv=Math.max(...D.monthlyRev),mp=Math.min(...D.monthlyProfit);
+        for(let i=0;i<29;i++){const x=i*20;rp+=(i===0?'M':'L')+x+','+(140-D.monthlyRev[i]/mv*120)+' ';pp+=(i===0?'M':'L')+x+','+(90-D.monthlyProfit[i]/(Math.max(mv,Math.abs(mp)))*80)+' ';}
+        return`<path d="${rp}" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.7"/><path d="${pp}" fill="none" stroke="var(--accent)" stroke-width="1.5"/>`;
+      })()}
+      <line x1="0" y1="90" x2="580" y2="90" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <text x="560" y="15" text-anchor="end" fill="var(--text-dim)" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="var(--accent)" font-size="8">净利</text>
+    </svg>
+    <div class="insight insight-green">首次盈利月：2024.07。29个月中15个月盈利。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">经营里程碑</div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      ${D.milestones.map(m=>`<div style="display:flex;align-items:center;gap:8px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;">${m.d}</div><div style="font-size:11px;font-weight:600;width:72px;text-align:center;color:var(--${m.pc});">${m.t}</div><div style="flex:1;height:20px;position:relative;background:var(--surface-raised);border-radius:3px;"><div style="position:absolute;${m.p>=0?'right':'left'}:0;top:0;height:100%;width:${Math.min(Math.abs(m.p)/50000*100,100)}%;background:var(--${m.pc});opacity:0.2;border-radius:3px;"></div></div><div style="font-size:10px;font-family:monospace;color:var(--${m.pc});width:60px;">${m.p>=0?'+':''}${(m.p/10000).toFixed(1)}万</div></div>`).join('')}
+    </div>
+    <div class="insight insight-amber">首盈耗时7个月。改革后净利从-¥2.2K→+¥17.3K。</div>
+  </div>
+</div>
+<div class="grid" style="margin-top:16px;">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率</div></div>
+    <table class="data-table"><thead><tr><th>技师</th><th>客户</th><th>独占率</th><th>收入风险</th></tr></thead><tbody>${D.brandRisk.map(b=>`<tr><td>${b.n}</td><td>${b.cs}</td><td class="red">${b.rt}%</td><td class="red">¥${f(b.rk)}</td></tr>`).join('')}</tbody></table>
+    <div class="insight insight-red">客户忠于技师个人，非品牌。品牌资产缺失。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">门店生命周期</div></div>
+    <table class="data-table"><thead><tr><th>阶段</th><th>时间</th><th>月均营收</th><th>特征</th></tr></thead><tbody>${D.lifecycle.map(l=>`<tr><td>${l.s}</td><td>${l.p}</td><td>${l.r}</td><td class="${l.nc}">${l.n}</td></tr>`).join('')}</tbody></table>
+    <div class="dim" style="font-size:10px;margin-top:8px;">不做调整 → 2027 年利约 ¥12 万 · 分红 ¥5-6 万</div>
+  </div>
+</div></div>`;
+  document.getElementById('hd-date').textContent = D.period;
+}
+
+renderKPIs();renderContent();
+document.querySelectorAll('.bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,200);});
+console.log('%c十三绝·玉林万达店 %c数字孪生','color:#8b7ec8;font-size:18px;font-weight:bold;','color:#b4b8c4;');
+</script>
+</body>
+</html>
