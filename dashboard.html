@@ -310,59 +310,7 @@ function renderKPIs(){
 }
 
 function renderCards(){
-  document.getElementById('cards').innerHTML=`
-<div class="section-title">经营全貌</div>
-<div class="grid">
-  <div class="card span-6">
-    <div class="card-header"><div class="card-title">盈亏双线 · 29个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
-    <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
-      <line x1="0" y1="40" x2="580" y2="40" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="#1e2633" stroke-width="0.5"/>
-      <text x="4" y="36" fill="#4a5568" font-size="8" font-family="monospace">15万</text><text x="4" y="86" fill="#4a5568" font-size="8">5万</text><text x="4" y="136" fill="#4a5568" font-size="8">-5万</text>
-      ${(()=>{
-        const maxV=Math.max(...D.monthlyRev), minP=Math.min(...D.monthlyProfit);
-        let revPath='', profPath='';
-        for(let i=0;i<29;i++){
-          const x=i*20, yR=140-D.monthlyRev[i]/maxV*120, yP=90-D.monthlyProfit[i]/(Math.max(maxV,Math.abs(minP)))*80;
-          revPath+=(i===0?'M':'L')+x+','+yR+' ';
-          profPath+=(i===0?'M':'L')+x+','+yP+' ';
-        }
-        return `<path d="${revPath}" fill="none" stroke="#2ea5de" stroke-width="1.2" opacity="0.7"/><path d="${profPath}" fill="none" stroke="#e2a654" stroke-width="1.5"/>`;
-      })()}
-      <line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5" stroke-dasharray="2 4"/>
-      <text x="560" y="15" text-anchor="end" fill="#4a5568" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="#e2a654" font-size="8">净利</text>
-    </svg>
-    <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。29个月中15个月盈利。</div>
-  </div>
-  <div class="card span-6">
-    <div class="card-header"><div class="card-title">经营里程碑</div></div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      ${D.milestones.map((m,i)=>{
-        const bar=Math.abs(m.p)/50000*100, dir=m.p>=0?'right':'left';
-        return `<div style="display:flex;align-items:center;gap:8px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;">${m.d}</div><div style="font-size:11px;font-weight:600;width:72px;text-align:center;color:var(--${m.pc});">${m.t}</div><div style="flex:1;height:20px;position:relative;background:#090c10;border-radius:3px;"><div style="position:absolute;${dir}:0;top:0;height:100%;width:${Math.min(bar,100)}%;background:var(--${m.pc});opacity:0.2;border-radius:3px;"></div></div><div style="font-size:10px;font-family:monospace;color:var(--${m.pc});width:60px;">${m.p>=0?'+':''}${(m.p/10000).toFixed(1)}万</div></div>`;
-      }).join('')}
-    </div>
-    <div class="insight insight-amber" style="margin-top:8px;">首盈耗时7个月。改革后3个月净利从-¥2.2K→+¥17.3K。</div>
-  </div>
-</div>
-<div class="grid">
-  <div class="card span-12">
-    <div class="card-header"><div class="card-title">盈亏月历 · 29个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
-    <style>@media(max-width:600px){.mcal{flex-direction:column!important;gap:16px!important}.mcalYr{min-width:auto!important;width:100%!important}.mcalG{grid-template-columns:repeat(6,1fr)!important;gap:4px!important}.mcalC{min-height:32px!important;font-size:10px!important}.mcalL{display:inline!important}}</style>
-    <div class="mcal" style="display:flex;gap:8px;overflow-x:auto;">
-      ${[['2024',0],['2025',12],['2026',24]].map(([yr,start])=>{
-        const mnames=['1','2','3','4','5','6','7','8','9','10','11','12'];
-        return `<div class="mcalYr" style="flex:1;min-width:260px;"><div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">${yr}</div><div class="mcalG" style="display:grid;grid-template-columns:repeat(12,1fr);gap:3px;">${Array.from({length:12},(_,mi)=>{
-          const idx=start+mi;
-          if(idx>=29) return '<div></div>';
-          const p=D.monthlyProfit[idx], m=D.monthlyMargin[idx];
-          const isProf=p>=0, color=isProf?(m>8?'#35a162':m>3?'#2ea5de':'#4a8'):(m<-20?'#e0455a':m<-5?'#d4912a':'#8b5ce5');
-          return `<div class="mcalC" style="aspect-ratio:1;background:${color};border-radius:4px;opacity:${0.3+Math.abs(m)/100};display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-family:monospace;color:var(--text-bright);line-height:1.2;" title="${yr}.${mi+1} ${D.monthlyRev[idx]/10000}万 ${isProf?'+':''}${p/10000}万"><span class="mcalL" style="display:none;font-size:8px;color:var(--text-dim);">${mi+1}月</span>${m>=0?'+':''}${m}%</div>`;
-        }).join('')}</div></div>`;
-      }).join('')}
-    </div>
-    <div style="display:flex;gap:16px;margin-top:8px;font-size:9px;color:var(--text-dim);"><span>🟢 2024: 5盈7亏</span><span>🟢 2025: 10盈2亏</span><span>🟡 2026: 3盈2亏</span></div>
-  </div>
-</div>
+  document.getElementById('cards').innerHTML=`<div class="section-title">经营效率</div>
 <div class="grid">
   <div class="card span-6">
     <div class="card-header"><div class="card-title">成本效率趋势 · 付薪比 vs 净利率</div><div class="card-subtitle">红线=付薪比 · 绿线=净利率</div></div>
@@ -518,6 +466,58 @@ function renderCards(){
     <div class="card-header"><div class="card-title">指定客经济学 · 短期亏长期赚</div></div>
     <table class="data-table"><thead><tr><th>维度</th><th>指定客（直付）</th><th>散客（美团）</th><th>差</th></tr></thead><tbody>${D.specEcon.map(e=>`<tr><td>${e.d}</td><td class="${e.sc||''}">${e.s}</td><td class="${e.cc||''}">${e.c}</td><td class="${e.dc}">${e.df}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-amber" style="margin-top:12px;">单笔亏 ¥8.4，但 LTV 是 2.6 倍。门店在用短期利润"投资"客户关系。</div>
+  </div>
+</div>
+<div class="section-title">战略纵览</div>
+<div class="grid">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">盈亏双线 · 29个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
+    <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
+      <line x1="0" y1="40" x2="580" y2="40" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="#1e2633" stroke-width="0.5"/>
+      <text x="4" y="36" fill="#4a5568" font-size="8" font-family="monospace">15万</text><text x="4" y="86" fill="#4a5568" font-size="8">5万</text><text x="4" y="136" fill="#4a5568" font-size="8">-5万</text>
+      ${(()=>{
+        const maxV=Math.max(...D.monthlyRev), minP=Math.min(...D.monthlyProfit);
+        let revPath='', profPath='';
+        for(let i=0;i<29;i++){
+          const x=i*20, yR=140-D.monthlyRev[i]/maxV*120, yP=90-D.monthlyProfit[i]/(Math.max(maxV,Math.abs(minP)))*80;
+          revPath+=(i===0?'M':'L')+x+','+yR+' ';
+          profPath+=(i===0?'M':'L')+x+','+yP+' ';
+        }
+        return `<path d="${revPath}" fill="none" stroke="#2ea5de" stroke-width="1.2" opacity="0.7"/><path d="${profPath}" fill="none" stroke="#e2a654" stroke-width="1.5"/>`;
+      })()}
+      <line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <text x="560" y="15" text-anchor="end" fill="#4a5568" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="#e2a654" font-size="8">净利</text>
+    </svg>
+    <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。29个月中15个月盈利。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">经营里程碑</div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      ${D.milestones.map((m,i)=>{
+        const bar=Math.abs(m.p)/50000*100, dir=m.p>=0?'right':'left';
+        return `<div style="display:flex;align-items:center;gap:8px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;">${m.d}</div><div style="font-size:11px;font-weight:600;width:72px;text-align:center;color:var(--${m.pc});">${m.t}</div><div style="flex:1;height:20px;position:relative;background:#090c10;border-radius:3px;"><div style="position:absolute;${dir}:0;top:0;height:100%;width:${Math.min(bar,100)}%;background:var(--${m.pc});opacity:0.2;border-radius:3px;"></div></div><div style="font-size:10px;font-family:monospace;color:var(--${m.pc});width:60px;">${m.p>=0?'+':''}${(m.p/10000).toFixed(1)}万</div></div>`;
+      }).join('')}
+    </div>
+    <div class="insight insight-amber" style="margin-top:8px;">首盈耗时7个月。改革后3个月净利从-¥2.2K→+¥17.3K。</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card span-12">
+    <div class="card-header"><div class="card-title">盈亏月历 · 29个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
+    <style>@media(max-width:600px){.mcal{flex-direction:column!important;gap:16px!important}.mcalYr{min-width:auto!important;width:100%!important}.mcalG{grid-template-columns:repeat(6,1fr)!important;gap:4px!important}.mcalC{min-height:32px!important;font-size:10px!important}.mcalL{display:inline!important}}</style>
+    <div class="mcal" style="display:flex;gap:8px;overflow-x:auto;">
+      ${[['2024',0],['2025',12],['2026',24]].map(([yr,start])=>{
+        const mnames=['1','2','3','4','5','6','7','8','9','10','11','12'];
+        return `<div class="mcalYr" style="flex:1;min-width:260px;"><div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">${yr}</div><div class="mcalG" style="display:grid;grid-template-columns:repeat(12,1fr);gap:3px;">${Array.from({length:12},(_,mi)=>{
+          const idx=start+mi;
+          if(idx>=29) return '<div></div>';
+          const p=D.monthlyProfit[idx], m=D.monthlyMargin[idx];
+          const isProf=p>=0, color=isProf?(m>8?'#35a162':m>3?'#2ea5de':'#4a8'):(m<-20?'#e0455a':m<-5?'#d4912a':'#8b5ce5');
+          return `<div class="mcalC" style="aspect-ratio:1;background:${color};border-radius:4px;opacity:${0.3+Math.abs(m)/100};display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-family:monospace;color:var(--text-bright);line-height:1.2;" title="${yr}.${mi+1} ${D.monthlyRev[idx]/10000}万 ${isProf?'+':''}${p/10000}万"><span class="mcalL" style="display:none;font-size:8px;color:var(--text-dim);">${mi+1}月</span>${m>=0?'+':''}${m}%</div>`;
+        }).join('')}</div></div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-size:9px;color:var(--text-dim);"><span>🟢 2024: 5盈7亏</span><span>🟢 2025: 10盈2亏</span><span>🟡 2026: 3盈2亏</span></div>
   </div>
 </div>
 <div class="section-title">模拟 & 深水区</div>
