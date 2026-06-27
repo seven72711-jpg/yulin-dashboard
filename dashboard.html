@@ -32,23 +32,15 @@ body::before { content:''; position:fixed; inset:0; background: radial-gradient(
 .header h1 { font-family: var(--font-display); font-size: 48px; font-weight: 900; color: var(--text-bright); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
 .header h1 em { font-style: normal; color: var(--accent); }
 .header .meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
-.kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin: 0 0 64px; }
-.kpi { background: var(--surface); border: 1px solid var(--border); padding: 32px 28px; transition: border-color 0.2s; position:relative; }
-.kpi:first-child { background: var(--accent); border-color: var(--accent); border-radius: var(--radius) 0 0 var(--radius); }
-.kpi:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
-.kpi:first-child .kpi-label { color: rgba(255,255,255,0.7); }
-.kpi:first-child .kpi-value { color: #fff; font-size: 52px; font-weight: 200; }
-.kpi:first-child .kpi-value .unit { color: rgba(255,255,255,0.4); }
-.kpi:first-child .kpi-change { color: rgba(255,255,255,0.7); }
-.kpi:hover { border-color: var(--accent); }
-.kpi:first-child:hover { border-color: var(--accent-bright); box-shadow: 0 0 24px rgba(0,184,212,0.3); }
-.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 14px; font-weight: 700; }
+.kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin: 0 0 72px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px 28px; transition: border-color 0.2s; }
+.kpi:hover { border-color: var(--border-active); }
+.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 18px; font-weight: 700; }
 .kpi-value { font-family: var(--font-mono); font-size: 42px; font-weight: 300; color: var(--text-bright); letter-spacing: -1px; line-height:1; }
 .kpi-value .unit { font-size: 14px; color: var(--text-dim); font-weight:400; margin-left:2px; }
-.kpi-y { border-color: rgba(232,152,32,0.2); }
-.kpi-y .kpi-label { color: var(--gold); }
-.kpi-y .kpi-value { color: var(--gold); }
-.kpi-change { font-size: 10px; margin-top: 10px; font-family: var(--font-mono); font-weight: 500; }
+.kpi-y { background: var(--surface-accent); border-color: rgba(0,184,212,0.12); }
+.kpi-y .kpi-label { color: var(--accent); }
+.kpi-change { font-size: 10px; margin-top: 12px; font-family: var(--font-mono); font-weight: 500; color: var(--text-dim); }
 .kpi-change.up { color: var(--green); } .kpi-change.down { color: var(--red); }
 .kpi-dot { display:none; }
 [data-tip] { position: relative; cursor: help; border-bottom: 1px dotted rgba(255,255,255,0.15); }
@@ -97,12 +89,7 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cyan { color: var(--cyan); } .red { color: var(--red); } .green { color: var(--green); } .dim { color: var(--text-dim); } .mono { font-family: var(--font-mono); }
 @media (max-width: 900px) {
   .container { padding: 16px; } .kpi-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
- .kpi { padding: 16px 14px; border-radius: var(--radius) !important; }
- .kpi:first-child { border-radius: var(--radius) !important; background: var(--surface) !important; }
- .kpi:first-child .kpi-value { font-size: 24px; color: var(--text-bright) !important; }
- .kpi:first-child .kpi-label { color: var(--text-dim) !important; }
- .kpi:first-child .kpi-change { color: var(--green) !important; }
- .kpi-value { font-size: 24px; } .kpi-label { font-size: 9px; }
+  .kpi { padding: 16px 14px; } .kpi-value { font-size: 24px; } .kpi-label { font-size: 9px; }
   .grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; } .span-4, .span-6, .span-8, .span-12 { grid-column: span 1; }
   .header { flex-direction: column; gap: 8px; margin-bottom: 24px; padding-bottom: 20px; } .header h1 { font-size: 24px; }
   .section-title { margin: 32px 0 16px; } .card { padding: 18px; } .card-header { margin-bottom: 16px; } .card-title { font-size: 12px; }
