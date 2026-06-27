@@ -178,7 +178,9 @@ const D = {
   discountGap: 32295, discountPct: 18.3, retention: 23.7,
   marginalProfit: 44, breakeven: 112000, yoyGrowth: 30.7,
   visitors: 1116, dailyAvg: 37, privatePct: 9.1,
-  rooms: 9, beds: 17, utilization: 35, peakOrders: 75,
+  rooms: 10, beds: 17, utilization: 35, peakOrders: 72,
+  roomNames:['一绝','二绝','三绝','四绝','五绝','六绝','七绝','八绝','九绝','十绝'],
+  roomBeds:[2,1,1,1,2,2,1,2,1,4],
   brandRiskIndex: 75, techCount: 11,
   rating: 5.0, reviews: 6558, avgPrice: 81,
   waterfall: [
@@ -291,23 +293,38 @@ function renderCards(){
   document.getElementById('cards').innerHTML=`
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">物理层 · ${D.rooms}间房 ${D.beds}张床</div><div class="card-subtitle">日均 ${D.dailyAvg} 单 · 利用率 ${D.utilization}%</div></div>
-    <svg viewBox="0 0 400 200" style="width:100%;height:auto;">
-      <defs><linearGradient id="rB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2ea5de" stop-opacity="0.15"/><stop offset="100%" stop-color="#2ea5de" stop-opacity="0.04"/></linearGradient></defs>
-      <rect x="2" y="2" width="92" height="44" rx="5" fill="url(#rB)" stroke="#2ea5de" stroke-width="1.2"/><text x="48" y="22" text-anchor="middle" fill="#2ea5de" font-size="12" font-family="monospace" font-weight="700">R1</text><text x="48" y="38" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="102" y="2" width="92" height="44" rx="5" fill="url(#rB)" stroke="#2ea5de" stroke-width="1.2"/><text x="148" y="22" text-anchor="middle" fill="#2ea5de" font-size="12" font-family="monospace" font-weight="700">R2</text><text x="148" y="38" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="202" y="2" width="92" height="44" rx="5" fill="#090c10" stroke="#1e2633" stroke-width="1"/><text x="248" y="22" text-anchor="middle" fill="#4a5568" font-size="12" font-family="monospace">R3</text><text x="248" y="38" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="302" y="2" width="92" height="44" rx="5" fill="url(#rB)" stroke="#2ea5de" stroke-width="1.2"/><text x="348" y="22" text-anchor="middle" fill="#2ea5de" font-size="12" font-family="monospace" font-weight="700">R4</text><text x="348" y="38" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="2" y="54" width="92" height="44" rx="5" fill="#090c10" stroke="#1e2633" stroke-width="1"/><text x="48" y="74" text-anchor="middle" fill="#4a5568" font-size="12" font-family="monospace">R5</text><text x="48" y="90" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="102" y="54" width="92" height="44" rx="5" fill="url(#rB)" stroke="#2ea5de" stroke-width="1.2"/><text x="148" y="74" text-anchor="middle" fill="#2ea5de" font-size="12" font-family="monospace" font-weight="700">R6</text><text x="148" y="90" text-anchor="middle" fill="#4a5568" font-size="9">2床</text>
-      <rect x="202" y="54" width="192" height="44" rx="5" fill="#090c10" stroke="#1e2633" stroke-width="1"/><text x="298" y="74" text-anchor="middle" fill="#4a5568" font-size="12" font-family="monospace">R7·8·9</text><text x="298" y="90" text-anchor="middle" fill="#4a5568" font-size="9">5床</text>
-      <rect x="2" y="112" width="392" height="20" rx="10" fill="#090c10"/><rect x="2" y="112" width="${Math.round(392*D.utilization/100)}" height="20" rx="10" fill="#2ea5de" opacity="0.3"/>
-      <text x="198" y="126" text-anchor="middle" fill="#4a5568" font-size="10" font-weight="500">利用率 ${D.utilization}% · 当前 ${D.dailyAvg} 单 · 峰值 ${D.peakOrders} 单</text>
-      <text x="198" y="150" text-anchor="middle" fill="#4a5568" font-size="9">📅 周日171单（最强）· 周三84单（最淡）· 周末2倍</text>
-      <text x="198" y="168" text-anchor="middle" fill="#4a5568" font-size="9">🕐 高峰 14-18点(67%) · 20-24点(79%) · 闲时 12-14点(15%)</text>
-      <rect x="2" y="182" width="392" height="16" rx="8" fill="#0e1f15"/>
-      <text x="198" y="194" text-anchor="middle" fill="#35a162" font-size="10">💡 闲时填满30% → 月增180单 / ¥4.5万</text>
+    <div class="card-header"><div class="card-title">物理层 · ${D.rooms}间包间 ${D.beds}张床</div><div class="card-subtitle">日均 ${D.dailyAvg} 单 · 5单人+4双人+1四人</div></div>
+    <svg viewBox="0 0 420 240" style="width:100%;height:auto;">
+      ${(()=>{
+        const d=D; let out='';
+        // Row 1: 三绝(1床) 四绝(1床) 卫生间 淋浴间 五绝(2床) 六绝(2床)
+        const r1=[{n:'三绝',b:1,x:0,w:48},{n:'四绝',b:1,x:52,w:48},
+          {n:'卫',b:0,x:104,w:52},{n:'淋',b:0,x:160,w:44},
+          {n:'五绝',b:2,x:208,w:52},{n:'六绝',b:2,x:264,w:52}];
+        // Row 2: 二绝(1床) 一绝(2床) 大厅通道 八绝(2床) 十绝(4床半)
+        const r2=[{n:'二绝',b:1,x:0,w:48},{n:'一绝',b:2,x:52,w:52},
+          {n:'',b:0,x:108,w:60},{n:'八绝',b:2,x:172,w:52},{n:'十绝',b:4,x:228,w:92}];
+        // Row 3: 自助台 七绝(1床) 休息区 九绝(1床)
+        const r3=[{n:'台',b:0,x:0,w:60},{n:'七绝',b:1,x:64,w:48},
+          {n:'厅',b:0,x:116,w:88},{n:'九绝',b:1,x:208,w:52}];
+        const rows=[{y:4,r:r1},{y:78,r:r2},{y:152,r:r3}];
+        for(const row of rows){
+          out+=`<rect x="0" y="${row.y-2}" width="400" height="68" rx="4" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>`;
+          for(const rm of row.r){
+            const has_bed=rm.b>0,accent=rm.b===4?'var(--accent)':has_bed?'var(--cyan)':'#1e2633';
+            const fill=has_bed?(rm.b===4?'#1f1a12':'#0f1f2b'):'#090c10';
+            out+=`<rect x="${rm.x+2}" y="${row.y+2}" width="${rm.w-4}" height="60" rx="4" fill="${fill}" stroke="${accent}" stroke-width="${has_bed?1.2:0.5}" stroke-dasharray="${has_bed?'':'4 3'}"/>`;
+            if(rm.n)out+=`<text x="${rm.x+rm.w/2}" y="${row.y+has_bed?22:24}" text-anchor="middle" fill="${has_bed?'var(--text-bright)':'#4a5568'}" font-size="${rm.n.length>2?9:11}" font-family="Noto Serif SC,serif" font-weight="${has_bed?700:400}">${rm.n}</text>`;
+            if(has_bed)out+=`<text x="${rm.x+rm.w/2}" y="${row.y+42}" text-anchor="middle" fill="${accent}" font-size="10" font-family="monospace">${rm.b}床</text>`;
+          }
+        }
+        // Bottom stats
+        out+=`<text x="200" y="228" text-anchor="middle" fill="#4a5568" font-size="9">5间单人 · 4间双人 · 1间四人 · 单日峰值${D.peakOrders}单</text>`;
+        out+=`<rect x="10" y="232" width="380" height="6" rx="3" fill="#090c10"/><rect x="10" y="232" width="${Math.round(380*D.dailyAvg/D.peakOrders)}" height="6" rx="3" fill="#35a162" opacity="0.4"/>`;
+        return out;
+      })()}
     </svg>
+    <div class="insight insight-green" style="margin-top:12px;">周末36单接近极限，工作日24单还有50%空间。</div>
   </div>
   <div class="card span-6">
     <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了</div></div>
