@@ -294,34 +294,21 @@ function renderCards(){
 <div class="grid">
   <div class="card span-6">
     <div class="card-header"><div class="card-title">物理层 · ${D.rooms}间包间 ${D.beds}张床</div><div class="card-subtitle">日均 ${D.dailyAvg} 单 · 5单人+4双人+1四人</div></div>
-    <svg viewBox="0 0 420 240" style="width:100%;height:auto;">
+    <svg viewBox="0 0 400 190" style="width:100%;height:auto;">
       ${(()=>{
-        const d=D; let out='';
-        // Row 1: 三绝(1床) 四绝(1床) 卫生间 淋浴间 五绝(2床) 六绝(2床)
-        const r1=[{n:'三绝',b:1,x:0,w:48},{n:'四绝',b:1,x:52,w:48},
-          {n:'卫',b:0,x:104,w:52},{n:'淋',b:0,x:160,w:44},
-          {n:'五绝',b:2,x:208,w:52},{n:'六绝',b:2,x:264,w:52}];
-        // Row 2: 二绝(1床) 一绝(2床) 大厅通道 八绝(2床) 十绝(4床半)
-        const r2=[{n:'二绝',b:1,x:0,w:48},{n:'一绝',b:2,x:52,w:52},
-          {n:'',b:0,x:108,w:60},{n:'八绝',b:2,x:172,w:52},{n:'十绝',b:4,x:228,w:92}];
-        // Row 3: 自助台 七绝(1床) 休息区 九绝(1床)
-        const r3=[{n:'台',b:0,x:0,w:60},{n:'七绝',b:1,x:64,w:48},
-          {n:'厅',b:0,x:116,w:88},{n:'九绝',b:1,x:208,w:52}];
-        const rows=[{y:4,r:r1},{y:78,r:r2},{y:152,r:r3}];
-        for(const row of rows){
-          out+=`<rect x="0" y="${row.y-2}" width="400" height="68" rx="4" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>`;
-          for(const rm of row.r){
-            const has_bed=rm.b>0,accent=rm.b===4?'var(--accent)':has_bed?'var(--cyan)':'#1e2633';
-            const fill=has_bed?(rm.b===4?'#1f1a12':'#0f1f2b'):'#090c10';
-            out+=`<rect x="${rm.x+2}" y="${row.y+2}" width="${rm.w-4}" height="60" rx="4" fill="${fill}" stroke="${accent}" stroke-width="${has_bed?1.2:0.5}" stroke-dasharray="${has_bed?'':'4 3'}"/>`;
-            if(rm.n)out+=`<text x="${rm.x+rm.w/2}" y="${row.y+has_bed?22:24}" text-anchor="middle" fill="${has_bed?'var(--text-bright)':'#4a5568'}" font-size="${rm.n.length>2?9:11}" font-family="Noto Serif SC,serif" font-weight="${has_bed?700:400}">${rm.n}</text>`;
-            if(has_bed)out+=`<text x="${rm.x+rm.w/2}" y="${row.y+42}" text-anchor="middle" fill="${accent}" font-size="10" font-family="monospace">${rm.b}床</text>`;
-          }
+        const d=D,rn=d.roomNames,rb=d.roomBeds,out=['<rect x="0" y="0" width="400" height="80" rx="6" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>','<rect x="0" y="90" width="400" height="80" rx="6" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>'];
+        for(let i=0;i<10;i++){
+          const row=i<5?0:1, col=i%5, x=col*78+4, y=row*90+6, w=70, h=68;
+          const isLarge=rb[i]===4, accent=isLarge?'var(--accent)':'var(--cyan)';
+          const fill=isLarge?'#1f1a12':'#0f1f2b';
+          out.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${fill}" stroke="${accent}" stroke-width="${isLarge?1.5:1}"/>`);
+          out.push(`<text x="${x+w/2}" y="${y+25}" text-anchor="middle" fill="var(--text-bright)" font-size="13" font-family="Noto Serif SC,serif" font-weight="700">${rn[i]}</text>`);
+          out.push(`<text x="${x+w/2}" y="${y+52}" text-anchor="middle" fill="${accent}" font-size="12" font-family="monospace" font-weight="500">${rb[i]}床</text>`);
         }
-        // Bottom stats
-        out+=`<text x="200" y="228" text-anchor="middle" fill="#4a5568" font-size="9">5间单人 · 4间双人 · 1间四人 · 单日峰值${D.peakOrders}单</text>`;
-        out+=`<rect x="10" y="232" width="380" height="6" rx="3" fill="#090c10"/><rect x="10" y="232" width="${Math.round(380*D.dailyAvg/D.peakOrders)}" height="6" rx="3" fill="#35a162" opacity="0.4"/>`;
-        return out;
+        out.push(`<text x="200" y="165" text-anchor="middle" fill="#4a5568" font-size="9">5间单人 · 4间双人 · 1间四人</text>`);
+        out.push(`<text x="8" y="184" fill="#4a5568" font-size="9">日均${d.dailyAvg}单</text><rect x="55" y="178" width="290" height="6" rx="3" fill="#090c10"/><rect x="55" y="178" width="${Math.round(290*d.dailyAvg/72)}" height="6" rx="3" fill="#35a162" opacity="0.5"/>`);
+        out.push(`<text x="350" y="184" text-anchor="end" fill="#4a5568" font-size="9">峰值${d.peakOrders}单</text>`);
+        return out.join('');
       })()}
     </svg>
     <div class="insight insight-green" style="margin-top:12px;">周末36单接近极限，工作日24单还有50%空间。</div>
