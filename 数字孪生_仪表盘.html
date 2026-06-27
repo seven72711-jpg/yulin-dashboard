@@ -88,24 +88,58 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card svg { display: block; }
 .cyan { color: var(--cyan); } .red { color: var(--red); } .green { color: var(--green); } .dim { color: var(--text-dim); } .mono { font-family: var(--font-mono); }
 @media (max-width: 900px) {
-  .container { padding: 16px; } .kpi-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .kpi { padding: 16px 14px; } .kpi-value { font-size: 24px; } .kpi-label { font-size: 9px; }
-  .grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; } .span-4, .span-6, .span-8, .span-12 { grid-column: span 1; }
-  .header { flex-direction: column; gap: 8px; margin-bottom: 24px; padding-bottom: 20px; } .header h1 { font-size: 24px; }
-  .section-title { margin: 32px 0 16px; } .card { padding: 18px; } .card-header { margin-bottom: 16px; } .card-title { font-size: 12px; }
-  .data-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .data-table th { font-size: 10px; padding: 8px 8px; white-space: nowrap; }
-  .data-table td { font-size: 11px; padding: 8px 8px; white-space: nowrap; }
-  .bar-label { min-width: 70px; font-size: 11px; } .bar-val { font-size: 10px; min-width: 45px; } .bar-item { font-size: 11px; gap: 8px; }
-  .mini-bars { gap: 4px; height: 80px; } .mini-bar-label { font-size: 9px; }
-  .sim-big { font-size: 28px; } .sim-slider { height: 6px; } .sim-result { padding: 16px; } .insight { font-size: 11px; padding: 12px 14px; }
+  .container { padding: 20px; }
+  .header { flex-direction: column; gap: 8px; margin-bottom: 28px; padding-bottom: 20px; }
+  .header h1 { font-size: 28px; letter-spacing: -1px; }
+  .header .meta { font-size: 10px; }
+  .kpi-row { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px; }
+  .kpi { padding: 20px 16px; }
+  .kpi-value { font-size: 28px; }
+  .kpi-label { font-size: 8px; letter-spacing: 2px; margin-bottom: 12px; }
+  .kpi-change { font-size: 9px; margin-top: 8px; }
+  .grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 28px; }
+  .span-4, .span-6, .span-8, .span-12 { grid-column: span 1; }
+  .section-title { font-size: 10px; margin: 36px 0 18px; letter-spacing: 2px; }
+  .section-title::before { font-size: 7px; }
+  .card { padding: 20px; }
+  .card-header { margin-bottom: 18px; }
+  .card-title { font-size: 10px; letter-spacing: 1.5px; }
+  .card-subtitle { font-size: 9px; }
+  .data-table { font-size: 11px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .data-table th { font-size: 9px; padding: 7px 6px; white-space: nowrap; }
+  .data-table td { font-size: 10px; padding: 7px 6px; white-space: nowrap; }
+  .bar-label { min-width: 60px; font-size: 10px; }
+  .bar-val { font-size: 9px; min-width: 40px; }
+  .bar-item { font-size: 10px; gap: 6px; }
+  .bar-track { height: 16px; }
+  .mini-bars { gap: 4px; height: 70px; }
+  .mini-bar-label { font-size: 8px; }
+  .sim-big { font-size: 26px; }
+  .sim-slider { height: 6px; }
+  .sim-result { padding: 14px; }
+  .insight { font-size: 10px; padding: 10px 0 0; margin-top: 10px; }
 }
 @media (max-width: 480px) {
-  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; } .kpi { padding: 12px 10px; } .kpi-value { font-size: 20px; } .kpi-change { font-size: 9px; }
-  .container { padding: 10px; } .card { padding: 14px; border-radius: 8px; }
-  .bar-label { min-width: 55px; font-size: 10px; } .bar-val { font-size: 9px; min-width: 35px; } .bar-item { gap: 6px; }
-  .data-table th { font-size: 9px; padding: 6px 5px; } .data-table td { font-size: 10px; padding: 6px 5px; }
-  .kpi { border-left: none !important; padding: 12px 10px !important; }
+  .container { padding: 12px; }
+  .header h1 { font-size: 22px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 32px; }
+  .kpi { padding: 16px 12px; }
+  .kpi-value { font-size: 22px; font-weight: 400; }
+  .kpi-label { font-size: 7px; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .kpi-change { font-size: 8px; margin-top: 6px; }
+  .card { padding: 16px; border-radius: 6px; }
+  .card-header { margin-bottom: 14px; }
+  .card-title { font-size: 9px; letter-spacing: 1px; }
+  .section-title { font-size: 9px; margin: 28px 0 14px; letter-spacing: 1.5px; }
+  .bar-label { min-width: 50px; font-size: 9px; }
+  .bar-val { font-size: 8px; min-width: 30px; }
+  .bar-item { gap: 4px; font-size: 9px; }
+  .mini-bars { height: 60px; }
+  .data-table th { font-size: 8px; padding: 6px 4px; }
+  .data-table td { font-size: 9px; padding: 6px 4px; }
+  .sim-big { font-size: 22px; }
+  .sim-sub { font-size: 10px; }
+  .badge { padding: 1px 6px; font-size: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bar-fill { transition: none; }
