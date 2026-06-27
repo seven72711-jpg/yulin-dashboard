@@ -574,10 +574,10 @@ function renderCards(){
   </div>
   <div class="card span-6">
     <div class="card-header"><div class="card-title">经营里程碑</div></div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="display:flex;flex-direction:column;gap:8px;">
       ${D.milestones.map((m,i)=>{
         const bar=Math.abs(m.p)/50000*100, dir=m.p>=0?'right':'left';
-        return `<div style="display:flex;align-items:center;gap:8px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;">${m.d}</div><div style="font-size:11px;font-weight:600;width:72px;text-align:center;color:var(--${m.pc});">${m.t}</div><div style="flex:1;height:20px;position:relative;background:#f8f6f3;border-radius:3px;"><div style="position:absolute;${dir}:0;top:0;height:100%;width:${Math.min(bar,100)}%;background:var(--${m.pc});opacity:0.2;border-radius:3px;"></div></div><div style="font-size:10px;font-family:monospace;color:var(--${m.pc});width:60px;">${m.p>=0?'+':''}${(m.p/10000).toFixed(1)}万</div></div>`;
+        return '<div style="display:flex;align-items:center;gap:10px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;font-family:var(--font-mono);">'+m.d+'</div><div style="font-size:11px;font-weight:700;width:72px;text-align:center;color:var(--'+m.pc+');">'+m.t+'</div><div style="flex:1;height:22px;position:relative;background:var(--surface-raised);border-radius:3px;"><div style="position:absolute;'+dir+':0;top:0;height:100%;width:'+Math.min(bar,100)+'%;background:var(--'+m.pc+');opacity:0.45;border-radius:3px;"></div></div><div style="font-size:10px;font-family:var(--font-mono);color:var(--'+m.pc+');width:56px;text-align:right;">'+(m.p>=0?'+':'')+(m.p/10000).toFixed(1)+'万</div></div>';
       }).join('')}
     </div>
     <div class="insight insight-amber" style="margin-top:8px;">首盈耗时7个月。改革后3个月净利从-¥2.2K→+¥17.3K。</div>
