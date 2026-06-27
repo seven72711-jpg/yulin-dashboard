@@ -496,19 +496,48 @@ function renderCards(){
 <div class="section-title">趋势 & 运转</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">门店运转逻辑</div></div>
-    <svg viewBox="0 0 560 240" style="width:100%;height:auto;">
-      <defs><marker id="arw" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a5568"/></marker></defs>
-      <rect x="10" y="30" width="80" height="36" rx="6" fill="#0a1420" stroke="#00b8d4" stroke-width="1"/><text x="50" y="46" text-anchor="middle" fill="#00b8d4" font-size="10" font-weight="600">美团/抖音</text><text x="50" y="58" text-anchor="middle" fill="#4a5568" font-size="8">43%客源</text>
-      <rect x="110" y="30" width="80" height="36" rx="6" fill="#0b101a" stroke="#162030" stroke-width="1"/><text x="150" y="46" text-anchor="middle" fill="#8090a8" font-size="10">标准推拿</text><text x="150" y="58" text-anchor="middle" fill="#4a5568" font-size="8">73%单量</text>
-      <rect x="210" y="30" width="80" height="36" rx="6" fill="#100c20" stroke="#8058c8" stroke-width="1"/><text x="250" y="46" text-anchor="middle" fill="#8058c8" font-size="10" font-weight="600">卡金锁客</text><text x="250" y="58" text-anchor="middle" fill="#4a5568" font-size="8">储值16%</text>
-      <rect x="310" y="30" width="80" height="36" rx="6" fill="#1a0e04" stroke="#e89018" stroke-width="1"/><text x="350" y="46" text-anchor="middle" fill="#e89018" font-size="10" font-weight="600">复购养熟</text><text x="350" y="58" text-anchor="middle" fill="#4a5568" font-size="8">留存${D.retention}%</text>
-      <rect x="410" y="30" width="80" height="36" rx="6" fill="#1a0e04" stroke="#e89820" stroke-width="1"/><text x="450" y="46" text-anchor="middle" fill="#e89820" font-size="10" font-weight="700">私定提价</text><text x="450" y="58" text-anchor="middle" fill="#4a5568" font-size="8">¥450</text>
-      <line x1="90" y1="48" x2="108" y2="48" stroke="#4a5568" stroke-width="1" marker-end="url(#arw)"/><line x1="190" y1="48" x2="208" y2="48" stroke="#4a5568" stroke-width="1" marker-end="url(#arw)"/><line x1="290" y1="48" x2="308" y2="48" stroke="#4a5568" stroke-width="1" marker-end="url(#arw)"/><line x1="390" y1="48" x2="408" y2="48" stroke="#4a5568" stroke-width="1" marker-end="url(#arw)"/>
-      <rect x="295" y="80" width="110" height="28" rx="4" fill="#1a0810" stroke="#f04058" stroke-width="1" stroke-dasharray="3 2"/><text x="350" y="92" text-anchor="middle" fill="#f04058" font-size="9" font-weight="600">⚠ 77% 下月流失</text>
-      <text x="20" y="145" fill="#4a5568" font-size="10">利润增长最快路径</text>
-      <text x="20" y="165" fill="#e89820" font-size="12" font-weight="600">不是多做客人，是提价 + 改制度</text>
-      <text x="20" y="190" fill="#4a5568" font-size="9">¥${f(D.discountGap)}/月折扣由门店承担。改实收提成月增¥16,500 · 涨价¥20月增¥5,100</text>
+    <div class="card-header"><div class="card-title">门店运转逻辑</div><div class="card-subtitle">客户旅程漏斗 · 从获客到提价</div></div>
+    <svg viewBox="0 0 560 220" style="width:100%;height:auto;">
+      <defs>
+        <linearGradient id="flowG1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00b8d4" stop-opacity="0.2"/><stop offset="100%" stop-color="#00b8d4" stop-opacity="0.05"/></linearGradient>
+        <linearGradient id="flowG5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e89820" stop-opacity="0.25"/><stop offset="100%" stop-color="#e89820" stop-opacity="0.08"/></linearGradient>
+      </defs>
+      <rect x="10" y="20" width="96" height="52" rx="8" fill="url(#flowG1)" stroke="#00b8d4" stroke-width="1.2" opacity="0.9"/>
+      <text x="58" y="42" text-anchor="middle" fill="#00b8d4" font-size="12" font-weight="700">美团/抖音</text>
+      <text x="58" y="58" text-anchor="middle" fill="#4a5a70" font-size="9" font-family="DM Mono,monospace">62%客源</text>
+
+      <rect x="128" y="20" width="96" height="52" rx="8" fill="#0b101a" stroke="#162030" stroke-width="1"/>
+      <text x="176" y="42" text-anchor="middle" fill="#8090a8" font-size="12" font-weight="700">标准推拿</text>
+      <text x="176" y="58" text-anchor="middle" fill="#4a5a70" font-size="9" font-family="DM Mono,monospace">73%单量</text>
+
+      <rect x="246" y="20" width="96" height="52" rx="8" fill="#0b101a" stroke="#8058c8" stroke-width="1.2"/>
+      <text x="294" y="42" text-anchor="middle" fill="#8058c8" font-size="12" font-weight="700">卡金锁客</text>
+      <text x="294" y="58" text-anchor="middle" fill="#4a5a70" font-size="9" font-family="DM Mono,monospace">储值16%</text>
+
+      <rect x="364" y="20" width="96" height="52" rx="8" fill="#0b101a" stroke="#e89018" stroke-width="1.2"/>
+      <text x="412" y="42" text-anchor="middle" fill="#e89018" font-size="12" font-weight="700">复购养熟</text>
+      <text x="412" y="58" text-anchor="middle" fill="#4a5a70" font-size="9" font-family="DM Mono,monospace">留存${D.retention}%</text>
+
+      <rect x="482" y="20" width="68" height="52" rx="8" fill="url(#flowG5)" stroke="#e89820" stroke-width="1.5"/>
+      <text x="516" y="42" text-anchor="middle" fill="#e89820" font-size="12" font-weight="800">私定提价</text>
+      <text x="516" y="58" text-anchor="middle" fill="#c07810" font-size="9" font-family="DM Mono,monospace">¥450</text>
+
+      <line x1="106" y1="46" x2="126" y2="46" stroke="#1e3048" stroke-width="1.5"/>
+      <polygon points="126,42 132,46 126,50" fill="#1e3048"/>
+      <line x1="224" y1="46" x2="244" y2="46" stroke="#1e3048" stroke-width="1.5"/>
+      <polygon points="244,42 250,46 244,50" fill="#1e3048"/>
+      <line x1="342" y1="46" x2="362" y2="46" stroke="#1e3048" stroke-width="1.5"/>
+      <polygon points="362,42 368,46 362,50" fill="#1e3048"/>
+      <line x1="460" y1="46" x2="480" y2="46" stroke="#1e3048" stroke-width="1.5"/>
+      <polygon points="480,42 486,46 480,50" fill="#e89820"/>
+
+      <rect x="200" y="88" width="160" height="34" rx="6" fill="#1a0810" stroke="#f04058" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="280" y="110" text-anchor="middle" fill="#f04058" font-size="11" font-weight="700">⬇ 77% 下月流失</text>
+
+      <rect x="10" y="140" width="540" height="68" rx="8" fill="#111a28" stroke="#162030" stroke-width="0.5"/>
+      <text x="24" y="164" fill="#4a5a70" font-size="10">利润增长最快路径</text>
+      <text x="24" y="186" fill="#e89820" font-size="14" font-weight="700">不是多做客人，是提价 + 改制度</text>
+      <text x="420" y="186" text-anchor="end" fill="#4a5a70" font-size="10" font-family="DM Mono,monospace">改实收提成 → 月增¥16,500</text>
     </svg>
   </div>
   <div class="card span-6">
