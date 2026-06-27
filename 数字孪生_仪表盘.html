@@ -681,7 +681,7 @@ document.querySelector('.kpi-row')?.setAttribute('aria-label','核心经营指�
 document.querySelectorAll('.dp').forEach(dp=>{
   dp.addEventListener('mouseenter',function(){
     const l=this.getAttribute('data-label'),tw=l.length*6.5+16,cx=parseFloat(this.getAttribute('cx')),cy=parseFloat(this.getAttribute('cy'));
-    if(!document.getElementById('tb')){const tb=document.createElement('div');tb.id='tb';tb.style.cssText='position:absolute;background:#e2e8f0;color:#f8f6f3;padding:6px 12px;border-radius:6px;font-size:11px;font-family:DM Mono,monospace;pointer-events:none;z-index:1000;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.4);';document.body.appendChild(tb);}
+    if(!document.getElementById('tb')){const tb=document.createElement('div');tb.id='tb';tb.style.cssText='position:absolute;background:#eceef4;color:#1c1e26;padding:6px 12px;border-radius:6px;font-size:11px;font-family:DM Mono,monospace;pointer-events:none;z-index:1000;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.4);';document.body.appendChild(tb);}
     const tb=document.getElementById('tb'),svg=this.closest('svg'),r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal;
     tb.textContent=l;tb.style.display='block';
     tb.style.left=(r.left+(cx/vb.width)*r.width-tw/2)+'px';
