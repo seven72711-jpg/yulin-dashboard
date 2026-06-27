@@ -412,6 +412,24 @@ function sim(){
 
 renderKPIs();renderCards();sim();
 document.querySelectorAll('.dyn-period').forEach(e=>e.textContent=D.period);
+
+// Trend chart hover tooltips
+document.querySelectorAll('.dp').forEach(dp=>{
+  dp.addEventListener('mouseenter',function(){
+    const l=this.getAttribute('data-label'),tw=l.length*6.5+16,cx=parseFloat(this.getAttribute('cx')),cy=parseFloat(this.getAttribute('cy'));
+    if(!document.getElementById('tb')){const tb=document.createElement('div');tb.id='tb';tb.style.cssText='position:absolute;background:#e2e8f0;color:#090c10;padding:6px 12px;border-radius:6px;font-size:11px;font-family:DM Mono,monospace;pointer-events:none;z-index:1000;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.4);';document.body.appendChild(tb);}
+    const tb=document.getElementById('tb'),svg=this.closest('svg'),r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal;
+    tb.textContent=l;tb.style.display='block';
+    tb.style.left=(r.left+(cx/vb.width)*r.width-tw/2)+'px';
+    tb.style.top=(r.top+(cy/vb.height)*r.height-30)+'px';
+    this.setAttribute('r','8');this.setAttribute('fill','#2ea5de');this.setAttribute('fill-opacity','0.3');
+  });
+  dp.addEventListener('mouseleave',function(){
+    const tb=document.getElementById('tb');if(tb)tb.style.display='none';
+    this.setAttribute('r','6');this.setAttribute('fill','transparent');this.removeAttribute('fill-opacity');
+  });
+});
+
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,200);});});
 </script>
 </body>
