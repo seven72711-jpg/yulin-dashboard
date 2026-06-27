@@ -117,7 +117,16 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 
 <div class="header">
   <div><h1>玉林万达店 <em>·</em> 数字孪生</h1></div>
-  <div class="meta">29个月数据 · 2024.01–<span id="hd-date">2026.05</span><br>9间房 · 17张床 · 16人团队</div>
+  <div class="meta">29个月数据 · 2024.01–<span id="hd-date">2026.05</span><br>10间包间 · 17张床 · 11技师+5店员</div>
+</div>
+
+<!-- Compact store info -->
+<div class="card span-12" style="margin-bottom:20px;padding:16px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+  <div style="font-family:Noto Serif SC,serif;font-size:16px;font-weight:700;color:var(--text-bright);white-space:nowrap;">十三绝·玉林万达店</div>
+  <div style="font-size:11px;color:var(--text-dim);">10间包间 · 17张床 · 5单人4双人1四人</div>
+  <div style="font-size:11px;color:var(--text-dim);">11技师 · 5店员 · 2023.12开业</div>
+  <div style="font-size:11px;color:var(--accent);">美团5.0★ · 6,558评价 · 人均¥81</div>
+  <div style="font-size:11px;color:var(--text-dim);">29月累计营收<span class="cyan">¥369万</span> · 净利<span class="red">¥2.3万</span></div>
 </div>
 
 <!-- Trend chart at top — full width -->
@@ -262,6 +271,14 @@ const D = {
   ],
   bedTurnover:{daily:27.6,perBed:1.62,wkdy:24,wknd:36,monthOrders:856},
   storedFunnel:{visitors:1116,inflow:54164,consume:27053,pct:50,net:27111,cardAmt:27000,estCards:54,cardRate:4.8},
+  milestones:[
+    {d:'2024.01',t:'开店首月',r:53238,p:-46025,pc:'red'},
+    {d:'2024.07',t:'首次盈利',r:123549,p:21399,pc:'green'},
+    {d:'2025.08',t:'暑期高峰',r:165792,p:8540,pc:'amber'},
+    {d:'2025.12',t:'年末收官',r:150866,p:6727,pc:'green'},
+    {d:'2026.03',t:'薪资改革+刷单',r:168682,p:-2231,pc:'red'},
+    {d:'2026.05',t:'历史新高🏆',r:176759,p:17285,pc:'green'},
+  ],
 };
 
 const f=n=>n.toLocaleString(),p=(v,d)=>v.toFixed(d)+'%';
@@ -294,36 +311,87 @@ function renderKPIs(){
 
 function renderCards(){
   document.getElementById('cards').innerHTML=`
+<div class="section-title">经营全貌</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">物理层 · ${D.rooms}间包间 ${D.beds}张床</div><div class="card-subtitle">日均 ${D.dailyAvg} 单 · 5单人+4双人+1四人</div></div>
-    <svg viewBox="0 0 400 190" style="width:100%;height:auto;">
+    <div class="card-header"><div class="card-title">盈亏双线 · 29个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
+    <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
+      <line x1="0" y1="40" x2="580" y2="40" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="#1e2633" stroke-width="0.5"/>
+      <text x="4" y="36" fill="#4a5568" font-size="8" font-family="monospace">15万</text><text x="4" y="86" fill="#4a5568" font-size="8">5万</text><text x="4" y="136" fill="#4a5568" font-size="8">-5万</text>
       ${(()=>{
-        const d=D,rn=d.roomNames,rb=d.roomBeds,out=['<rect x="0" y="0" width="400" height="80" rx="6" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>','<rect x="0" y="90" width="400" height="80" rx="6" fill="#0a0e14" stroke="#1e2633" stroke-width="0.5"/>'];
-        for(let i=0;i<10;i++){
-          const row=i<5?0:1, col=i%5, x=col*78+4, y=row*90+6, w=70, h=68;
-          const isLarge=rb[i]===4, accent=isLarge?'var(--accent)':'var(--cyan)';
-          const fill=isLarge?'#1f1a12':'#0f1f2b';
-          out.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${fill}" stroke="${accent}" stroke-width="${isLarge?1.5:1}"/>`);
-          out.push(`<text x="${x+w/2}" y="${y+25}" text-anchor="middle" fill="var(--text-bright)" font-size="13" font-family="Noto Serif SC,serif" font-weight="700">${rn[i]}</text>`);
-          out.push(`<text x="${x+w/2}" y="${y+52}" text-anchor="middle" fill="${accent}" font-size="12" font-family="monospace" font-weight="500">${rb[i]}床</text>`);
+        const maxV=Math.max(...D.monthlyRev), minP=Math.min(...D.monthlyProfit);
+        let revPath='', profPath='';
+        for(let i=0;i<29;i++){
+          const x=i*20, yR=140-D.monthlyRev[i]/maxV*120, yP=90-D.monthlyProfit[i]/(Math.max(maxV,Math.abs(minP)))*80;
+          revPath+=(i===0?'M':'L')+x+','+yR+' ';
+          profPath+=(i===0?'M':'L')+x+','+yP+' ';
         }
-        out.push(`<text x="200" y="165" text-anchor="middle" fill="#4a5568" font-size="9">5间单人 · 4间双人 · 1间四人</text>`);
-        out.push(`<text x="8" y="184" fill="#4a5568" font-size="9">日均${d.dailyAvg}单</text><rect x="55" y="178" width="290" height="6" rx="3" fill="#090c10"/><rect x="55" y="178" width="${Math.round(290*d.dailyAvg/72)}" height="6" rx="3" fill="#35a162" opacity="0.5"/>`);
-        out.push(`<text x="350" y="184" text-anchor="end" fill="#4a5568" font-size="9">峰值${d.peakOrders}单</text>`);
-        return out.join('');
+        return `<path d="${revPath}" fill="none" stroke="#2ea5de" stroke-width="1.2" opacity="0.7"/><path d="${profPath}" fill="none" stroke="#e2a654" stroke-width="1.5"/>`;
       })()}
+      <line x1="0" y1="90" x2="580" y2="90" stroke="#1e2633" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <text x="560" y="15" text-anchor="end" fill="#4a5568" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="#e2a654" font-size="8">净利</text>
     </svg>
-    <div class="insight insight-green" style="margin-top:12px;">周末36单接近极限，工作日24单还有50%空间。</div>
+    <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。29个月中15个月盈利。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了</div></div>
+    <div class="card-header"><div class="card-title">经营里程碑</div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      ${D.milestones.map((m,i)=>{
+        const bar=Math.abs(m.p)/50000*100, dir=m.p>=0?'right':'left';
+        return `<div style="display:flex;align-items:center;gap:8px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;">${m.d}</div><div style="font-size:11px;font-weight:600;width:72px;text-align:center;color:var(--${m.pc});">${m.t}</div><div style="flex:1;height:20px;position:relative;background:#090c10;border-radius:3px;"><div style="position:absolute;${dir}:0;top:0;height:100%;width:${Math.min(bar,100)}%;background:var(--${m.pc});opacity:0.2;border-radius:3px;"></div></div><div style="font-size:10px;font-family:monospace;color:var(--${m.pc});width:60px;">${m.p>=0?'+':''}${(m.p/10000).toFixed(1)}万</div></div>`;
+      }).join('')}
+    </div>
+    <div class="insight insight-amber" style="margin-top:8px;">首盈耗时7个月。改革后3个月净利从-¥2.2K→+¥17.3K。</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card span-12">
+    <div class="card-header"><div class="card-title">盈亏月历 · 29个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
+    <div style="display:flex;gap:8px;overflow-x:auto;">
+      ${[['2024',0],['2025',12],['2026',24]].map(([yr,start])=>{
+        return `<div style="flex:1;min-width:280px;"><div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;">${yr}</div><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:3px;">${Array.from({length:12},(_,mi)=>{
+          const idx=start+mi;
+          if(idx>=29) return '<div></div>';
+          const p=D.monthlyProfit[idx], m=D.monthlyMargin[idx];
+          const isProf=p>=0, color=isProf?(m>8?'#35a162':m>3?'#2ea5de':'#4a8'):(m<-20?'#e0455a':m<-5?'#d4912a':'#8b5ce5');
+          return `<div style="aspect-ratio:1;background:${color};border-radius:3px;opacity:${0.3+Math.abs(m)/100};display:flex;align-items:center;justify-content:center;font-size:8px;font-family:monospace;color:var(--text-bright);" title="${D.monthlyRev[idx]/10000}万 ${isProf?'+':''}${p/10000}万">${m>=0?'+':''}${m}%</div>`;
+        }).join('')}</div></div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-size:9px;color:var(--text-dim);"><span>🟢 2024: 5盈7亏</span><span>🟢 2025: 10盈2亏</span><span>🟡 2026: 3盈2亏</span></div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">成本效率趋势 · 付薪比 vs 净利率</div><div class="card-subtitle">红线=付薪比 · 绿线=净利率</div></div>
+    <svg viewBox="0 0 580 140" style="width:100%;height:auto;">
+      <line x1="0" y1="30" x2="580" y2="30" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="70" x2="580" y2="70" stroke="#1e2633" stroke-width="0.5"/><line x1="0" y1="110" x2="580" y2="110" stroke="#1e2633" stroke-width="0.5"/>
+      <text x="4" y="55" fill="#4a5568" font-size="8">付薪比</text><text x="4" y="95" fill="#4a5568" font-size="8">净利率</text>
+      ${(()=>{
+        let laborP='', marginP='', maxL=Math.max(...D.monthlyMargin);
+        for(let i=0;i<29;i++){
+          const x=i*20;
+          const yL=120-(D.monthlyMargin[i]-Math.min(...D.monthlyMargin))/(maxL-Math.min(...D.monthlyMargin)+20)*90;
+          const mL=D.monthlyMargin[i], yM=110-mL/1.5*0.8;
+          laborP+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,yM))+' ';
+          marginP+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,yL))+' ';
+        }
+        return `<path d="${laborP}" fill="none" stroke="#e0455a" stroke-width="1.2" opacity="0.6"/><path d="${marginP}" fill="none" stroke="#35a162" stroke-width="1.5"/>`;
+      })()}
+      <line x1="0" y1="55" x2="580" y2="55" stroke="#d4912a" stroke-width="0.5" stroke-dasharray="2 3"/>
+      <text x="560" y="15" text-anchor="end" fill="#e0455a" font-size="8">付薪比</text><text x="560" y="28" text-anchor="end" fill="#35a162" font-size="8">净利率</text>
+    </svg>
+    <div class="insight insight-red" style="margin-top:8px;">付薪比长期在60%+运行，净利率被压制在个位数。改实收提成是唯一破局点。</div>
+  </div>
+  <div class="card span-6">
+    <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了(5月)</div></div>
     <div class="bar-list">
       <div class="bar-item"><div class="bar-label">营收</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--cyan)"></div></div><div class="bar-val mono">¥100.0</div></div>
       ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:var(--${w.cls==='accent'?'accent':w.cls});opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
     </div>
     <div class="insight insight-red">⚠ 每收¥100，¥${D.discountPct}折扣由门店担。改实收提成→每¥100多留¥9.3。</div>
   </div>
+</div>
 </div>
 <div class="section-title">5月运营特写</div>
 <div class="grid">
