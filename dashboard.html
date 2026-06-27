@@ -552,7 +552,7 @@ function renderCards(){
 </div>
 <div class="section-title">战略纵览</div>
 <div class="grid">
-  <div class="card span-6">
+  <div class="card span-12">
     <div class="card-header"><div class="card-title">盈亏双线 · 29个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
     <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
       <line x1="0" y1="40" x2="580" y2="40" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="#2a2d38" stroke-width="0.5"/>
@@ -571,16 +571,6 @@ function renderCards(){
       <text x="560" y="15" text-anchor="end" fill="#4a5568" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="#c89840" font-size="8">净利</text>
     </svg>
     <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。29个月中15个月盈利。</div>
-  </div>
-  <div class="card span-6">
-    <div class="card-header"><div class="card-title">经营里程碑</div></div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-      ${D.milestones.map((m,i)=>{
-        const bar=Math.abs(m.p)/50000*100, dir=m.p>=0?'right':'left';
-        return '<div style="display:flex;align-items:center;gap:10px;"><div style="font-size:10px;color:var(--text-dim);width:48px;text-align:right;font-family:var(--font-mono);">'+m.d+'</div><div style="font-size:11px;font-weight:700;width:72px;text-align:center;color:var(--'+m.pc+');">'+m.t+'</div><div style="flex:1;height:22px;position:relative;background:var(--surface-raised);border-radius:3px;"><div style="position:absolute;'+dir+':0;top:0;height:100%;width:'+Math.min(bar,100)+'%;background:var(--'+m.pc+');opacity:0.45;border-radius:3px;"></div></div><div style="font-size:10px;font-family:var(--font-mono);color:var(--'+m.pc+');width:56px;text-align:right;">'+(m.p>=0?'+':'')+(m.p/10000).toFixed(1)+'万</div></div>';
-      }).join('')}
-    </div>
-    <div class="insight insight-amber" style="margin-top:8px;">首盈耗时7个月。改革后3个月净利从-¥2.2K→+¥17.3K。</div>
   </div>
 </div>
 <div class="grid">
