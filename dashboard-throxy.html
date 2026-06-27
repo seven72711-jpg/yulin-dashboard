@@ -241,7 +241,7 @@ function renderContent(){
       ${(()=>{
         let lp='',mp='',maxL=Math.max(...D.monthlyMargin),minL=Math.min(...D.monthlyMargin);
         for(let i=0;i<29;i++){const x=i*20,yl=120-(D.monthlyMargin[i]-minL)/(maxL-minL+20)*90,ym=110-D.monthlyMargin[i]/1.5*0.8;lp+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,ym))+' ';mp+=(i===0?'M':'L')+x+','+Math.max(5,Math.min(115,yl))+' ';}
-        return`<path d="${lp}" fill="none" stroke="var(--red)" stroke-width="1.2" opacity="0.6"/><path d="${mp}" fill="none" stroke="var(--green)" stroke-width="1.5"/>`;
+        return '<path d="'+lp+'" fill="none" stroke="var(--red)" stroke-width="1.2" opacity="0.6"/><path d="'+mp+'" fill="none" stroke="var(--green)" stroke-width="1.5"/>';
       })()}
       <line x1="0" y1="55" x2="580" y2="55" stroke="var(--amber)" stroke-width="0.5" stroke-dasharray="2 3"/>
       <text x="560" y="15" text-anchor="end" fill="var(--red)" font-size="8">付薪比</text><text x="560" y="28" text-anchor="end" fill="var(--green)" font-size="8">净利率</text>
@@ -288,7 +288,7 @@ function renderContent(){
       ${(()=>{
         let rp='',pp='',mv=Math.max(...D.monthlyRev),mp=Math.min(...D.monthlyProfit);
         for(let i=0;i<29;i++){const x=i*20;rp+=(i===0?'M':'L')+x+','+(140-D.monthlyRev[i]/mv*120)+' ';pp+=(i===0?'M':'L')+x+','+(90-D.monthlyProfit[i]/(Math.max(mv,Math.abs(mp)))*80)+' ';}
-        return`<path d="${rp}" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.7"/><path d="${pp}" fill="none" stroke="var(--accent)" stroke-width="1.5"/>`;
+        return '<path d="'+rp+'" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.7"/><path d="'+pp+'" fill="none" stroke="var(--accent)" stroke-width="1.5"/>';
       })()}
       <line x1="0" y1="90" x2="580" y2="90" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="2 4"/>
       <text x="560" y="15" text-anchor="end" fill="var(--text-dim)" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="var(--accent)" font-size="8">净利</text>
