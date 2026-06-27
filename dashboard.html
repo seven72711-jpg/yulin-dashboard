@@ -103,6 +103,12 @@ body::before { content:''; position:fixed; inset:0; background: radial-gradient(
   .container { padding: 10px; } .card { padding: 14px; border-radius: 8px; }
   .bar-label { min-width: 55px; font-size: 10px; } .bar-val { font-size: 9px; min-width: 35px; } .bar-item { gap: 6px; }
   .data-table th { font-size: 9px; padding: 6px 5px; } .data-table td { font-size: 10px; padding: 6px 5px; }
+  .kpi { border-left: none !important; padding: 12px 10px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill { transition: none; }
+  .kpi, .card { transition: none; }
+  .kpi:hover, .card:hover { transform: none; }
 }
 </style>
 </head>
