@@ -234,9 +234,9 @@ const D = {
     {ch:'美团',cs:260,rt:13.8,rc:'red',m4:220,m5:401,lv:621,lc:'red'},
   ],
   lifecycle:[
-    {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥78K',nc:'red'},
-    {s:'成长期',p:'2025',r:'¥143K',n:'YoY +44.7%',nc:'green'},
-    {s:'成熟过渡',p:'2026 Q2',r:'¥155K',n:'YoY +8.4% ↓81%',nc:'amber'},
+    {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥76K',nc:'red'},
+    {s:'成长期',p:'2025',r:'¥144K',n:'YoY +45.4%',nc:'green'},
+    {s:'成熟过渡',p:'2026 Q2',r:'¥155K',n:'YoY +7.9% ↓83%',nc:'amber'},
   ],
   services:[
     {n:'中式推拿',c:379,p:100},{n:'精油SPA',c:111,p:29},{n:'70min SPA',c:104,p:27},
@@ -488,7 +488,7 @@ function renderCards(){
   <div class="card span-6">
     <div class="card-header"><div class="card-title">门店生命周期</div></div>
     <table class="data-table"><thead><tr><th>阶段</th><th>时间</th><th>月均营收</th><th>特征</th></tr></thead><tbody>${D.lifecycle.map(l=>`<tr><td>${l.s}</td><td>${l.p}</td><td>${l.r}</td><td class="${l.nc}">${l.n}</td></tr>`).join('')}</tbody></table>
-    <div class="dim" style="font-size:10px;margin-top:8px;">不做调整 → 2027 年均 ¥165K · 年利约 ¥20 万 · 分红 ¥8-10 万</div>
+    <div class="dim" style="font-size:10px;margin-top:8px;">不做调整 → 2027 年均 ¥165K · 年利约 ¥12 万 · 分红 ¥5-6 万</div>
   </div>
 </div>`;
   document.getElementById('hd-date').textContent = D.period;
