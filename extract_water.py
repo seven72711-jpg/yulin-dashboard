@@ -63,10 +63,26 @@ def extract_water_bill(report_path):
     wb.close()
     
     # Compute metrics
+    import calendar
+    year, month = int(report_path.split('年')[1][:4]) if '年' in report_path else 2026, int(report_path.split('月')[0][-2:]) if '月' in report_path else 6
+    from datetime import date
+    # Parse year/month from filename or use defaults
+    try:
+        parts = report_path.replace('.xlsx','').split('年')
+        if len(parts) > 1:
+            yr = int(parts[0][-4:])
+            mo = int(parts[1].split('月')[0])
+        else:
+            yr, mo = 2026, 6
+    except:
+        yr, mo = 2026, 6
+    days_in_month = calendar.monthrange(yr, mo)[1]
     beds = 17
-    daily = total_orders / 30
+    daily = total_orders / days_in_month
     wd = sum(dow[d] for d in range(5))
     we = sum(dow[d] for d in range(5, 7))
+    wd_days = len([d for d in range(1, days_in_month+1) if date(yr, mo, d).weekday() < 5])
+    we_days = days_in_month - wd_days
     
     result = {
         'total_orders': total_orders,
@@ -74,8 +90,8 @@ def extract_water_bill(report_path):
         'total_discount': round(total_discount, 2),
         'daily_avg': round(daily, 1),
         'per_bed': round(daily / beds, 2),
-        'wkday_avg': round(wd / 22),
-        'wkend_avg': round(we / 8),
+        'wkday_avg': round(wd / wd_days) if wd_days else 0,
+        'wkend_avg': round(we / we_days) if we_days else 0,
         'hourly_pct': [round(hourly.get(h, 0) / total_orders * 100, 1) if total_orders else 0 for h in range(24)],
         'day_orders': [dow[d] for d in range(7)],
         'price_bands': {b: {'orders': bands[b], 'pct': round(bands[b]/total_orders*100,1)} for b in ['<¥80','¥80-120','¥120-160','¥160-200','¥200-260','¥260+']},
