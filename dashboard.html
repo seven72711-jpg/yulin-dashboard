@@ -317,24 +317,33 @@ if(localStorage.getItem('yl_auth')==='1'){document.getElementById('gate').style.
 document.addEventListener('click',function(e){const t=e.target.closest('[data-tip]');if(!t)return;t.classList.toggle('tip-show');setTimeout(()=>t.classList.remove('tip-show'),2000);});
 
 function renderTrend(){
-  var svg=document.getElementById('trendChart'),r=D.monthlyRev,max=Math.max.apply(null,r),step=600/29,x,y,path='',circles='',labels='';
+  var svg=document.getElementById('trendChart'),r=D.monthlyRev,step=19.5,path='',circles=[];
   for(var i=0;i<30;i++){
-    x=Math.round(i*step);y=Math.round(100-r[i]/max*100);
+    var x=Math.round(i*step),y=Math.round(105-(r[i]-50000)/130000*75);
     path+=(i===0?'M':'L')+x+','+y+' ';
     var month=i<12?'2024-'+(i<9?'0':'')+(i+1):i<24?'2025-'+(i<9?'0':'')+(i-11):'2026-'+(i<9?'0':'')+(i-23);
     var extra=month==='2026-06'?'  🏆':(month==='2024-07'?'  ⬆首次盈利':(month==='2025-01'?'  ⬇春节':''));
-    circles+='<circle cx="'+x+'" cy="'+y+'" r="6" fill="transparent" class="dp" data-label="'+month+'  ¥'+r[i].toLocaleString()+extra+'"/>';
+    circles.push({cx:x,cy:y,label:month+'  ¥'+r[i].toLocaleString()+extra,last:i===29});
   }
-  // Last circle gets the animate + green fill
-  var lastCircle=document.createElement('div');lastCircle.innerHTML=circles;
-  var allCircles=lastCircle.querySelectorAll('circle');
-  if(allCircles.length>0){
-    allCircles[allCircles.length-1].setAttribute('fill','#5aad82');
-    var anim=document.createElementNS('http://www.w3.org/2000/svg','animate');
-    anim.setAttribute('attributeName','r');anim.setAttribute('values','5;8;5');anim.setAttribute('dur','2s');anim.setAttribute('repeatCount','indefinite');
-    allCircles[allCircles.length-1].appendChild(anim);
-  }
-  svg.innerHTML+='<path d="'+path.trim()+'" fill="url(#revG)" stroke="#8b7ec8" stroke-width="1.2" fill="none"/>'+lastCircle.innerHTML+'<text x="0" y="148" fill="#4a5568" font-size="8">24/01</text><text x="193" y="148" fill="#4a5568" font-size="8">24/10</text><text x="300" y="148" fill="#4a5568" font-size="8">25/04</text><text x="420" y="148" fill="#4a5568" font-size="8">25/10</text><text x="600" y="148" fill="#5aad82" font-size="8">26/06 🏆</text>';
+  // Path
+  var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d',path.trim());p.setAttribute('fill','none');p.setAttribute('stroke','#8b7ec8');p.setAttribute('stroke-width','1.2');
+  svg.appendChild(p);
+  // Circles
+  circles.forEach(function(c){
+    var el=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    el.setAttribute('cx',c.cx);el.setAttribute('cy',c.cy);el.setAttribute('r','6');
+    el.setAttribute('fill',c.last?'#5aad82':'transparent');
+    el.setAttribute('class','dp');el.setAttribute('data-label',c.label);
+    if(c.last){var a=document.createElementNS('http://www.w3.org/2000/svg','animate');a.setAttribute('attributeName','r');a.setAttribute('values','5;8;5');a.setAttribute('dur','2s');a.setAttribute('repeatCount','indefinite');el.appendChild(a);}
+    svg.appendChild(el);
+  });
+  // Labels
+  [{x:0,t:'24/01'},{x:195,t:'24/10'},{x:300,t:'25/04'},{x:410,t:'25/10'},{x:590,t:'26/06 🏆'}].forEach(function(l){
+    var t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',l.x);t.setAttribute('y','148');t.setAttribute('fill',l.t.indexOf('🏆')>-1?'#5aad82':'#4a5568');t.setAttribute('font-size','8');t.textContent=l.t;
+    svg.appendChild(t);
+  });
 }
 
 function renderKPIs(){
