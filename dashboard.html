@@ -249,10 +249,10 @@ const D = {
   brandRiskIndex: 75, techCount: 11,
   rating: 5.0, reviews: 6558, avgPrice: 81,
   waterfall: [
-    {label:'技师提成',pct:60.5,cls:'red',opac:0.7},{label:'租金',pct:8.4,cls:'amber',opac:1},
-    {label:'推广费',pct:6.2,cls:'amber',opac:1},{label:'管理费5%',pct:5.0,cls:'amber',opac:1},
-    {label:'水电耗材',pct:5.0,cls:'amber',opac:1},{label:'其他税费',pct:4.5,cls:'amber',opac:1},
-    {label:'折扣差额',pct:18.3,cls:'red',opac:0.35},{label:'净利润',pct:9.8,cls:'accent',opac:1},
+    {label:'技师提成',pct:62.5,cls:'red',opac:0.7},{label:'租金',pct:8.2,cls:'amber',opac:1},
+    {label:'推广费',pct:6.3,cls:'amber',opac:1},{label:'管理费5%',pct:5.0,cls:'amber',opac:1},
+    {label:'耗材维修',pct:6.2,cls:'amber',opac:1},{label:'水电+税费',pct:6.1,cls:'amber',opac:1},
+    {label:'折扣差额',pct:19.0,cls:'red',opac:0.35},{label:'净利润',pct:4.2,cls:'accent',opac:1},
   ],
   retentionPairs:[
     {label:'1→2',rate:23.1,cls:'green'},{label:'2→3',rate:27.3,cls:'green'},
@@ -392,7 +392,7 @@ function renderCards(){
       <div class="bar-item"><div class="bar-label">营收</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--cyan)"></div></div><div class="bar-val mono">¥100.0</div></div>
       ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:var(--${w.cls==='accent'?'accent':w.cls});opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
     </div>
-    <div class="insight insight-red">⚠ 每收¥100，¥${D.discountPct}折扣由门店担。改实收提成→每¥100多留¥9.3。</div>
+    <div class="insight insight-red">⚠ 每收¥100，¥${D.discountPct}折扣由门店担。改实收提成→每¥100多留¥10.2。</div>
   </div>
 </div>
 </div>
@@ -589,7 +589,7 @@ function renderCards(){
         }).join('')}</div></div>`;
       }).join('')}
     </div>
-    <div style="display:flex;gap:16px;margin-top:8px;font-size:9px;color:var(--text-dim);"><span>🟢 2024: 5盈7亏</span><span>🟢 2025: 10盈2亏</span><span>🟡 2026: 3盈2亏</span></div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-size:9px;color:var(--text-dim);"><span>🟢 2024: 5盈7亏</span><span>🟢 2025: 10盈2亏</span><span>🟡 2026: 4盈2亏</span></div>
   </div>
 </div>
 <div class="section-title">模拟 & 深水区</div>
