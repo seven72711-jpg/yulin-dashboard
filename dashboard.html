@@ -184,44 +184,19 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <!-- Trend chart at top — full width -->
 <div class="card" style="grid-column:span 12;margin-bottom:40px;">
-  <div class="card-header"><div class="card-title">月度营收趋势 · <span class="dyn-period">29</span> 个月</div><div class="card-subtitle">2024.01 – <span class="dyn-period">2026.05</span> · 从月亏4.6万到月利1.7万</div></div>
-  <svg viewBox="0 0 640 160" style="width:100%;height:auto;">
-    <line x1="0" y1="48" x2="640" y2="48" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="75" x2="640" y2="75" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="102" x2="640" y2="102" stroke="#2a2d38" stroke-width="0.5"/>
-    <text x="5" y="43" fill="#4a5568" font-size="9" font-family="monospace">15万</text><text x="5" y="70" fill="#4a5568" font-size="9" font-family="monospace">10万</text><text x="5" y="97" fill="#4a5568" font-size="9" font-family="monospace">5万</text>
+  <div class="card-header"><div class="card-title">月度营收趋势 · 30 个月</div><div class="card-subtitle">2024.01 – 2026.06 · 从月亏4.6万到月利1.7万</div></div>
+  <svg viewBox="0 0 620 160" style="width:100%;height:auto;" id="trendChart">
+    <line x1="0" y1="48" x2="620" y2="48" stroke="#2a2d38" stroke-width="0.5"/>
+    <line x1="0" y1="75" x2="620" y2="75" stroke="#2a2d38" stroke-width="0.5"/>
+    <line x1="0" y1="102" x2="620" y2="102" stroke="#2a2d38" stroke-width="0.5"/>
+    <text x="5" y="43" fill="#4a5568" font-size="9" font-family="monospace">15万</text>
+    <text x="5" y="70" fill="#4a5568" font-size="9" font-family="monospace">10万</text>
+    <text x="5" y="97" fill="#4a5568" font-size="9" font-family="monospace">5万</text>
     <defs><linearGradient id="revG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b7ec8" stop-opacity="0.25"/><stop offset="100%" stop-color="#8b7ec8" stop-opacity="0.01"/></linearGradient></defs>
-    <path d="M0,101 L21,97 L43,83 L64,82 L86,82 L107,73 L129,62 L150,57 L171,65 L193,57 L214,75 L236,73 L257,89 L279,57 L300,52 L321,57 L343,56 L364,39 L386,42 L407,39 L429,48 L450,36 L471,49 L493,47 L514,48 L536,60 L557,37 L579,46 L600,33" fill="url(#revG)" stroke="#8b7ec8" stroke-width="1.2" fill="none"/>
-    <circle cx="600" cy="33" r="6" fill="#5aad82" class="dp" data-label="2026-05  ¥176,759  🏆历史新高"><animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/></circle>
-    <circle cx="0" cy="101" r="6" fill="transparent" class="dp" data-label="2024-01  ¥53,238"/>
-    <circle cx="21" cy="97" r="6" fill="transparent" class="dp" data-label="2024-02  ¥60,830"/>
-    <circle cx="43" cy="83" r="6" fill="transparent" class="dp" data-label="2024-03  ¥85,022"/>
-    <circle cx="64" cy="82" r="6" fill="transparent" class="dp" data-label="2024-04  ¥86,565"/>
-    <circle cx="86" cy="82" r="6" fill="transparent" class="dp" data-label="2024-05  ¥86,682"/>
-    <circle cx="107" cy="73" r="6" fill="transparent" class="dp" data-label="2024-06  ¥102,822"/>
-    <circle cx="129" cy="62" r="6" fill="transparent" class="dp" data-label="2024-07  ¥123,549  ⬆首次盈利"/>
-    <circle cx="150" cy="57" r="6" fill="transparent" class="dp" data-label="2024-08  ¥133,086"/>
-    <circle cx="171" cy="65" r="6" fill="transparent" class="dp" data-label="2024-09  ¥118,877"/>
-    <circle cx="193" cy="57" r="6" fill="transparent" class="dp" data-label="2024-10  ¥131,923"/>
-    <circle cx="214" cy="75" r="6" fill="transparent" class="dp" data-label="2024-11  ¥100,358"/>
-    <circle cx="236" cy="73" r="6" fill="transparent" class="dp" data-label="2024-12  ¥104,246"/>
-    <circle cx="257" cy="89" r="6" fill="transparent" class="dp" data-label="2025-01  ¥74,249  ⬇春节淡季"/>
-    <circle cx="279" cy="57" r="6" fill="transparent" class="dp" data-label="2025-02  ¥132,437"/>
-    <circle cx="300" cy="52" r="6" fill="transparent" class="dp" data-label="2025-03  ¥141,909"/>
-    <circle cx="321" cy="57" r="6" fill="transparent" class="dp" data-label="2025-04  ¥132,389"/>
-    <circle cx="343" cy="56" r="6" fill="transparent" class="dp" data-label="2025-05  ¥135,248"/>
-    <circle cx="364" cy="39" r="6" fill="transparent" class="dp" data-label="2025-06  ¥164,980"/>
-    <circle cx="386" cy="42" r="6" fill="transparent" class="dp" data-label="2025-07  ¥160,579"/>
-    <circle cx="407" cy="39" r="6" fill="transparent" class="dp" data-label="2025-08  ¥165,792"/>
-    <circle cx="429" cy="48" r="6" fill="transparent" class="dp" data-label="2025-09  ¥148,818"/>
-    <circle cx="450" cy="36" r="6" fill="transparent" class="dp" data-label="2025-10  ¥170,359"/>
-    <circle cx="471" cy="49" r="6" fill="transparent" class="dp" data-label="2025-11  ¥148,017"/>
-    <circle cx="493" cy="47" r="6" fill="transparent" class="dp" data-label="2025-12  ¥150,866"/>
-    <circle cx="514" cy="48" r="6" fill="transparent" class="dp" data-label="2026-01  ¥149,729"/>
-    <circle cx="536" cy="60" r="6" fill="transparent" class="dp" data-label="2026-02  ¥127,300"/>
-    <circle cx="557" cy="37" r="6" fill="transparent" class="dp" data-label="2026-03  ¥168,682"/>
-    <circle cx="579" cy="46" r="6" fill="transparent" class="dp" data-label="2026-04  ¥153,122"/>
-    <text x="0" y="148" fill="#4a5568" font-size="8">24/01</text><text x="193" y="148" fill="#4a5568" font-size="8">24/10</text><text x="300" y="148" fill="#4a5568" font-size="8">25/04</text><text x="429" y="148" fill="#4a5568" font-size="8">25/10</text><text x="600" y="148" fill="#5aad82" font-size="8"><tspan class="dyn-period">—</tspan> 🏆</text>
   </svg>
-  <div style="display:flex;gap:16px;margin-top:8px;font-size:10px;color:var(--text-dim);"><span>1-2月淡季(9-10万)</span><span>6-8月旺季(13-15万)</span><span class="green"><span class="dyn-period">—</span> 历史新高</span></div>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:10px;color:var(--text-dim);">
+    <span>1-2月淡季(9-10万)</span><span>6-8月旺季(13-15万)</span><span class="green">2026年已连续3月破17万</span>
+  </div>
 </div>
 
 <div class="kpi-row" id="kpi-row"></div>
@@ -340,6 +315,27 @@ async function sha256(m){const e=new TextEncoder().encode(m);const h=await crypt
 async function checkPwd(){const hash=await sha256(document.getElementById('pwd').value);if(hash==='4dc7fea7cb41ccc8c0853e17d75281f6783dac1e252825ad58e2118b37bc0303'){localStorage.setItem('yl_auth','1');document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('pwd-err').style.display='block';}}
 if(localStorage.getItem('yl_auth')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
 document.addEventListener('click',function(e){const t=e.target.closest('[data-tip]');if(!t)return;t.classList.toggle('tip-show');setTimeout(()=>t.classList.remove('tip-show'),2000);});
+
+function renderTrend(){
+  var svg=document.getElementById('trendChart'),r=D.monthlyRev,max=Math.max.apply(null,r),step=600/29,x,y,path='',circles='',labels='';
+  for(var i=0;i<30;i++){
+    x=Math.round(i*step);y=Math.round(100-r[i]/max*100);
+    path+=(i===0?'M':'L')+x+','+y+' ';
+    var month=i<12?'2024-'+(i<9?'0':'')+(i+1):i<24?'2025-'+(i<9?'0':'')+(i-11):'2026-'+(i<9?'0':'')+(i-23);
+    var extra=month==='2026-06'?'  🏆':(month==='2024-07'?'  ⬆首次盈利':(month==='2025-01'?'  ⬇春节':''));
+    circles+='<circle cx="'+x+'" cy="'+y+'" r="6" fill="transparent" class="dp" data-label="'+month+'  ¥'+r[i].toLocaleString()+extra+'"/>';
+  }
+  // Last circle gets the animate + green fill
+  var lastCircle=document.createElement('div');lastCircle.innerHTML=circles;
+  var allCircles=lastCircle.querySelectorAll('circle');
+  if(allCircles.length>0){
+    allCircles[allCircles.length-1].setAttribute('fill','#5aad82');
+    var anim=document.createElementNS('http://www.w3.org/2000/svg','animate');
+    anim.setAttribute('attributeName','r');anim.setAttribute('values','5;8;5');anim.setAttribute('dur','2s');anim.setAttribute('repeatCount','indefinite');
+    allCircles[allCircles.length-1].appendChild(anim);
+  }
+  svg.innerHTML+='<path d="'+path.trim()+'" fill="url(#revG)" stroke="#8b7ec8" stroke-width="1.2" fill="none"/>'+lastCircle.innerHTML+'<text x="0" y="148" fill="#4a5568" font-size="8">24/01</text><text x="193" y="148" fill="#4a5568" font-size="8">24/10</text><text x="300" y="148" fill="#4a5568" font-size="8">25/04</text><text x="420" y="148" fill="#4a5568" font-size="8">25/10</text><text x="600" y="148" fill="#5aad82" font-size="8">26/06 🏆</text>';
+}
 
 function renderKPIs(){
   const mk=[
@@ -656,6 +652,7 @@ function sim(){
 }
 
 renderKPIs();renderCards();sim();
+renderTrend();
 document.querySelectorAll('.dyn-period').forEach(e=>e.textContent=D.period);
 
 // A11y: add ARIA labels and roles
