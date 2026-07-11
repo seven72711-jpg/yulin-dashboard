@@ -170,7 +170,7 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <div class="header">
   <div><h1>玉林万达店 <em>·</em> 数字孪生</h1></div>
-  <div class="meta">29个月数据 · 2024.01–<span id="hd-date">2026.05</span><br>10间包间 · 17张床 · 11技师+5店员</div>
+  <div class="meta">30个月数据 · 2024.01–<span id="hd-date">2026.05</span><br>10间包间 · 17张床 · 11技师+5店员</div>
 </div>
 
 <!-- Compact store info -->
@@ -179,7 +179,7 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   <div style="font-size:11px;color:var(--text-dim);">10间包间 · 17张床 · 5单人4双人1四人</div>
   <div style="font-size:11px;color:var(--text-dim);">11技师 · 5店员 · 2023.12开业</div>
   <div style="font-size:11px;color:var(--accent);">美团5.0★ · 6,558评价 · 人均¥81</div>
-  <div style="font-size:11px;color:var(--text-dim);">29月累计营收<span class="cyan">¥369万</span> · 净利<span class="red">¥2.3万</span></div>
+  <div style="font-size:11px;color:var(--text-dim);">30月累计营收<span class="cyan">¥369万</span> · 净利<span class="red">¥2.3万</span></div>
 </div>
 
 <!-- Trend chart at top — full width -->
@@ -343,20 +343,20 @@ document.addEventListener('click',function(e){const t=e.target.closest('[data-ti
 
 function renderKPIs(){
   const mk=[
-    {l:'月营收',s:'5月',v:(D.revenue/10000).toFixed(1),u:'万',c:'▲ '+D.yoyGrowth+'% YoY',cl:'up',d:'ok',t:'当月技师的劳动业绩合计，即服务项目原价总和'},
-    {l:'净利润',s:'5月',v:(D.profit/10000).toFixed(2),u:'万',c:'▲ 净利率 '+D.margin+'%',cl:'up',d:'ok',t:'营收扣除所有成本后的最终利润'},
-    {l:'付薪比',s:'5月',v:D.payRatio.toFixed(1),u:'%',c:'目标 ≤55%',cl:'down',d:'warn',t:'人力成本÷营收。行业健康线50-55%'},
-    {l:'折扣差额',s:'5月',v:(D.discountGap/10000).toFixed(2),u:'万',c:'门店100%承担',cl:'down',d:'warn',vc:'var(--red)',t:'技师按原价拿提成，但门店实收是折后价。差额¥32,295/月全由门店利润承担'},
+    {l:'月营收',s:'6月',v:(D.revenue/10000).toFixed(1),u:'万',c:'▲ '+D.yoyGrowth+'% YoY',cl:'up',d:'ok',t:'当月技师的劳动业绩合计，即服务项目原价总和'},
+    {l:'净利润',s:'6月',v:(D.profit/10000).toFixed(2),u:'万',c:'▲ 净利率 '+D.margin+'%',cl:'up',d:'ok',t:'营收扣除所有成本后的最终利润'},
+    {l:'付薪比',s:'6月',v:D.payRatio.toFixed(1),u:'%',c:'目标 ≤55%',cl:'down',d:'warn',t:'人力成本÷营收。行业健康线50-55%'},
+    {l:'折扣差额',s:'6月',v:(D.discountGap/10000).toFixed(2),u:'万',c:'门店100%承担',cl:'down',d:'warn',vc:'var(--red)',t:'技师按原价拿提成，但门店实收是折后价。差额¥32,295/月全由门店利润承担'},
     {l:'跨月留存',s:'1-5月均',v:D.retention.toFixed(1),u:'%',c:'月换血 3/4',cl:'down',d:'warn',vc:'var(--amber)',t:'本月有手机号的客户中，下个月再次到店的比例。1-5月均值23.7%'},
-    {l:'边际利润',s:'5月',v:D.marginalProfit,u:'/单',c:'保本点 '+(D.breakeven/10000).toFixed(1)+'万',cl:'',d:'ok',t:'超出保本点后每多做1单门店到手利润。44元/单意味着做量不赚钱'},
+    {l:'边际利润',s:'6月',v:D.marginalProfit,u:'/单',c:'保本点 '+(D.breakeven/10000).toFixed(1)+'万',cl:'',d:'ok',t:'超出保本点后每多做1单门店到手利润。44元/单意味着做量不赚钱'},
   ];
   const yk=[
-    {l:'累计营收',s:'1-5月',v:(D.ytdRevenue/10000).toFixed(1),u:'万',c:D.ytdOrders+'单',cl:'',d:'ok',t:'2026年1-5月合计服务营收'},
-    {l:'累计净利润',s:'1-5月',v:(D.ytdProfit/10000).toFixed(2),u:'万',c:'净利率 '+D.ytdMargin+'%',cl:'down',d:'warn',vc:'var(--amber)',t:'1-5月净利润合计。3.6%的低净利率因3月刷单事件亏损拖累'},
-    {l:'累计付薪比',s:'1-5月',v:D.ytdPayRatio.toFixed(1),u:'%',c:'含3月刷单事件',cl:'down',d:'warn',t:'1-5月人力成本÷累计营收。65.1%偏高是因3月薪酬漏洞刷单导致工资异常'},
-    {l:'累计折扣',s:'1-5月',v:(D.ytdDiscountGap/10000).toFixed(2),u:'万',c:'门店承担100%',cl:'down',d:'warn',vc:'var(--red)',t:'1-5月原价与实收的累计差额，年化约¥38.7万'},
-    {l:'月均营收',s:'1-5月',v:(D.ytdRevenue/5/10000).toFixed(1),u:'万',c:'比2025月均+8.4%',cl:'up',d:'ok',t:'2026年月均¥15.5万 vs 2025年月均¥14.3万'},
-    {l:'月均订单',s:'1-5月',v:Math.round(D.ytdOrders/5),u:'单',c:D.rooms+'间房'+D.beds+'床',cl:'',d:'ok',t:'月均服务订单数。9间房17张床理论容量75单/天，利用率约35%'},
+    {l:'累计营收',s:'1-6月',v:(D.ytdRevenue/10000).toFixed(1),u:'万',c:D.ytdOrders+'单',cl:'',d:'ok',t:'2026年1-6月合计服务营收'},
+    {l:'累计净利润',s:'1-6月',v:(D.ytdProfit/10000).toFixed(2),u:'万',c:'净利率 '+D.ytdMargin+'%',cl:'down',d:'warn',vc:'var(--amber)',t:'1-6月净利润合计。6月成本上升拖累净利'},
+    {l:'累计付薪比',s:'1-6月',v:D.ytdPayRatio.toFixed(1),u:'%',c:'含3月刷单事件',cl:'down',d:'warn',t:'1-6月人力成本÷累计营收'},
+    {l:'累计折扣',s:'1-6月',v:(D.ytdDiscountGap/10000).toFixed(2),u:'万',c:'门店承担100%',cl:'down',d:'warn',vc:'var(--red)',t:'1-6月原价与实收的累计差额'},
+    {l:'月均营收',s:'1-6月',v:(D.ytdRevenue/6/10000).toFixed(1),u:'万',c:'比2025月均+8.4%',cl:'up',d:'ok',t:'2026年月均¥15.9万 vs 2025年月均¥14.3万'},
+    {l:'月均订单',s:'1-6月',v:Math.round(D.ytdOrders/6),u:'单',c:D.rooms+'间房'+D.beds+'床',cl:'',d:'ok',t:'月均服务订单数'},
   ];
   const card=(k,cls)=>`<div class="kpi${cls?' '+cls:''}"><div class="kpi-dot ${k.d}"></div><div class="kpi-label"><span data-tip="${k.t}">${k.l}</span> <span class="dim" style="font-size:9px;font-weight:400;">${k.s}</span></div><div class="kpi-value"${k.vc?` style="color:${k.vc}"`:''}>${k.v}<span class="unit">${k.u}</span></div><div class="kpi-change ${k.cl}">${k.c}</div></div>`;
   document.getElementById('kpi-row').innerHTML=mk.map(k=>card(k,'kpi-m')).join('')+yk.map(k=>card(k,'kpi-y')).join('');
