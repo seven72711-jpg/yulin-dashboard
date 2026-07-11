@@ -1,0 +1,13 @@
+{
+  "cross_month_5to6": {
+    "pair": "5月→6月",
+    "phones": 641,
+    "retention": 158,
+    "rate": 24.6
+  },
+  "june_private": {
+    "count": 50,
+    "total": 908,
+    "pct": 5.5
+  }
+}
