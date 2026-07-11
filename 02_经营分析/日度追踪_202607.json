@@ -1,0 +1,25 @@
+{
+  "period": "2026-07",
+  "target_revenue": 180000,
+  "target_recharge": 70000,
+  "daily": [
+    {"date": "07-01", "revenue": 10346, "recharge": 4000, "customers": 60, "asp": 172, "designated": 17, "nondesignated": 43, "appt_rate": 28},
+    {"date": "07-02", "revenue": 5069, "recharge": 1000, "customers": 36, "asp": 141, "designated": 10, "nondesignated": 26, "appt_rate": 28},
+    {"date": "07-03", "revenue": 5913, "recharge": 3000, "customers": 42, "asp": 141, "designated": 18, "nondesignated": 24, "appt_rate": 43},
+    {"date": "07-04", "revenue": 7434, "recharge": 1000, "customers": 51, "asp": 146, "designated": 20, "nondesignated": 31, "appt_rate": 39},
+    {"date": "07-05", "revenue": 7115, "recharge": 1000, "customers": 43, "asp": 165, "designated": 13, "nondesignated": 30, "appt_rate": 30},
+    {"date": "07-06", "revenue": 3872, "recharge": 0, "customers": 28, "asp": 138, "designated": 8, "nondesignated": 20, "appt_rate": 29},
+    {"date": "07-07", "revenue": 4528, "recharge": 0, "customers": 31, "asp": 146, "designated": 8, "nondesignated": 23, "appt_rate": 26},
+    {"date": "07-08", "revenue": 6002, "recharge": 3000, "customers": 39, "asp": 154, "designated": 13, "nondesignated": 26, "appt_rate": 33},
+    {"date": "07-09", "revenue": 5903, "recharge": 2000, "customers": 42, "asp": 141, "designated": 16, "nondesignated": 26, "appt_rate": 38},
+    {"date": "07-10", "revenue": 7338, "recharge": 3000, "customers": 49, "asp": 150, "designated": 17, "nondesignated": 32, "appt_rate": 35}
+  ],
+  "totals": {
+    "revenue": 62025,
+    "recharge": 18000,
+    "customers": 423,
+    "avg_daily_revenue": 6203,
+    "revenue_completion": 34.5,
+    "recharge_completion": 25.7
+  }
+}

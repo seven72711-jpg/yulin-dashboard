@@ -28,14 +28,18 @@
     {"date": "06-23", "revenue": 6828, "recharge": 3000, "customers": 44, "asp": 155, "designated": 17, "nondesignated": 27, "appt_rate": 39},
     {"date": "06-24", "revenue": 6102, "recharge": 0, "customers": 40, "asp": 153, "designated": 13, "nondesignated": 27, "appt_rate": 33},
     {"date": "06-25", "revenue": 4558, "recharge": 1000, "customers": 29, "asp": 157, "designated": 14, "nondesignated": 15, "appt_rate": 48},
-    {"date": "06-26", "revenue": 5139, "recharge": 3000, "customers": 36, "asp": 143, "designated": 14, "nondesignated": 22, "appt_rate": 39}
+    {"date": "06-26", "revenue": 5139, "recharge": 3000, "customers": 36, "asp": 143, "designated": 14, "nondesignated": 22, "appt_rate": 39},
+    {"date": "06-27", "revenue": 7712, "recharge": 1000, "customers": 56, "asp": 138, "designated": 19, "nondesignated": 37, "appt_rate": 34},
+    {"date": "06-28", "revenue": 7373, "recharge": 0, "customers": 47, "asp": 157, "designated": 20, "nondesignated": 27, "appt_rate": 43},
+    {"date": "06-29", "revenue": 5620, "recharge": 0, "customers": 35, "asp": 161, "designated": 10, "nondesignated": 25, "appt_rate": 29},
+    {"date": "06-30", "revenue": 5377, "recharge": 0, "customers": 36, "asp": 149, "designated": 18, "nondesignated": 18, "appt_rate": 50}
   ],
   "totals": {
-    "revenue": 154100,
-    "recharge": 42000,
-    "customers": 994,
-    "avg_daily_revenue": 5927,
-    "revenue_completion": 85.6,
-    "recharge_completion": 60.0
+    "revenue": 180161,
+    "recharge": 43000,
+    "customers": 1168,
+    "avg_daily_revenue": 6005,
+    "revenue_completion": 100.1,
+    "recharge_completion": 61.4
   }
 }
