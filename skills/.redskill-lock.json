@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "gc-still-image-motion-director": {
+      "name": "gc-still-image-motion-director",
+      "version": "1.0.0",
+      "source": "redskill",
+      "install_dir": "/Users/Seven/Desktop/十三绝玉林店-经营分析/skills/gc-still-image-motion-director",
+      "installed_at": "1786152775614",
+      "sha256": "480b1148bca6057bb7b15f0ea1488473dec601b2c7cbc00eddeb2f92608b1c02"
+    }
+  }
+}
