@@ -64,7 +64,6 @@ def extract_water_bill(report_path):
     
     # Compute metrics
     import calendar
-    year, month = int(report_path.split('年')[1][:4]) if '年' in report_path else 2026, int(report_path.split('月')[0][-2:]) if '月' in report_path else 6
     from datetime import date
     # Parse year/month from filename or use defaults
     try:
@@ -96,7 +95,7 @@ def extract_water_bill(report_path):
         'day_orders': [dow[d] for d in range(7)],
         'price_bands': {b: {'orders': bands[b], 'pct': round(bands[b]/total_orders*100,1)} for b in ['<¥80','¥80-120','¥120-160','¥160-200','¥200-260','¥260+']},
         'channels': {ch: {'orders': channels[ch], 'pct': round(channels[ch]/total_orders*100,1), 'avg_gap': round(channel_gap[ch]/channels[ch])} for ch in ['美团','抖音','直付']},
-        'technicians': [{'name': t, 'orders': tech_orders[t], 'daily': round(tech_orders[t]/30,1), 'revenue': round(tech_rev[t])} for t in sorted(tech_orders, key=lambda x: tech_orders[x], reverse=True)],
+        'technicians': [{'name': t, 'orders': tech_orders[t], 'daily': round(tech_orders[t]/days_in_month,1), 'revenue': round(tech_rev[t])} for t in sorted(tech_orders, key=lambda x: tech_orders[x], reverse=True)],
     }
     
     return result

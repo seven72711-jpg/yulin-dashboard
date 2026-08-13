@@ -44,6 +44,9 @@ def update_all(report_path):
     existing_periods = {m['period'] for m in monthly_db}
     
     for m in data['monthly']:
+        # 只处理当前月（new_month），不覆盖已验证的历史月份
+        if m['period'] != new_month:
+            continue
         if m['period'] in existing_periods:
             # Update existing
             for i, existing in enumerate(monthly_db):
@@ -149,6 +152,18 @@ def update_all(report_path):
             settle_tracker.append(settle_entry)
         settle_tracker.sort(key=lambda x: x['period'])
         save_md_data("总部结算追踪.json", settle_tracker)
+    
+    # 6. 工资表
+    if data.get('wage_table'):
+        save_md_data("工资表.json", data['wage_table'])
+    
+    # 7. 费用明细
+    if data.get('expense_detail'):
+        save_md_data("费用明细.json", data['expense_detail'])
+    
+    # 8. 银行日记账
+    if data.get('bank_journal'):
+        save_md_data("银行日记账.json", data['bank_journal'])
     
     print()
     print(f"✅ 完成。{len(monthly_db)}个月数据已同步。")
