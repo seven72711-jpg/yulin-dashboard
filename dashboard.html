@@ -184,7 +184,7 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <!-- Trend chart at top — full width -->
 <div class="card" style="grid-column:span 12;margin-bottom:40px;">
-  <div class="card-header"><div class="card-title">月度营收趋势 · 30 个月</div><div class="card-subtitle">2024.01 – 2026.06 · 从月亏4.6万到月利1.7万</div></div>
+  <div class="card-header"><div class="card-title">月度营收趋势 · 31 个月</div><div class="card-subtitle">2024.01 – 2026.07 · 从月亏4.6万到月利2.2万</div></div>
   <svg viewBox="0 0 620 160" style="width:100%;height:auto;" id="trendChart">
     <line x1="0" y1="48" x2="620" y2="48" stroke="#2a2d38" stroke-width="0.5"/>
     <line x1="0" y1="75" x2="620" y2="75" stroke="#2a2d38" stroke-width="0.5"/>
@@ -221,7 +221,7 @@ const D = {
   rooms: 10, beds: 17, utilization: 38, peakOrders: 72,
   roomNames:['一绝','二绝','三绝','四绝','五绝','六绝','七绝','八绝','九绝','十绝'],
   roomBeds:[2,1,1,1,2,2,1,2,1,4],
-  brandRiskIndex: 75, techCount: 12,
+  brandRiskIndex: 69, techCount: 12,
   rating: 5.0, reviews: 6558, avgPrice: 81,
   waterfall: [
     {label:'技师提成',pct:60.1,cls:'red',opac:0.7},{label:'租金',pct:7.7,cls:'amber',opac:1},
@@ -235,15 +235,15 @@ const D = {
     {label:'5→6',rate:24.6,cls:'green'},{label:'6→7',rate:26.8,cls:'green'},
   ],
   channelRetention:[
-    {label:'美团',rate:13.8,cls:'red'},{label:'抖音',rate:16.4,cls:'red'},{label:'直付',rate:41.4,cls:'green'},
+    {label:'美团',rate:17.7,cls:'red'},{label:'抖音',rate:23.0,cls:'amber'},{label:'直付',rate:27.1,cls:'green'},
   ],
   technicians:[
-    {name:'林燕',grade:'特级',gc:'badge-t1',dr:73,dc:'green',pv:47,ca:33220,cs:125,pf:90918,n:'全链路标杆'},
-    {name:'唐婉清',grade:'特级',gc:'badge-t1',dr:58,dc:'',pv:12,ca:22065,cs:162,pf:71796,n:'走量型'},
-    {name:'禤妮',grade:'高级',gc:'badge-t2',dr:53,dc:'',pv:8,ca:14953,cs:134,pf:67883,n:'均衡型'},
-    {name:'梁雪华',grade:'高级',gc:'badge-t2',dr:64,dc:'green',pv:11,ca:8023,cs:76,pf:50343,n:'指定率高'},
-    {name:'姚梨',grade:'中级',gc:'badge-t3',dr:63,dc:'green',pv:8,ca:11704,cs:83,pf:39787,n:'降级⚠'},
-    {name:'丘洁荣',grade:'初级',gc:'badge-t3',dr:38,dc:'',pv:0,ca:11152,cs:125,pf:51104,n:'降级⚠'},
+    {name:'林燕',grade:'特级',gc:'badge-t1',dr:76,dc:'green',pv:29,ca:19167,cs:85,pf:32475,n:'全链路标杆'},
+    {name:'唐婉清',grade:'高级',gc:'badge-t2',dr:39,dc:'',pv:1,ca:5000,cs:86,pf:24829,n:'降级·走量型'},
+    {name:'禤妮',grade:'高级',gc:'badge-t2',dr:40,dc:'',pv:0,ca:4000,cs:73,pf:20250,n:'均衡型'},
+    {name:'梁雪华',grade:'高级',gc:'badge-t2',dr:33,dc:'green',pv:0,ca:0,cs:23,pf:5833,n:'请假·高指定'},
+    {name:'姚梨',grade:'中级',gc:'badge-t3',dr:47,dc:'green',pv:0,ca:3000,cs:63,pf:18966,n:'降级'},
+    {name:'丘洁荣',grade:'初级',gc:'badge-t3',dr:15,dc:'',pv:0,ca:3000,cs:64,pf:17805,n:'点客率垫底⚠'},
   ],
   competitors:[
     {n:'十三绝',r:5.0,rc:'green',p:81,d:'—',df:'效果型推拿·正骨',hl:true},
@@ -256,20 +256,20 @@ const D = {
     {d:'实收',s:'¥200',c:'¥181',df:'+¥19',dc:'green'},
     {d:'技师提成',s:'¥114',c:'¥86.6',df:'+¥27.4',dc:'red'},
     {d:'门店留利',s:'¥86',c:'¥94.4',df:'-¥8.4',dc:'red',sc:'red',cc:'green'},
-    {d:'跨月留存',s:'41.4%',c:'13.8%',df:'3×',dc:'green',sc:'green',cc:'red'},
+    {d:'跨月留存',s:'27.1%',c:'17.7%',df:'1.5×',dc:'green',sc:'green',cc:'red'},
     {d:'12月LTV',s:'¥618',c:'¥239',df:'2.6×',dc:'green',sc:'green',cc:'red'},
   ],
   brandRisk:[
-    {n:'唐婉清',cs:162,rt:80,rk:38722,ds:'-8pp'},
-    {n:'禤妮',cs:134,rt:77,rk:32593,ds:'-1pp'},
-    {n:'林燕',cs:125,rt:83,rk:50521,ds:'-2pp'},
-    {n:'丘洁荣',cs:125,rt:80,rk:24483,ds:'+1pp'},
-    {n:'陈宇华',cs:144,rt:75,rk:25714,ds:'-9pp'},
+    {n:'唐婉清',cs:221,rt:73,rk:18100,ds:'-2pp'},
+    {n:'禤妮',cs:188,rt:71,rk:14438,ds:'-1pp'},
+    {n:'林燕',cs:181,rt:65,rk:21174,ds:'-3pp'},
+    {n:'丘洁荣',cs:173,rt:69,rk:12250,ds:'+1pp'},
+    {n:'陈宇华',cs:199,rt:70,rk:13793,ds:'-2pp'},
   ],
   ltv:[
-    {ch:'直付',cs:186,rt:41.4,rc:'green',m4:250,m5:531,lv:781,lc:'green'},
-    {ch:'抖音',cs:165,rt:16.4,rc:'red',m4:218,m5:433,lv:651,lc:''},
-    {ch:'美团',cs:260,rt:13.8,rc:'red',m4:220,m5:401,lv:621,lc:'red'},
+    {ch:'直付',cs:96,rt:27.1,rc:'green',m4:213,m5:329,lv:543,lc:'green'},
+    {ch:'抖音',cs:256,rt:23.0,rc:'amber',m4:216,m5:384,lv:599,lc:''},
+    {ch:'美团',cs:271,rt:17.7,rc:'red',m4:260,m5:400,lv:660,lc:'red'},
   ],
   lifecycle:[
     {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥76K',nc:'red'},
@@ -458,7 +458,7 @@ function renderCards(){
     <div class="insight insight-green" style="margin-top:12px;">回头客溢价连续4月 +60%。三月连续留存仅10-13%。留一个老客 = 1.6个新客。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">渠道留存差异 · H1 已证实</div><div class="card-subtitle">平台客留存只有直付的 1/3</div></div>
+    <div class="card-header"><div class="card-title">渠道留存差异 · 6→7月</div><div class="card-subtitle">平台客留存接近直付的 2/3</div></div>
     <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:var(--${c.cls});opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
     <div class="insight insight-amber" style="margin-top:12px;">每多一个直付新客，长期价值是平台客的 3 倍。</div>
   </div>
@@ -618,12 +618,12 @@ function renderCards(){
 <div class="section-title">品牌 & 风险</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（3-6月）</div><div class="card-subtitle">全店风险指数${D.brandRiskIndex}% · 87.5%客户只消费1个技师</div></div>
+    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（5-7月）</div><div class="card-subtitle">全店风险指数${D.brandRiskIndex}% · 30.8%客户只消费1个技师</div></div>
     <table class="data-table"><thead><tr><th>技师</th><th>客户</th><th>独占率</th><th>单月偏</th><th>收入风险</th></tr></thead><tbody>${D.brandRisk.map(b=>`<tr><td>${b.n}</td><td>${b.cs}</td><td class="red">${b.rt}%</td><td>${b.ds}</td><td class="red">¥${f(b.rk)}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-red" style="margin-top:12px;">🔴 客户忠于技师个人，不是忠于十三绝。品牌资产缺失。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">客户LTV · 4月队列</div><div class="card-subtitle">直付客2月LTV ¥781 vs 美团 ¥621</div></div>
+    <div class="card-header"><div class="card-title">客户LTV · 6月队列</div><div class="card-subtitle">直付客2月LTV ¥543 vs 美团 ¥660</div></div>
     <table class="data-table"><thead><tr><th>渠道</th><th>4月客户</th><th>留存率</th><th>人均4月</th><th>人均5月</th><th>2月LTV</th></tr></thead><tbody>${D.ltv.map(l=>`<tr><td>${l.ch}</td><td>${l.cs}</td><td class="${l.rc}">${l.rt}%</td><td>¥${l.m4}</td><td>¥${l.m5}</td><td class="${l.lc}">¥${l.lv}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-amber" style="margin-top:12px;">LTV差距会随月数拉大。直付客12月LTV预计¥3,000+ vs 美团客<¥1,000——3倍差。</div>
   </div>
