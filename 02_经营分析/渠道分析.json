@@ -2929,5 +2929,26 @@
       "discount": 20.2,
       "share": 24.8
     }
+  },
+  {
+    "period": "2026-07",
+    "美团": {
+      "orders": 265,
+      "revenue": 51505.57,
+      "discount": 20.4,
+      "share": 20.9
+    },
+    "抖音": {
+      "orders": 318,
+      "revenue": 61871.6,
+      "discount": 19.3,
+      "share": 25.1
+    },
+    "直付/现金": {
+      "orders": 399,
+      "revenue": 133363.78,
+      "discount": 11.6,
+      "share": 54.1
+    }
   }
 ]

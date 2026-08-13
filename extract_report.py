@@ -10,7 +10,7 @@ import openpyxl
 import json
 import sys
 import os
-from datetime import datetime
+import datetime as dt_lib
 from collections import defaultdict
 
 
@@ -26,7 +26,7 @@ def extract_all(filepath):
     wb = openpyxl.load_workbook(filepath, data_only=True)
     result = {
         "source": os.path.basename(filepath),
-        "extracted_at": datetime.now().isoformat(),
+        "extracted_at": dt_lib.datetime.now().isoformat(),
     }
 
     # ========== 1. 店面经营报表 ==========
@@ -309,6 +309,200 @@ def extract_all(filepath):
             result["dashboard"]["stored_value_in"] = sv["inflow_total"]
             result["dashboard"]["stored_value_out"] = sv["outflow_消费"]
             result["dashboard"]["stored_value_net"] = sv["net_change"]
+
+    # ========== 7. 工资表提取 ==========
+    wage_sheet_names = [s for s in wb.sheetnames if '工资表' in s]
+    if wage_sheet_names:
+        ws_wage = wb[wage_sheet_names[0]]
+        wage_records = []
+        
+        # Row 1: title, Row 2-3: merged headers, Row 4+: data
+        for row in ws_wage.iter_rows(min_row=4, max_row=ws_wage.max_row, max_col=ws_wage.max_column, values_only=True):
+            name = str(row[1] or '').strip() if len(row) > 1 else ''
+            if not name:
+                continue
+            
+            record = {
+                "序号": safe_float(row[0]),
+                "姓名": name,
+                "入职日期": str(row[2] or '')[:10] if row[2] else '',
+                "店铺": str(row[3] or '').strip() if len(row) > 3 else '',
+                "岗位": str(row[4] or '').strip() if len(row) > 4 else '',
+                "应出勤": safe_float(row[5]) if len(row) > 5 else 0,
+                "实际出勤": safe_float(row[6]) if len(row) > 6 else 0,
+                "应发底薪": round(safe_float(row[7]), 2) if len(row) > 7 else 0,
+                "实发底薪": round(safe_float(row[8]), 2) if len(row) > 8 else 0,
+                "劳动业绩": round(safe_float(row[9]), 2) if len(row) > 9 else 0,
+                "指定业绩": round(safe_float(row[10]), 2) if len(row) > 10 else 0,
+                "指定提成点": safe_float(row[11]) if len(row) > 11 else 0,
+                "指定提成": round(safe_float(row[12]), 2) if len(row) > 12 else 0,
+                "非指定业绩": round(safe_float(row[13]), 2) if len(row) > 13 else 0,
+                "非指定提成点": safe_float(row[14]) if len(row) > 14 else 0,
+                "非指定提成": round(safe_float(row[15]), 2) if len(row) > 15 else 0,
+                "开卡金额": round(safe_float(row[16]), 2) if len(row) > 16 else 0,
+                "开卡提成点": safe_float(row[17]) if len(row) > 17 else 0,
+                "开卡提成": round(safe_float(row[18]), 2) if len(row) > 18 else 0,
+                "基础提成": round(safe_float(row[19]), 2) if len(row) > 19 else 0,
+                "工资小计": round(safe_float(row[20]), 2) if len(row) > 20 else 0,
+                "奖金": round(safe_float(row[21]), 2) if len(row) > 21 else 0,
+                "证书补贴": round(safe_float(row[22]), 2) if len(row) > 22 else 0,
+                "工龄补贴": round(safe_float(row[23]), 2) if len(row) > 23 else 0,
+                "岗位补贴": round(safe_float(row[24]), 2) if len(row) > 24 else 0,
+                "餐补": round(safe_float(row[25]), 2) if len(row) > 25 else 0,
+                "全勤": round(safe_float(row[26]), 2) if len(row) > 26 else 0,
+                "门店充值奖励": round(safe_float(row[27]), 2) if len(row) > 27 else 0,
+                "达标奖励": round(safe_float(row[28]), 2) if len(row) > 28 else 0,
+                "好评奖励": round(safe_float(row[29]), 2) if len(row) > 29 else 0,
+                "扣点客未达标": round(safe_float(row[30]), 2) if len(row) > 30 else 0,
+                "扣业绩未达标": round(safe_float(row[31]), 2) if len(row) > 31 else 0,
+                "扣充值未达标": round(safe_float(row[32]), 2) if len(row) > 32 else 0,
+                "扣好评未达标": round(safe_float(row[33]), 2) if len(row) > 33 else 0,
+                "扣差评客诉": round(safe_float(row[34]), 2) if len(row) > 34 else 0,
+                "扣请假迟到": round(safe_float(row[35]), 2) if len(row) > 35 else 0,
+                "其他扣款": round(safe_float(row[36]), 2) if len(row) > 36 else 0,
+                "扣绩效": round(safe_float(row[37]), 2) if len(row) > 37 else 0,
+                "应发合计": round(safe_float(row[38]), 2) if len(row) > 38 else 0,
+                "扣餐费": round(safe_float(row[39]), 2) if len(row) > 39 else 0,
+                "扣水电物业": round(safe_float(row[40]), 2) if len(row) > 40 else 0,
+                "扣房费": round(safe_float(row[41]), 2) if len(row) > 41 else 0,
+                "扣社保": round(safe_float(row[42]), 2) if len(row) > 42 else 0,
+                "扣个税": round(safe_float(row[43]), 2) if len(row) > 43 else 0,
+                "扣工服": round(safe_float(row[44]), 2) if len(row) > 44 else 0,
+                "减预支": round(safe_float(row[45]), 2) if len(row) > 45 else 0,
+                "预留款": round(safe_float(row[46]), 2) if len(row) > 46 else 0,
+                "实发工资": round(safe_float(row[47]), 2) if len(row) > 47 else 0,
+                "备注": str(row[48] or '').strip() if len(row) > 48 else '',
+            }
+            wage_records.append(record)
+        
+        # Categorize
+        non_tech = [r for r in wage_records if r['岗位'] in ('店长', '前台', '保洁', '财务')]
+        techs = [r for r in wage_records if '技师' in r['岗位']]
+        
+        result["wage_table"] = {
+            "period": latest["period"] if monthly else "",
+            "records": wage_records,
+            "summary": {
+                "非技师": {
+                    "人次": len(non_tech),
+                    "底薪合计": round(sum(r['应发底薪'] for r in non_tech), 2),
+                    "实发合计": round(sum(r['实发工资'] for r in non_tech), 2),
+                    "明细": [{"姓名": r['姓名'], "岗位": r['岗位'], "底薪": r['应发底薪'], "实发": r['实发工资']} for r in non_tech],
+                },
+                "技师": {
+                    "人次": len(techs),
+                    "提成合计": round(sum(r['工资小计'] for r in techs), 2),
+                    "实发合计": round(sum(r['实发工资'] for r in techs), 2),
+                    "指定业绩总计": round(sum(r['指定业绩'] for r in techs), 2),
+                    "非指定业绩总计": round(sum(r['非指定业绩'] for r in techs), 2),
+                    "劳动业绩总计": round(sum(r['劳动业绩'] for r in techs), 2),
+                },
+                "全部实发总计": round(sum(r['实发工资'] for r in wage_records), 2),
+            }
+        }
+
+    # ========== 8. 费用明细表提取 ==========
+    if '费用明细表' in [s for s in wb.sheetnames]:
+        ws_fee = wb['费用明细表']
+        fee_records = []
+        fee_by_category = defaultdict(lambda: {"count": 0, "amount": 0})
+        
+        for row in ws_fee.iter_rows(min_row=3, max_row=ws_fee.max_row, max_col=7, values_only=True):
+            date_val = str(row[1] or '') if len(row) > 1 else ''
+            desc = str(row[2] or '').strip() if len(row) > 2 else ''
+            category = str(row[3] or '').strip() if len(row) > 3 else ''
+            amount = safe_float(row[4]) if len(row) > 4 else 0
+            
+            if not desc or amount == 0:
+                continue
+            
+            # Parse date (could be Excel serial number or YYYY-MM-DD)
+            date_str = ''
+            try:
+                if date_val and date_val != 'None':
+                    if isinstance(row[1], (int, float)):
+                        from datetime import datetime as dt_parser, timedelta
+                        date_str = (dt_parser(1899, 12, 30) + timedelta(days=int(date_val))).strftime('%Y-%m-%d')
+                    else:
+                        date_str = date_val[:10]
+            except:
+                date_str = str(date_val)[:10]
+            
+            rec = {
+                "日期": date_str,
+                "摘要": desc,
+                "类别": category,
+                "金额": round(amount, 2),
+                "备注": str(row[5] or '').strip() if len(row) > 5 else '',
+            }
+            fee_records.append(rec)
+            fee_by_category[category]["count"] += 1
+            fee_by_category[category]["amount"] += amount
+        
+        result["expense_detail"] = {
+            "records": fee_records,
+            "total": round(sum(r['金额'] for r in fee_records), 2),
+            "by_category": {k: {"count": v["count"], "amount": round(v["amount"], 2)} for k, v in sorted(fee_by_category.items())},
+        }
+
+    # ========== 9. 银行存款日记账提取 ==========
+    if '银行存款日记账' in [s for s in wb.sheetnames]:
+        ws_bank_journal = wb['银行存款日记账']
+        journal_records = []
+        
+        for row in ws_bank_journal.iter_rows(min_row=4, max_row=min(ws_bank_journal.max_row, 500), max_col=12, values_only=True):
+            if not row[1]:
+                continue
+            date_val = str(row[1] or '') if len(row) > 1 else ''
+            desc = str(row[2] or '').strip() if len(row) > 2 else ''
+            category = str(row[3] or '').strip() if len(row) > 3 else ''
+            expense_invoice = safe_float(row[4]) if len(row) > 4 else 0
+            expense_no_invoice = safe_float(row[5]) if len(row) > 5 else 0
+            balance = safe_float(row[7]) if len(row) > 7 else 0
+            
+            if not desc:
+                continue
+            
+            date_str = ''
+            try:
+                if date_val and date_val != 'None':
+                    if isinstance(row[1], (int, float)):
+                        from datetime import datetime, timedelta
+                        date_str = (datetime(1899, 12, 30) + timedelta(days=int(date_val))).strftime('%Y-%m-%d')
+                    else:
+                        date_str = date_val[:10]
+            except:
+                date_str = str(date_val)[:10]
+            
+            rec = {
+                "日期": date_str,
+                "摘要": desc,
+                "类别": category,
+                "支出_有发票": round(expense_invoice, 2),
+                "支出_无发票": round(expense_no_invoice, 2),
+                "支出合计": round(expense_invoice + expense_no_invoice, 2),
+                "余额": round(balance, 2),
+            }
+            journal_records.append(rec)
+        
+        month_records = [r for r in journal_records if r['日期'] and (latest['period'][:7] if monthly else '') in r['日期']]
+        
+        result["bank_journal"] = {
+            "all_records": journal_records,
+            "current_month": month_records,
+            "monthly_expense": round(sum(r['支出合计'] for r in month_records), 2) if month_records else 0,
+            "ending_balance": round(month_records[-1]['余额'], 2) if month_records else 0,
+        }
+
+    # ========== 10. 更新核心指标看板（补全工资/费用数据） ==========
+    if "wage_table" in result:
+        result["dashboard"]["wage_non_tech_total"] = result["wage_table"]["summary"]["非技师"]["实发合计"]
+        result["dashboard"]["wage_tech_total"] = result["wage_table"]["summary"]["技师"]["实发合计"]
+        result["dashboard"]["wage_all_total"] = result["wage_table"]["summary"]["全部实发总计"]
+    if "expense_detail" in result:
+        result["dashboard"]["expense_detail_total"] = result["expense_detail"]["total"]
+    if "bank_journal" in result:
+        result["dashboard"]["bank_ending_balance"] = result["bank_journal"]["ending_balance"]
     
     return result
 
