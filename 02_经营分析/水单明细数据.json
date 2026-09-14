@@ -1,14 +1,13 @@
 {
-  "total_orders": 937,
-  "total_received": 191740.95,
-  "total_discount": 45573.05,
-  "daily_avg": 30.2,
-  "per_bed": 1.78,
-  "wkday_avg": 28,
-  "wkend_avg": 36,
+  "total_orders": 929,
+  "total_received": 188511.38,
+  "total_discount": 46499.12,
+  "daily_avg": 30.0,
+  "per_bed": 1.76,
+  "wkday_avg": 27,
+  "wkend_avg": 35,
   "hourly_pct": [
-    1.9,
-    0.1,
+    1.6,
     0.0,
     0.0,
     0.0,
@@ -18,156 +17,157 @@
     0.0,
     0.0,
     0.0,
-    0.4,
-    2.2,
-    4.4,
-    5.7,
-    8.1,
-    10.2,
-    11.5,
-    8.4,
-    6.6,
-    9.7,
+    0.0,
+    0.5,
+    2.6,
+    4.5,
+    5.8,
+    9.6,
+    11.2,
+    11.9,
     9.5,
-    11.1,
-    10.0
+    5.1,
+    8.1,
+    10.1,
+    9.8,
+    9.7
   ],
   "day_orders": [
-    109,
-    92,
-    146,
-    147,
-    153,
-    143,
-    147
+    127,
+    112,
+    101,
+    114,
+    121,
+    176,
+    178
   ],
   "price_bands": {
     "<¥80": {
-      "orders": 40,
-      "pct": 4.3
+      "orders": 47,
+      "pct": 5.1
     },
     "¥80-120": {
-      "orders": 152,
-      "pct": 16.2
+      "orders": 154,
+      "pct": 16.6
     },
     "¥120-160": {
       "orders": 190,
-      "pct": 20.3
+      "pct": 20.5
     },
     "¥160-200": {
-      "orders": 189,
-      "pct": 20.2
+      "orders": 160,
+      "pct": 17.2
     },
     "¥200-260": {
-      "orders": 155,
-      "pct": 16.5
+      "orders": 166,
+      "pct": 17.9
     },
     "¥260+": {
-      "orders": 211,
-      "pct": 22.5
+      "orders": 212,
+      "pct": 22.8
     }
   },
   "channels": {
     "美团": {
-      "orders": 276,
-      "pct": 29.5,
-      "avg_gap": 50
+      "orders": 408,
+      "pct": 43.9,
+      "avg_gap": 57
     },
     "抖音": {
-      "orders": 315,
-      "pct": 33.6,
-      "avg_gap": 47
+      "orders": 173,
+      "pct": 18.6,
+      "avg_gap": 33
     },
     "直付": {
-      "orders": 94,
-      "pct": 10.0,
-      "avg_gap": 23
+      "orders": 120,
+      "pct": 12.9,
+      "avg_gap": 25
     }
   },
   "technicians": [
     {
       "name": "林燕",
-      "orders": 131,
-      "daily": 4.2,
-      "revenue": 34837
+      "orders": 123,
+      "daily": 4.0,
+      "revenue": 35024
     },
     {
       "name": "唐善连",
-      "orders": 94,
-      "daily": 3.0,
-      "revenue": 26982
-    },
-    {
-      "name": "禤妮",
-      "orders": 88,
-      "daily": 2.8,
-      "revenue": 20241
-    },
-    {
-      "name": "陈宇华",
-      "orders": 83,
-      "daily": 2.7,
-      "revenue": 20024
-    },
-    {
-      "name": "郑家珍",
-      "orders": 81,
-      "daily": 2.6,
-      "revenue": 19804
-    },
-    {
-      "name": "谭庆彬",
-      "orders": 79,
-      "daily": 2.5,
-      "revenue": 17609
-    },
-    {
-      "name": "蔡饶萱",
-      "orders": 74,
-      "daily": 2.4,
-      "revenue": 19582
-    },
-    {
-      "name": "陈燕军",
-      "orders": 74,
-      "daily": 2.4,
-      "revenue": 16431
+      "orders": 89,
+      "daily": 2.9,
+      "revenue": 24659
     },
     {
       "name": "姚梨",
-      "orders": 74,
+      "orders": 82,
+      "daily": 2.6,
+      "revenue": 21402
+    },
+    {
+      "name": "禤妮",
+      "orders": 81,
+      "daily": 2.6,
+      "revenue": 21624
+    },
+    {
+      "name": "陈宇华",
+      "orders": 80,
+      "daily": 2.6,
+      "revenue": 18014
+    },
+    {
+      "name": "谭庆彬",
+      "orders": 76,
+      "daily": 2.5,
+      "revenue": 17556
+    },
+    {
+      "name": "郑家珍",
+      "orders": 73,
       "daily": 2.4,
-      "revenue": 21316
+      "revenue": 18741
     },
     {
       "name": "丘洁荣",
-      "orders": 66,
-      "daily": 2.1,
-      "revenue": 15458
-    },
-    {
-      "name": "吕茜茜",
-      "orders": 62,
-      "daily": 2.0,
-      "revenue": 17399
+      "orders": 72,
+      "daily": 2.3,
+      "revenue": 17642
     },
     {
       "name": "梁雪华",
-      "orders": 24,
-      "daily": 0.8,
-      "revenue": 6211
+      "orders": 71,
+      "daily": 2.3,
+      "revenue": 17044
+    },
+    {
+      "name": "蔡饶萱",
+      "orders": 61,
+      "daily": 2.0,
+      "revenue": 16155
+    },
+    {
+      "name": "陈燕军",
+      "orders": 60,
+      "daily": 1.9,
+      "revenue": 13153
+    },
+    {
+      "name": "吕茜茜",
+      "orders": 57,
+      "daily": 1.8,
+      "revenue": 13298
     },
     {
       "name": "唐婉清",
-      "orders": 5,
-      "daily": 0.2,
-      "revenue": 878
+      "orders": 3,
+      "daily": 0.1,
+      "revenue": 590
     },
     {
       "name": "公司",
-      "orders": 2,
-      "daily": 0.1,
-      "revenue": 542
+      "orders": 1,
+      "daily": 0.0,
+      "revenue": 108
     }
   ]
 }
