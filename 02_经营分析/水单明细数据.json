@@ -71,17 +71,32 @@
     "美团": {
       "orders": 408,
       "pct": 43.9,
-      "avg_gap": 57
+      "avg_gap": 57,
+      "revenue": 80114
+    },
+    "储值卡": {
+      "orders": 222,
+      "pct": 23.9,
+      "avg_gap": 58,
+      "revenue": 52332
     },
     "抖音": {
       "orders": 173,
       "pct": 18.6,
-      "avg_gap": 33
+      "avg_gap": 33,
+      "revenue": 32403
     },
     "直付": {
-      "orders": 120,
-      "pct": 12.9,
-      "avg_gap": 25
+      "orders": 112,
+      "pct": 12.1,
+      "avg_gap": 24,
+      "revenue": 23307
+    },
+    "其他": {
+      "orders": 14,
+      "pct": 1.5,
+      "avg_gap": 122,
+      "revenue": 356
     }
   },
   "technicians": [

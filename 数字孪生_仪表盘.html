@@ -236,7 +236,8 @@ const D = {
     {label:'7→8',rate:26.6,cls:'amber'},
   ],
   channelRetention:[
-    {label:'美团',rate:18.7,cls:'red'},{label:'抖音',rate:18.8,cls:'red'},{label:'直付',rate:50.2,cls:'green'},
+    {label:'储值客',rate:63.8,cls:'green'},{label:'散客',rate:26.8,cls:'amber'},
+    {label:'美团',rate:19.1,cls:'red'},{label:'抖音',rate:19.1,cls:'red'},
   ],
   technicians:[
     {name:'林燕',grade:'特级',gc:'badge-t1',dr:72,dc:'green',pv:15,ca:12500,cs:94,pf:29576,n:'全链路标杆'},
@@ -268,9 +269,10 @@ const D = {
     {n:'郑家珍',cs:67,rt:88,rk:18799,ds:'+2pp'},
   ],
   ltv:[
-    {ch:'直付',cs:221,rt:50.2,rc:'green',m4:194,m5:199,lv:393,lc:'green'},
-    {ch:'抖音',cs:292,rt:18.8,rc:'red',m4:70,m5:57,lv:127,lc:''},
-    {ch:'美团',cs:246,rt:18.7,rc:'red',m4:56,m5:52,lv:108,lc:'red'},
+    {ch:'储值客',cs:125,rt:63.8,rc:'green',m4:429,m5:1.90,lv:429,lc:'green'},
+    {ch:'散客',cs:96,rt:26.8,rc:'green',m4:295,m5:1.30,lv:295,lc:'green'},
+    {ch:'美团',cs:373,rt:19.1,rc:'red',m4:212,m5:0.94,lv:212,lc:'red'},
+    {ch:'抖音',cs:156,rt:19.1,rc:'red',m4:204,m5:0.90,lv:204,lc:'red'},
   ],
   lifecycle:[
     {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥76K',nc:'red'},
@@ -289,9 +291,10 @@ const D = {
     {b:'¥160-200',o:160,p:17.2},{b:'¥200-260',o:166,p:17.9},{b:'¥260+',o:212,p:22.8},
   ],
   discountChannel:[
-    {ch:'美团',o:408,p:43.9,g:57,r:88000,cl:'red'},
-    {ch:'抖音',o:173,p:18.6,g:33,r:39000,cl:'red'},
-    {ch:'直付',o:120,p:12.9,g:25,r:20000,cl:'green'},
+    {ch:'美团',o:402,p:43.9,g:58,r:79212,cl:'red'},
+    {ch:'储值卡',o:222,p:24.2,g:58,r:52332,cl:'green'},
+    {ch:'抖音',o:169,p:18.4,g:33,r:31764,cl:'red'},
+    {ch:'散客',o:109,p:11.9,g:25,r:22405,cl:'green'},
   ],
   techMay:[
     {n:'林燕',o:121,d:3.9},{n:'唐婉清',o:92,d:3.0},{n:'禤妮',o:81,d:2.6},
@@ -433,7 +436,7 @@ function renderCards(){
 <div class="grid">
   <div class="card span-6">
     <div class="card-header"><div class="card-title">渠道折扣差 · 每单谁亏最多</div></div>
-    <table class="data-table"><thead><tr><th>渠道</th><th>单量</th><th>占比</th><th>均折扣</th><th>总实收</th></tr></thead><tbody>${D.discountChannel.map(d=>`<tr><td class="${d.cl}">${d.ch}</td><td>${d.o}</td><td>${d.p}%</td><td class="red">-¥${d.g}</td><td>¥${f(d.r)}</td></tr>`).join('')}<tr><td colspan="5" style="font-size:9px;color:var(--text-dim);">含"其他"支付渠道（卡金等）约占23.6%</td></tr></tbody></table>
+    <table class="data-table"><thead><tr><th>渠道</th><th>单量</th><th>占比</th><th>均折扣</th><th>总实收</th></tr></thead><tbody>${D.discountChannel.map(d=>`<tr><td class="${d.cl}">${d.ch}</td><td>${d.o}</td><td>${d.p}%</td><td class="red">-¥${d.g}</td><td>¥${f(d.r)}</td></tr>`).join('')}<tr><td colspan="5" style="font-size:9px;color:var(--text-dim);">另有"其他"支付14单；储值卡消费=客户预存余额支付</td></tr></tbody></table>
     <div class="insight insight-amber" style="margin-top:12px;">美团单折扣¥54 vs 直付¥16。引导美团客下次直付→每单多留¥38。</div>
   </div>
   <div class="card span-6">
@@ -460,7 +463,7 @@ function renderCards(){
     <div class="insight insight-green" style="margin-top:12px;">回头客溢价连续4月 +60%。三月连续留存仅10-13%。留一个老客 = 1.6个新客。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">渠道留存差异 · 7→8月</div><div class="card-subtitle">直付留存50.2% · 平台客不足20%</div></div>
+    <div class="card-header"><div class="card-title">客群留存差异 · 7→8月</div><div class="card-subtitle">储值客留存63.8% · 平台客19.1%（3.3倍）</div></div>
     <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:var(--${c.cls});opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
     <div class="insight insight-amber" style="margin-top:12px;">每多一个直付新客，长期价值是平台客的 3 倍。</div>
   </div>
@@ -625,8 +628,8 @@ function renderCards(){
     <div class="insight insight-red" style="margin-top:12px;">🔴 客户忠于技师个人，不是忠于十三绝。品牌资产缺失。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">渠道客户价值 · 月度贡献</div><div class="card-subtitle">直付客月均¥199 vs 美团¥52（3.8倍）</div></div>
-    <table class="data-table"><thead><tr><th>渠道</th><th>4月客户</th><th>留存率</th><th>人均4月</th><th>人均5月</th><th>2月LTV</th></tr></thead><tbody>${D.ltv.map(l=>`<tr><td>${l.ch}</td><td>${l.cs}</td><td class="${l.rc}">${l.rt}%</td><td>¥${l.m4}</td><td>¥${l.m5}</td><td class="${l.lc}">¥${l.lv}</td></tr>`).join('')}</tbody></table>
+    <div class="card-header"><div class="card-title">客群价值分层 · 8月</div><div class="card-subtitle">储值客人均¥429 vs 平台客¥212（2.0倍）</div></div>
+    <table class="data-table"><thead><tr><th>客群</th><th>客户数</th><th>留存率</th><th>人均消费</th><th>相对价值</th><th>客群价值</th></tr></thead><tbody>${D.ltv.map(l=>`<tr><td>${l.ch}</td><td>${l.cs}</td><td class="${l.rc}">${l.rt}%</td><td>¥${l.m4}</td><td>${l.m5}×</td><td class="${l.lc}">¥${l.lv}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-amber" style="margin-top:12px;">LTV差距会随月数拉大。直付客12月LTV预计¥3,000+ vs 美团客<¥1,000——3倍差。</div>
   </div>
 </div>

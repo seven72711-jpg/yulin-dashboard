@@ -56,8 +56,9 @@ def extract_water_bill(report_path):
         
         if '美团' in pay: k = '美团'
         elif '抖音' in pay: k = '抖音'
+        elif '会员卡' in pay: k = '储值卡'
         elif any(x in pay for x in ['现金','微信','支付宝','扫','转账']): k = '直付'
-        else: continue
+        else: k = '其他'
         channels[k] += 1; channel_rev[k] += rev_recv; channel_gap[k] += (rev_orig - rev_recv)
     
     wb.close()
@@ -94,7 +95,7 @@ def extract_water_bill(report_path):
         'hourly_pct': [round(hourly.get(h, 0) / total_orders * 100, 1) if total_orders else 0 for h in range(24)],
         'day_orders': [dow[d] for d in range(7)],
         'price_bands': {b: {'orders': bands[b], 'pct': round(bands[b]/total_orders*100,1)} for b in ['<¥80','¥80-120','¥120-160','¥160-200','¥200-260','¥260+']},
-        'channels': {ch: {'orders': channels[ch], 'pct': round(channels[ch]/total_orders*100,1), 'avg_gap': round(channel_gap[ch]/channels[ch])} for ch in ['美团','抖音','直付']},
+        'channels': {ch: {'orders': channels[ch], 'pct': round(channels[ch]/total_orders*100,1), 'avg_gap': round(channel_gap[ch]/channels[ch]), 'revenue': round(channel_rev[ch])} for ch in ['美团','储值卡','抖音','直付','其他'] if channels[ch]},
         'technicians': [{'name': t, 'orders': tech_orders[t], 'daily': round(tech_orders[t]/days_in_month,1), 'revenue': round(tech_rev[t])} for t in sorted(tech_orders, key=lambda x: tech_orders[x], reverse=True)],
     }
     
