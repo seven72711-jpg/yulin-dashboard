@@ -135,44 +135,85 @@ def extract_all(filepath):
     stored_value = {"充值": 0, "开卡": 0, "疗程套餐": 0, "卡金消费": 0}
     total_service_perf = 0
     
-    # Detect format: 伊智 (old, ~25 cols) vs 十三绝 (new, ~33 cols)
-    is_new_system = ws_detail.max_column > 30
-    
+    # === 表头映射（兼容伊智25列 / 十三绝33列 / 37列等结构变化）===
+    _hdr = None
+    for _r in ws_detail.iter_rows(min_row=1, max_row=3, values_only=True):
+        if _r and any(v is not None and '订单类型' in str(v) for v in _r):
+            _hdr = list(_r); break
+    _IX = {}
+    if _hdr:
+        _IX = {str(v).strip(): k for k, v in enumerate(_hdr) if v is not None}
+
+    def _col(*names):
+        for n in names:
+            if n in _IX:
+                return _IX[n]
+        for n in names:
+            for k, v in _IX.items():
+                if n in k:
+                    return v
+        return None
+
+    _C = {
+        'type': _col('订单类型'),
+        'raw': _col('原价业绩', '门店业绩'),
+        'recv': _col('实收金额', '实收业绩'),
+        'perf': _col('实收业绩', '员工业绩'),
+        'plat': _col('平台类型'),
+        'card': _col('卡金业绩'),
+        'cash': _col('现金业绩'),
+        'other': _col('其他业绩'),
+        'pay': _col('支付明细'),
+    }
+
+    def _g(row, key):
+        idx = _C.get(key)
+        if idx is None or idx >= len(row):
+            return None
+        return row[idx]
+
+    # 伊智旧系统无表头（或表头缺列）时，回退到固定列号
+    if _C['raw'] is None:
+        is_new_system = ws_detail.max_column > 30
+    else:
+        is_new_system = True
+    print(f"  水单列映射: " + ", ".join(f"{k}={v}" for k, v in _C.items() if v is not None)
+          + ("  [回退固定列号]" if _C['raw'] is None else ""))
+
     for row in ws_detail.iter_rows(min_row=2, max_row=ws_detail.max_row, max_col=ws_detail.max_column, values_only=True):
         try:
-            order_type = str(row[1] or '').strip()  # col 2 = index 1
-            
-            if is_new_system:
-                # === 十三绝系统: 33 columns ===
-                raw_price = safe_float(row[7])     # col 8
-                received = safe_float(row[8])       # col 9
-                perf = safe_float(row[9])           # col 10
-                platform = str(row[21] or '').strip()  # col 22
-                card_perf = safe_float(row[29])     # col 30
-                cash_perf = safe_float(row[27])     # col 28
-                other_perf = safe_float(row[31])    # col 32
+            if _C['type'] is not None:
+                order_type = str(_g(row, 'type') or '').strip()
+                raw_price = safe_float(_g(row, 'raw'))
+                received = safe_float(_g(row, 'recv'))
+                perf = safe_float(_g(row, 'perf'))
+                platform = str(_g(row, 'plat') or '').strip()
+                card_perf = safe_float(_g(row, 'card'))
+                cash_perf = safe_float(_g(row, 'cash'))
+                other_perf = safe_float(_g(row, 'other'))
+                pay = str(_g(row, 'pay') or '')
             else:
-                # === 伊智系统: 25 columns ===
-                raw_price = safe_float(row[8])      # col 9 = 门店业绩
-                received = safe_float(row[8])       # col 9 (same, no separate received)
-                perf = safe_float(row[8])           # col 9
-                platform = ''                       # no platform column
-                card_perf = safe_float(row[21])     # col 22
-                cash_perf = safe_float(row[19])     # col 20
-                other_perf = safe_float(row[23])    # col 24
-                # Normalize: "开单" = service
-                if '开单' in order_type:
-                    order_type = '服务项目'
+                # === 伊智系统: 固定列回退 ===
+                order_type = str(row[1] or '').strip()
+                raw_price = safe_float(row[8])
+                received = safe_float(row[8])
+                perf = safe_float(row[8])
+                platform = ''
+                card_perf = cash_perf = other_perf = 0
+                pay = ''
+
+            if '开单' in order_type:
+                order_type = '服务项目'
             if raw_price == 0:
                 continue
-            
+
             channels[platform]['orders'] += 1
             channels[platform]['raw'] += raw_price
             channels[platform]['received'] += received
-            
+
             order_types[order_type]['count'] += 1
             order_types[order_type]['amount'] += received
-            
+
             if '充值' in order_type:
                 stored_value['充值'] += received
             elif '开卡' in order_type:
@@ -182,10 +223,9 @@ def extract_all(filepath):
             else:
                 total_service_perf += raw_price
                 stored_value['卡金消费'] += card_perf
-                
         except Exception:
             continue
-    
+
     # Dedup: 卡金消费 already counted
     channel_summary = {}
     for ch, data in channels.items():
@@ -310,75 +350,139 @@ def extract_all(filepath):
             result["dashboard"]["stored_value_out"] = sv["outflow_消费"]
             result["dashboard"]["stored_value_net"] = sv["net_change"]
 
-    # ========== 7. 工资表提取 ==========
+    # ========== 7. 工资表提取（表头映射，兼容报表结构变化）==========
     wage_sheet_names = [s for s in wb.sheetnames if '工资表' in s]
     if wage_sheet_names:
         ws_wage = wb[wage_sheet_names[0]]
+        maxc = ws_wage.max_column
+        h2 = [str(ws_wage.cell(2, c).value or '').strip() for c in range(1, maxc + 1)]
+        h3 = [str(ws_wage.cell(3, c).value or '').strip() for c in range(1, maxc + 1)]
+        colnames = {}
+        for _i in range(maxc):
+            _n = h3[_i] or h2[_i]
+            if _n:
+                colnames.setdefault(_n, _i + 1)
+
+        def find_col(*cands):
+            for cand in cands:
+                if cand in colnames:
+                    return colnames[cand]
+            for cand in cands:
+                for n, idx in colnames.items():
+                    if cand in n:
+                        return idx
+            return None
+
+        FIELD_MAP = {
+            '序号': ('序号',), '姓名': ('姓名',),
+            '入职日期': ('正式上钟日期', '入职日期'),
+            '店铺': ('所属店铺', '店铺'), '岗位': ('岗位',),
+            '应出勤': ('应出勤天数', '应出勤'), '实际出勤': ('实际出勤天数', '实际出勤'),
+            '应发底薪': ('应发底薪', '岗位工资'), '实发底薪': ('实发底薪', '实发岗位工资'),
+            '绩效工资': ('绩效工资',), '实发绩效工资': ('实发绩效工资',),
+            '全勤补贴': ('全勤补贴', '全勤'), '妆服补贴': ('妆服补贴',), '底薪合计': ('底薪合计',),
+            '劳动业绩': ('总劳动业绩', '劳动业绩'), '业绩提成': ('业绩提成',),
+            '指定业绩': ('指定业绩',), '指定提成点': ('指定提成点',), '指定提成': ('指定提成',),
+            '非指定业绩': ('非指定业绩',), '非指定提成点': ('非指定提成点',), '非指定提成': ('非指定提成',),
+            '开卡金额': ('开卡总金额', '开卡金额'), '开卡提成点': ('开卡提成点',), '开卡提成': ('开卡提成',),
+            '基础提成': ('基础提成',), '工资小计': ('工资小计', '应发小计'),
+            '奖金': ('奖金', '加店长利润提成'),
+            '证书补贴': ('证书补贴',), '工龄补贴': ('加工龄补贴', '工龄补贴'),
+            '岗位补贴': ('岗位补贴',), '餐补': ('餐补',),
+            '师徒带教补贴': ('师徒带教补贴',),
+            '个人客流提成': ('加：个人客流提成', '个人客流提成'),
+            '门店充值奖励': ('门店充值奖励',), '达标奖励': ('达标奖励',),
+            '好评奖励': ('好评奖励', '加：美团/抖音优质好评奖励'),
+            '扣点客未达标': ('扣点客未达标',), '扣业绩未达标': ('扣业绩未达标',),
+            '扣充值未达标': ('扣充值未达标',), '扣好评未达标': ('扣好评未达标',),
+            '扣差评客诉': ('扣差评客诉', '减差评客诉'),
+            '扣请假迟到': ('扣请假迟到', '减请假/迟到'),
+            '其他扣款': ('其他扣款', '其他扣补贴明细/未达标'),
+            '扣绩效': ('扣绩效',),
+            '应发合计': ('应发工资合计', '应发合计'),
+            '扣餐费': ('扣餐费', '减餐费'), '扣水电物业': ('扣水电物业', '减水电物业'),
+            '扣房费': ('扣房费', '减房费'), '扣社保': ('扣社保', '减社保'),
+            '扣个税': ('扣个税', '减个税'), '扣工服': ('扣工服', '减工服'),
+            '减预支': ('减预支',), '预留款': ('预留款',),
+            '实发工资': ('实发工资', '实际发放'), '备注': ('备注',),
+        }
+        CMAP = {k: find_col(*v) for k, v in FIELD_MAP.items()}
+        _mapped = ", ".join(f"{k}={v}" for k, v in CMAP.items() if v)
+        print(f"  工资表列映射({len(colnames)}列): {_mapped}")
+
         wage_records = []
-        
-        # Row 1: title, Row 2-3: merged headers, Row 4+: data
-        for row in ws_wage.iter_rows(min_row=4, max_row=ws_wage.max_row, max_col=ws_wage.max_column, values_only=True):
-            name = str(row[1] or '').strip() if len(row) > 1 else ''
+        for row in ws_wage.iter_rows(min_row=4, max_row=ws_wage.max_row, values_only=True):
+            def g(key, _row=row):
+                idx = CMAP.get(key)
+                if not idx or idx > len(_row):
+                    return None
+                return _row[idx - 1]
+            name = str(g('姓名') or '').strip()
             if not name:
                 continue
-            
-            record = {
-                "序号": safe_float(row[0]),
+            wage_records.append({
+                "序号": safe_float(g('序号')),
                 "姓名": name,
-                "入职日期": str(row[2] or '')[:10] if row[2] else '',
-                "店铺": str(row[3] or '').strip() if len(row) > 3 else '',
-                "岗位": str(row[4] or '').strip() if len(row) > 4 else '',
-                "应出勤": safe_float(row[5]) if len(row) > 5 else 0,
-                "实际出勤": safe_float(row[6]) if len(row) > 6 else 0,
-                "应发底薪": round(safe_float(row[7]), 2) if len(row) > 7 else 0,
-                "实发底薪": round(safe_float(row[8]), 2) if len(row) > 8 else 0,
-                "劳动业绩": round(safe_float(row[9]), 2) if len(row) > 9 else 0,
-                "指定业绩": round(safe_float(row[10]), 2) if len(row) > 10 else 0,
-                "指定提成点": safe_float(row[11]) if len(row) > 11 else 0,
-                "指定提成": round(safe_float(row[12]), 2) if len(row) > 12 else 0,
-                "非指定业绩": round(safe_float(row[13]), 2) if len(row) > 13 else 0,
-                "非指定提成点": safe_float(row[14]) if len(row) > 14 else 0,
-                "非指定提成": round(safe_float(row[15]), 2) if len(row) > 15 else 0,
-                "开卡金额": round(safe_float(row[16]), 2) if len(row) > 16 else 0,
-                "开卡提成点": safe_float(row[17]) if len(row) > 17 else 0,
-                "开卡提成": round(safe_float(row[18]), 2) if len(row) > 18 else 0,
-                "基础提成": round(safe_float(row[19]), 2) if len(row) > 19 else 0,
-                "工资小计": round(safe_float(row[20]), 2) if len(row) > 20 else 0,
-                "奖金": round(safe_float(row[21]), 2) if len(row) > 21 else 0,
-                "证书补贴": round(safe_float(row[22]), 2) if len(row) > 22 else 0,
-                "工龄补贴": round(safe_float(row[23]), 2) if len(row) > 23 else 0,
-                "岗位补贴": round(safe_float(row[24]), 2) if len(row) > 24 else 0,
-                "餐补": round(safe_float(row[25]), 2) if len(row) > 25 else 0,
-                "全勤": round(safe_float(row[26]), 2) if len(row) > 26 else 0,
-                "门店充值奖励": round(safe_float(row[27]), 2) if len(row) > 27 else 0,
-                "达标奖励": round(safe_float(row[28]), 2) if len(row) > 28 else 0,
-                "好评奖励": round(safe_float(row[29]), 2) if len(row) > 29 else 0,
-                "扣点客未达标": round(safe_float(row[30]), 2) if len(row) > 30 else 0,
-                "扣业绩未达标": round(safe_float(row[31]), 2) if len(row) > 31 else 0,
-                "扣充值未达标": round(safe_float(row[32]), 2) if len(row) > 32 else 0,
-                "扣好评未达标": round(safe_float(row[33]), 2) if len(row) > 33 else 0,
-                "扣差评客诉": round(safe_float(row[34]), 2) if len(row) > 34 else 0,
-                "扣请假迟到": round(safe_float(row[35]), 2) if len(row) > 35 else 0,
-                "其他扣款": round(safe_float(row[36]), 2) if len(row) > 36 else 0,
-                "扣绩效": round(safe_float(row[37]), 2) if len(row) > 37 else 0,
-                "应发合计": round(safe_float(row[38]), 2) if len(row) > 38 else 0,
-                "扣餐费": round(safe_float(row[39]), 2) if len(row) > 39 else 0,
-                "扣水电物业": round(safe_float(row[40]), 2) if len(row) > 40 else 0,
-                "扣房费": round(safe_float(row[41]), 2) if len(row) > 41 else 0,
-                "扣社保": round(safe_float(row[42]), 2) if len(row) > 42 else 0,
-                "扣个税": round(safe_float(row[43]), 2) if len(row) > 43 else 0,
-                "扣工服": round(safe_float(row[44]), 2) if len(row) > 44 else 0,
-                "减预支": round(safe_float(row[45]), 2) if len(row) > 45 else 0,
-                "预留款": round(safe_float(row[46]), 2) if len(row) > 46 else 0,
-                "实发工资": round(safe_float(row[47]), 2) if len(row) > 47 else 0,
-                "备注": str(row[48] or '').strip() if len(row) > 48 else '',
-            }
-            wage_records.append(record)
-        
+                "入职日期": str(g('入职日期') or '')[:10],
+                "店铺": str(g('店铺') or '').strip(),
+                "岗位": str(g('岗位') or '').strip(),
+                "应出勤": safe_float(g('应出勤')),
+                "实际出勤": safe_float(g('实际出勤')),
+                "应发底薪": round(safe_float(g('应发底薪')), 2),
+                "实发底薪": round(safe_float(g('实发底薪')), 2),
+                "绩效工资": round(safe_float(g('绩效工资')), 2),
+                "实发绩效工资": round(safe_float(g('实发绩效工资')), 2),
+                "全勤补贴": round(safe_float(g('全勤补贴')), 2),
+                "妆服补贴": round(safe_float(g('妆服补贴')), 2),
+                "底薪合计": round(safe_float(g('底薪合计')), 2),
+                "劳动业绩": round(safe_float(g('劳动业绩')), 2),
+                "业绩提成": round(safe_float(g('业绩提成')), 2),
+                "指定业绩": round(safe_float(g('指定业绩')), 2),
+                "指定提成点": safe_float(g('指定提成点')),
+                "指定提成": round(safe_float(g('指定提成')), 2),
+                "非指定业绩": round(safe_float(g('非指定业绩')), 2),
+                "非指定提成点": safe_float(g('非指定提成点')),
+                "非指定提成": round(safe_float(g('非指定提成')), 2),
+                "开卡金额": round(safe_float(g('开卡金额')), 2),
+                "开卡提成点": safe_float(g('开卡提成点')),
+                "开卡提成": round(safe_float(g('开卡提成')), 2),
+                "基础提成": round(safe_float(g('基础提成')), 2),
+                "工资小计": round(safe_float(g('工资小计')), 2),
+                "奖金": round(safe_float(g('奖金')), 2),
+                "证书补贴": round(safe_float(g('证书补贴')), 2),
+                "工龄补贴": round(safe_float(g('工龄补贴')), 2),
+                "岗位补贴": round(safe_float(g('岗位补贴')), 2),
+                "餐补": round(safe_float(g('餐补')), 2),
+                "师徒带教补贴": round(safe_float(g('师徒带教补贴')), 2),
+                "个人客流提成": round(safe_float(g('个人客流提成')), 2),
+                "门店充值奖励": round(safe_float(g('门店充值奖励')), 2),
+                "达标奖励": round(safe_float(g('达标奖励')), 2),
+                "好评奖励": round(safe_float(g('好评奖励')), 2),
+                "扣点客未达标": round(safe_float(g('扣点客未达标')), 2),
+                "扣业绩未达标": round(safe_float(g('扣业绩未达标')), 2),
+                "扣充值未达标": round(safe_float(g('扣充值未达标')), 2),
+                "扣好评未达标": round(safe_float(g('扣好评未达标')), 2),
+                "扣差评客诉": round(safe_float(g('扣差评客诉')), 2),
+                "扣请假迟到": round(safe_float(g('扣请假迟到')), 2),
+                "其他扣款": round(safe_float(g('其他扣款')), 2),
+                "扣绩效": round(safe_float(g('扣绩效')), 2),
+                "应发合计": round(safe_float(g('应发合计')), 2),
+                "扣餐费": round(safe_float(g('扣餐费')), 2),
+                "扣水电物业": round(safe_float(g('扣水电物业')), 2),
+                "扣房费": round(safe_float(g('扣房费')), 2),
+                "扣社保": round(safe_float(g('扣社保')), 2),
+                "扣个税": round(safe_float(g('扣个税')), 2),
+                "扣工服": round(safe_float(g('扣工服')), 2),
+                "减预支": round(safe_float(g('减预支')), 2),
+                "预留款": round(safe_float(g('预留款')), 2),
+                "实发工资": round(safe_float(g('实发工资')), 2),
+                "备注": str(g('备注') or '').strip(),
+            })
+
         # Categorize
         non_tech = [r for r in wage_records if r['岗位'] in ('店长', '前台', '保洁', '财务')]
         techs = [r for r in wage_records if '技师' in r['岗位']]
-        
+
         result["wage_table"] = {
             "period": latest["period"] if monthly else "",
             "records": wage_records,

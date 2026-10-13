@@ -170,7 +170,7 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <div class="header">
   <div><h1>玉林万达店 <em>·</em> 数字孪生</h1></div>
-  <div class="meta">32个月数据 · 2024.01–<span id="hd-date">2026.08</span><br>10间包间 · 17张床 · 12技师+5店员</div>
+  <div class="meta">33个月数据 · 2024.01–<span id="hd-date">2026.09</span><br>10间包间 · 17张床 · 12技师+5店员</div>
 </div>
 
 <!-- Compact store info -->
@@ -208,44 +208,45 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <script>
 const D = {
-  period: '2026-08', months: 32,
-  revenue: 187916, profit: 28912, margin: 15.4, payRatio: 61.1,
- monthlyRev:[53238,60830,85022,86565,86682,102822,123549,133086,118877,131923,100358,104246,74249,132437,141909,132389,135248,164980,160579,165792,148818,170359,148017,150866,149729,127300,168682,153122,176759,179174,191229,187916],
- monthlyProfit:[-46025,-30062,-10312,-36902,-253,-2163,21399,21734,11797,15332,-10738,-9570,-21737,19463,12564,1335,12542,2268,12349,8540,9510,7213,4,6727,4825,-3423,-2231,11795,17285,7547,21979,28912],
- monthlyMargin:[-86.5,-49.4,-12.1,-42.6,-0.3,-2.1,17.3,16.3,9.9,11.6,-10.7,-9.2,-29.3,14.7,8.9,1.0,9.3,1.4,7.7,5.2,6.4,4.2,0.0,4.5,3.2,-2.7,-1.3,7.7,9.8,4.2,11.5,15.4],
-  ytdRevenue: 1333912, ytdProfit: 86691, ytdMargin: 6.5, ytdPayRatio: 64.4,
-  ytdDiscountGap: 285072, ytdOrders: 6366,
-  discountGap: 46499, discountPct: 19.8, retention: 26.6,
-  marginalProfit: 75, breakeven: 129101, yoyGrowth: 13.3,
-  visitors: 929, dailyAvg: 30.0, privatePct: 2.8,
+  period: '2026-09', months: 33,
+  revenue: 185655, profit: 25960, margin: 14.0, payRatio: 62.1,
+ monthlyRev:[53238,60830,85022,86565,86682,102822,123549,133086,118877,131923,100358,104246,74249,132437,141909,132389,135248,164980,160579,165792,148818,170359,148017,150866,149729,127300,168682,153122,176759,179174,191229,187916,185655],
+ monthlyProfit:[-46025,-30062,-10312,-36902,-253,-2163,21399,21734,11797,15332,-10738,-9570,-21737,19463,12564,1335,12542,2268,12349,8540,9510,7213,4,6727,4825,-3423,-2231,11795,17285,7547,21979,28912,25960],
+ monthlyMargin:[-86.5,-49.4,-12.1,-42.6,-0.3,-2.1,17.3,16.3,9.9,11.6,-10.7,-9.2,-29.3,14.7,8.9,1.0,9.3,1.4,7.7,5.2,6.4,4.2,0.0,4.5,3.2,-2.7,-1.3,7.7,9.8,4.2,11.5,15.4,14.0],
+  ytdRevenue: 1519567, ytdProfit: 112651, ytdMargin: 7.4, ytdPayRatio: 64.6,
+  ytdDiscountGap: 333213, ytdOrders: 7347,
+  discountGap: 48141, discountPct: 20.5, retention: 25.4,
+  marginalProfit: 76, breakeven: 118375, yoyGrowth: 24.8,
+  visitors: 981, dailyAvg: 32.7, privatePct: 4.1,
   rooms: 10, beds: 17, utilization: 38, peakOrders: 72,
   roomNames:['一绝','二绝','三绝','四绝','五绝','六绝','七绝','八绝','九绝','十绝'],
   roomBeds:[2,1,1,1,2,2,1,2,1,4],
   brandRiskIndex: 92, techCount: 12,
   rating: 5.0, reviews: 6558, avgPrice: 81,
   waterfall: [
-    {label:'技师提成',pct:61.1,cls:'red',opac:0.7},{label:'租金',pct:7.9,cls:'amber',opac:1},
-    {label:'推广费',pct:3.9,cls:'amber',opac:1},{label:'管理费5%',pct:5.0,cls:'amber',opac:1},
-    {label:'耗材维修',pct:2.3,cls:'amber',opac:1},{label:'水电+税费',pct:3.2,cls:'amber',opac:1},
-    {label:'折扣差额',pct:19.8,cls:'red',opac:0.35},{label:'净利润',pct:15.4,cls:'accent',opac:1},
+    {label:'技师提成',pct:62.1,cls:'red',opac:0.7},{label:'租金',pct:8.0,cls:'amber',opac:1},
+    {label:'推广费',pct:3.2,cls:'amber',opac:1},{label:'管理费5%',pct:5.0,cls:'amber',opac:1},
+    {label:'耗材维修',pct:2.9,cls:'amber',opac:1},{label:'水电物业',pct:4.0,cls:'amber',opac:1},
+    {label:'折扣差额',pct:20.5,cls:'red',opac:0.35},{label:'净利润',pct:14.0,cls:'accent',opac:1},
   ],
   retentionPairs:[
     {label:'1→2',rate:23.1,cls:'green'},{label:'2→3',rate:27.3,cls:'green'},
     {label:'3→4',rate:21.5,cls:'amber'},{label:'4→5',rate:22.8,cls:'amber'},
     {label:'5→6',rate:24.6,cls:'green'},{label:'6→7',rate:26.8,cls:'green'},
     {label:'7→8',rate:26.6,cls:'amber'},
+    {label:'8→9',rate:25.4,cls:'amber'},
   ],
   channelRetention:[
-    {label:'储值客',rate:63.8,cls:'green'},{label:'散客',rate:26.8,cls:'amber'},
-    {label:'美团',rate:19.1,cls:'red'},{label:'抖音',rate:19.1,cls:'red'},
+    {label:'储值客',rate:64.0,cls:'green'},{label:'散客',rate:27.1,cls:'amber'},
+    {label:'抖音',rate:21.2,cls:'red'},{label:'美团',rate:16.1,cls:'red'},
   ],
   technicians:[
-    {name:'林燕',grade:'特级',gc:'badge-t1',dr:72,dc:'green',pv:15,ca:12500,cs:94,pf:29576,n:'全链路标杆'},
-    {name:'唐婉清',grade:'高级',gc:'badge-t2',dr:52,dc:'green',pv:4,ca:4000,cs:74,pf:24018,n:'稳定第二'},
-    {name:'禤妮',grade:'高级',gc:'badge-t2',dr:38,dc:'',pv:3,ca:5500,cs:74,pf:21392,n:'均衡型'},
-    {name:'姚梨',grade:'中级',gc:'badge-t3',dr:53,dc:'green',pv:0,ca:4000,cs:61,pf:19574,n:'指定率高'},
-    {name:'梁雪华',grade:'高级',gc:'badge-t2',dr:39,dc:'green',pv:0,ca:0,cs:64,pf:16131,n:'恢复出勤'},
-    {name:'丘洁荣',grade:'初级',gc:'badge-t3',dr:20,dc:'',pv:0,ca:1000,cs:65,pf:17802,n:'点客率垫底⚠'},
+    {name:'林燕',grade:'特级',gc:'badge-t1',dr:71,dc:'green',pv:27,ca:12000,cs:74,pf:29752,n:'私定主力'},
+    {name:'唐婉清',grade:'高级',gc:'badge-t2',dr:45,dc:'',pv:5,ca:2000,cs:86,pf:24899,n:'客户最多'},
+    {name:'梁雪华',grade:'高级',gc:'badge-t2',dr:37,dc:'',pv:2,ca:4167,cs:76,pf:19302,n:'满勤恢复'},
+    {name:'姚梨',grade:'中级',gc:'badge-t3',dr:67,dc:'green',pv:0,ca:4667,cs:54,pf:19040,n:'指定率前列'},
+    {name:'禤妮',grade:'高级',gc:'badge-t2',dr:46,dc:'',pv:2,ca:4500,cs:69,pf:19617,n:'均衡型'},
+    {name:'丘洁荣',grade:'初级',gc:'badge-t3',dr:16,dc:'',pv:0,ca:1500,cs:62,pf:16286,n:'点客率垫底⚠'},
   ],
   competitors:[
     {n:'十三绝',r:5.0,rc:'green',p:81,d:'—',df:'效果型推拿·正骨',hl:true},
@@ -255,55 +256,55 @@ const D = {
     {n:'春源SPA',r:4.5,rc:'',p:150,d:'842m',df:'泡泡浴·精油SPA',hl:false},
   ],
   specEcon:[
-    {d:'实收',s:'¥211',c:'¥197',df:'+¥14',dc:'green'},
-    {d:'技师提成',s:'¥114',c:'¥85',df:'+¥29',dc:'red'},
-    {d:'门店留利',s:'¥97',c:'¥112',df:'-¥15',dc:'red',sc:'red',cc:'green'},
-    {d:'跨月留存',s:'48.0%',c:'18.4%',df:'2.6×',dc:'green',sc:'green',cc:'red'},
-    {d:'客户月贡献',s:'¥181',c:'¥56',df:'3.2×',dc:'green',sc:'green',cc:'red'},
+    {d:'实收',s:'¥191',c:'¥190',df:'+¥1',dc:'green'},
+    {d:'技师提成',s:'¥107',c:'¥81',df:'+¥26',dc:'red'},
+    {d:'门店留利',s:'¥84',c:'¥109',df:'-¥25',dc:'red',sc:'red',cc:'green'},
+    {d:'跨月留存',s:'47.3%',c:'15.1%',df:'3.1×',dc:'green',sc:'green',cc:'red'},
+    {d:'客户月贡献',s:'¥201',c:'¥49',df:'4.1×',dc:'green',sc:'green',cc:'red'},
   ],
   brandRisk:[
-    {n:'林燕',cs:94,rt:87,rk:29576,ds:'+2pp'},
-    {n:'禤妮',cs:74,rt:81,rk:21392,ds:'+1pp'},
-    {n:'唐婉清',cs:74,rt:80,rk:24018,ds:'-1pp'},
-    {n:'陈宇华',cs:69,rt:80,rk:18440,ds:'+1pp'},
-    {n:'郑家珍',cs:67,rt:88,rk:18799,ds:'+2pp'},
+    {n:'唐婉清',cs:86,rt:92,rk:24899,ds:'+12pp'},
+    {n:'梁雪华',cs:76,rt:83,rk:19302,ds:'+4pp'},
+    {n:'林燕',cs:74,rt:82,rk:29752,ds:'+1pp'},
+    {n:'谭庆彬',cs:72,rt:90,rk:17003,ds:'+7pp'},
+    {n:'郑家珍',cs:70,rt:80,rk:17309,ds:'+5pp'},
   ],
   ltv:[
-    {ch:'储值客',cs:125,rt:63.8,rc:'green',m4:429,m5:1.90,lv:429,lc:'green'},
-    {ch:'散客',cs:96,rt:26.8,rc:'green',m4:295,m5:1.30,lv:295,lc:'green'},
-    {ch:'美团',cs:373,rt:19.1,rc:'red',m4:212,m5:0.94,lv:212,lc:'red'},
-    {ch:'抖音',cs:156,rt:19.1,rc:'red',m4:204,m5:0.90,lv:204,lc:'red'},
+    {ch:'储值客',cs:130,rt:64.0,rc:'green',m4:456,m5:2.04,lv:456,lc:'green'},
+    {ch:'散客',cs:114,rt:27.1,rc:'green',m4:272,m5:1.22,lv:272,lc:'green'},
+    {ch:'抖音',cs:171,rt:21.2,rc:'red',m4:232,m5:1.04,lv:232,lc:'red'},
+    {ch:'美团',cs:336,rt:16.1,rc:'red',m4:223,m5:1.00,lv:223,lc:'red'},
   ],
   lifecycle:[
     {s:'初创期',p:'2024',r:'¥99K',n:'年亏 ¥76K',nc:'red'},
     {s:'成长期',p:'2025',r:'¥144K',n:'YoY +45.4%',nc:'green'},
-    {s:'成熟期',p:'2026 Q3',r:'¥166K',n:'YoY +13.3% · 净利率15.4%',nc:'green'},
+    {s:'成熟期',p:'2026 Q3',r:'¥169K',n:'YoY +24.8% · 9月净利率14.0%',nc:'green'},
   ],
   services:[
-    {n:'中式推拿',c:497,p:100},{n:'精油SPA',c:332,p:67},{n:'私人定制',c:26,p:5,a:true},
-    {n:'其他',c:61,p:12},
+    {n:'中式推拿',c:567,p:100},{n:'精油SPA',c:307,p:54},{n:'私人定制',c:40,p:7,a:true},
+    {n:'其他',c:56,p:10},
   ],
   // === 新增：小马宋框架补充指标 ===
-  hourlyPct:[1.6,0,0,0,0,0,0,0,0,0,0,0.5,2.6,4.5,5.8,9.6,11.2,11.9,9.5,5.1,8.1,10.1,9.8,9.7],
-  dayOrders:[127,112,101,114,121,176,178],
+  hourlyPct:[1.6,0,0,0,0,0,0,0,0,0,0,0.9,3.3,4.1,8.2,8.6,10.2,11.6,7.5,5.3,7.3,9.0,10.6,11.8],
+  dayOrders:[114,156,166,128,129,153,135],
   priceBands:[
-    {b:'<¥80',o:47,p:5.1},{b:'¥80-120',o:154,p:16.6},{b:'¥120-160',o:190,p:20.5},
-    {b:'¥160-200',o:160,p:17.2},{b:'¥200-260',o:166,p:17.9},{b:'¥260+',o:212,p:22.8},
+    {b:'<¥80',o:53,p:5.4},{b:'¥80-120',o:207,p:21.1},{b:'¥120-160',o:163,p:16.6},
+    {b:'¥160-200',o:185,p:18.9},{b:'¥200-260',o:176,p:17.9},{b:'¥260+',o:197,p:20.1},
   ],
   discountChannel:[
-    {ch:'美团',o:402,p:43.9,g:58,r:79212,cl:'red'},
-    {ch:'储值卡',o:222,p:24.2,g:58,r:52332,cl:'green'},
-    {ch:'抖音',o:169,p:18.4,g:33,r:31764,cl:'red'},
-    {ch:'散客',o:109,p:11.9,g:25,r:22405,cl:'green'},
+    {ch:'美团',o:370,p:37.7,g:50,r:67475,cl:'red'},
+    {ch:'储值卡',o:258,p:26.3,g:58,r:55965,cl:'green'},
+    {ch:'抖音',o:182,p:18.6,g:38,r:35385,cl:'red'},
+    {ch:'散客',o:139,p:14.2,g:24,r:26927,cl:'green'},
   ],
   techMay:[
-    {n:'林燕',o:121,d:3.9},{n:'唐婉清',o:92,d:3.0},{n:'禤妮',o:81,d:2.6},
-    {n:'姚梨',o:81,d:2.6},{n:'陈宇华',o:78,d:2.5},{n:'谭庆彬',o:73,d:2.4},
-    {n:'梁雪华',o:71,d:2.3},{n:'丘洁荣',o:71,d:2.3},{n:'郑家珍',o:71,d:2.3},
-    {n:'陈燕军',o:60,d:1.9},{n:'蔡饶萱',o:59,d:1.9},{n:'吕茜茜',o:57,d:1.8},
+    {n:'林燕',o:120,d:4.0},{n:'唐婉清',o:102,d:3.4},{n:'梁雪华',o:86,d:2.9},
+    {n:'禤妮',o:85,d:2.8},{n:'陈宇华',o:82,d:2.7},{n:'姚梨',o:81,d:2.7},
+    {n:'谭庆彬',o:78,d:2.6},{n:'郑家珍',o:78,d:2.6},{n:'陈燕军',o:72,d:2.4},
+    {n:'吕茜茜',o:68,d:2.3},{n:'丘洁荣',o:67,d:2.2},{n:'蔡饶萱',o:51,d:1.7},
   ],
-  bedTurnover:{daily:30.0,perBed:1.76,wkdy:27,wknd:35,monthOrders:929},
-  storedFunnel:{visitors:1093,inflow:45000,consume:34625,pct:77,net:10376,cardAmt:17000,estCards:34,cardRate:3.1},
+  bedTurnover:{daily:32.7,perBed:1.92,wkdy:32,wkend:36,monthOrders:981},
+  storedFunnel:{visitors:1100,inflow:47000,consume:41152,pct:88,net:5848,cardAmt:47000,estCards:40,cardRate:3.6},
   milestones:[
     {d:'2024.01',t:'开店首月',r:53238,p:-46025,pc:'red'},
     {d:'2024.07',t:'首次盈利',r:123549,p:21399,pc:'green'},
@@ -313,6 +314,7 @@ const D = {
     {d:'2026.05',t:'历史新高🏆',r:176759,p:17285,pc:'green'},
     {d:'2026.07',t:'营收新高',r:191229,p:21979,pc:'green'},
     {d:'2026.08',t:'净利率新高🏆',r:187916,p:28912,pc:'green'},
+    {d:'2026.09',t:'客单回落',r:185655,p:25960,pc:'green'},
   ],
 };
 
@@ -329,7 +331,7 @@ function renderTrend(){
     var x=Math.round(i*step),y=Math.round(105-(r[i]-50000)/130000*75);
     path+=(i===0?'M':'L')+x+','+y+' ';
     var month=i<12?'2024-'+(i<9?'0':'')+(i+1):i<24?'2025-'+(i<9?'0':'')+(i-11):'2026-'+(i<9?'0':'')+(i-23);
-    var extra=month==='2026-08'?'  🏆':(month==='2024-07'?'  ⬆首次盈利':(month==='2025-01'?'  ⬇春节':''));
+    var extra=month==='2026-09'?'  🏆':(month==='2024-07'?'  ⬆首次盈利':(month==='2025-01'?'  ⬇春节':''));
     circles.push({cx:x,cy:y,label:month+'  ¥'+r[i].toLocaleString()+extra,last:i===r.length-1});
   }
   // Path
@@ -355,20 +357,20 @@ function renderTrend(){
 
 function renderKPIs(){
   const mk=[
-    {l:'月营收',s:'8月',v:(D.revenue/10000).toFixed(1),u:'万',c:'▲ '+D.yoyGrowth+'% YoY',cl:'up',d:'ok',t:'当月技师的劳动业绩合计，即服务项目原价总和'},
-    {l:'净利润',s:'8月',v:(D.profit/10000).toFixed(2),u:'万',c:'▲ 净利率 '+D.margin+'%',cl:'up',d:'ok',t:'营收扣除所有成本后的最终利润'},
-    {l:'付薪比',s:'8月',v:D.payRatio.toFixed(1),u:'%',c:'目标 ≤55%',cl:'down',d:'warn',t:'人力成本÷营收。行业健康线50-55%'},
-    {l:'折扣差额',s:'8月',v:(D.discountGap/10000).toFixed(2),u:'万',c:'门店100%承担',cl:'down',d:'warn',vc:'var(--red)',t:'技师按原价拿提成，但门店实收是折后价。差额¥46,499/月全由门店利润承担'},
-    {l:'跨月留存',s:'7→8月',v:D.retention.toFixed(1),u:'%',c:'月换血 3/4',cl:'down',d:'warn',vc:'var(--amber)',t:'本月有手机号的客户中，下个月再次到店的比例。7→8月留存26.6%'},
-    {l:'边际利润',s:'8月',v:D.marginalProfit,u:'/单',c:'保本点 '+(D.breakeven/10000).toFixed(1)+'万',cl:'',d:'ok',t:'超出保本点后每多做1单门店到手利润。75元/单'},
+    {l:'月营收',s:'9月',v:(D.revenue/10000).toFixed(1),u:'万',c:'▲ '+D.yoyGrowth+'% YoY',cl:'up',d:'ok',t:'当月技师的劳动业绩合计，即服务项目原价总和'},
+    {l:'净利润',s:'9月',v:(D.profit/10000).toFixed(2),u:'万',c:'▲ 净利率 '+D.margin+'%',cl:'up',d:'ok',t:'营收扣除所有成本后的最终利润'},
+    {l:'付薪比',s:'9月',v:D.payRatio.toFixed(1),u:'%',c:'目标 ≤55%',cl:'down',d:'warn',t:'人力成本÷营收。行业健康线50-55%'},
+    {l:'折扣差额',s:'9月',v:(D.discountGap/10000).toFixed(2),u:'万',c:'门店100%承担',cl:'down',d:'warn',vc:'var(--red)',t:'技师按原价拿提成，但门店实收是折后价。差额¥48,141/月全由门店利润承担'},
+    {l:'跨月留存',s:'8→9月',v:D.retention.toFixed(1),u:'%',c:'月换血 3/4',cl:'down',d:'warn',vc:'var(--amber)',t:'本月有手机号的客户中，下个月再次到店的比例。8→9月留存25.4%'},
+    {l:'边际利润',s:'9月',v:D.marginalProfit,u:'/单',c:'保本点 '+(D.breakeven/10000).toFixed(1)+'万',cl:'',d:'ok',t:'超出保本点后每多做1单门店到手利润。76元/单'},
   ];
   const yk=[
-    {l:'累计营收',s:'1-8月',v:(D.ytdRevenue/10000).toFixed(1),u:'万',c:D.ytdOrders+'单',cl:'',d:'ok',t:'2026年1-8月合计服务营收'},
-    {l:'累计净利润',s:'1-8月',v:(D.ytdProfit/10000).toFixed(2),u:'万',c:'净利率 '+D.ytdMargin+'%',cl:'down',d:'warn',vc:'var(--amber)',t:'1-8月净利润合计。净利率创新高15.4%'},
-    {l:'累计付薪比',s:'1-8月',v:D.ytdPayRatio.toFixed(1),u:'%',c:'含3月刷单事件',cl:'down',d:'warn',t:'1-8月人力成本÷累计营收'},
-    {l:'累计折扣',s:'1-8月',v:(D.ytdDiscountGap/10000).toFixed(2),u:'万',c:'门店承担100%',cl:'down',d:'warn',vc:'var(--red)',t:'1-8月原价与实收的累计差额'},
-    {l:'月均营收',s:'1-8月',v:(D.ytdRevenue/8/10000).toFixed(1),u:'万',c:'比2025月均+8.4%',cl:'up',d:'ok',t:'2026年月均¥16.7万 vs 2025年月均¥14.3万'},
-    {l:'月均订单',s:'1-8月',v:Math.round(D.ytdOrders/8),u:'单',c:D.rooms+'间房'+D.beds+'床',cl:'',d:'ok',t:'月均服务订单数'},
+    {l:'累计营收',s:'1-9月',v:(D.ytdRevenue/10000).toFixed(1),u:'万',c:D.ytdOrders+'单',cl:'',d:'ok',t:'2026年1-9月合计服务营收'},
+    {l:'累计净利润',s:'1-9月',v:(D.ytdProfit/10000).toFixed(2),u:'万',c:'净利率 '+D.ytdMargin+'%',cl:'down',d:'warn',vc:'var(--amber)',t:'1-9月净利润合计。9月净利率14.0%'},
+    {l:'累计付薪比',s:'1-9月',v:D.ytdPayRatio.toFixed(1),u:'%',c:'含3月刷单事件',cl:'down',d:'warn',t:'1-9月人力成本÷累计营收'},
+    {l:'累计折扣',s:'1-9月',v:(D.ytdDiscountGap/10000).toFixed(2),u:'万',c:'门店承担100%',cl:'down',d:'warn',vc:'var(--red)',t:'1-9月原价与实收的累计差额'},
+    {l:'月均营收',s:'1-9月',v:(D.ytdRevenue/9/10000).toFixed(1),u:'万',c:'比2025月均+8.4%',cl:'up',d:'ok',t:'2026年月均¥16.9万 vs 2025年月均¥14.3万'},
+    {l:'月均订单',s:'1-9月',v:Math.round(D.ytdOrders/9),u:'单',c:D.rooms+'间房'+D.beds+'床',cl:'',d:'ok',t:'月均服务订单数'},
   ];
   const card=(k,cls)=>`<div class="kpi${cls?' '+cls:''}"><div class="kpi-dot ${k.d}"></div><div class="kpi-label"><span data-tip="${k.t}">${k.l}</span> <span class="dim" style="font-size:9px;font-weight:400;">${k.s}</span></div><div class="kpi-value"${k.vc?` style="color:${k.vc}"`:''}>${k.v}<span class="unit">${k.u}</span></div><div class="kpi-change ${k.cl}">${k.c}</div></div>`;
   document.getElementById('kpi-row').innerHTML=mk.map(k=>card(k,'kpi-m')).join('')+yk.map(k=>card(k,'kpi-y')).join('');
@@ -399,7 +401,7 @@ function renderCards(){
     <div class="insight insight-red" style="margin-top:8px;">付薪比长期在60%+运行，净利率被压制在个位数。改实收提成是唯一破局点。</div>
   </div>
   <div class="card card-accent span-6">
-    <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了(8月)</div></div>
+    <div class="card-header"><div class="card-title">营收瀑布 · 每¥100去哪了(9月)</div></div>
     <div class="bar-list">
       <div class="bar-item"><div class="bar-label">营收</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--cyan)"></div></div><div class="bar-val mono">¥100.0</div></div>
       ${D.waterfall.map(w=>`<div class="bar-item" style="${w.label==='折扣差额'?'padding-top:8px;border-top:1px solid var(--border);':''}${w.label==='净利润'?'padding-top:8px;border-top:1px solid var(--border);':''}"><div class="bar-label ${w.cls}">${w.label}</div><div class="bar-track"><div class="bar-fill" style="width:${w.pct}%;background:var(--${w.cls==='accent'?'accent':w.cls});opacity:${w.opac}"></div></div><div class="bar-val ${w.cls} mono">${w.label==='净利润'?'':'-'}${w.pct}</div></div>`).join('')}
@@ -408,10 +410,10 @@ function renderCards(){
   </div>
 </div>
 </div>
-<div class="section-title">8月运营特写</div>
+<div class="section-title">9月运营特写</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">时段热力图 · 8月</div><div class="card-subtitle">929单 · 8月</div></div>
+    <div class="card-header"><div class="card-title">时段热力图 · 9月</div><div class="card-subtitle">981单 · 9月</div></div>
     <svg viewBox="0 0 520 160" style="width:100%;height:auto;">
       <line x1="40" y1="8" x2="40" y2="130" stroke="#2a2d38" stroke-width="0.5"/>
       ${['11时','12时','13时','14时','15时','16时','17时','18时','19时','20时','21时','22时','23时'].map((l,i)=>{
@@ -463,7 +465,7 @@ function renderCards(){
     <div class="insight insight-green" style="margin-top:12px;">回头客溢价连续4月 +60%。三月连续留存仅10-13%。留一个老客 = 1.6个新客。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">客群留存差异 · 7→8月</div><div class="card-subtitle">储值客留存63.8% · 平台客19.1%（3.3倍）</div></div>
+    <div class="card-header"><div class="card-title">客群留存差异 · 8→9月</div><div class="card-subtitle">储值客留存64.0% · 平台客18.6%（3.4倍）</div></div>
     <div class="mini-bars">${D.channelRetention.map(c=>`<div style="flex:1;text-align:center;"><div class="mini-bar" style="height:${c.rate*2.4}px;background:var(--${c.cls});opacity:0.5;"></div><div class="mini-bar-label">${c.label}<br><span class="${c.cls}">${c.rate}%</span></div></div>`).join('')}</div>
     <div class="insight insight-amber" style="margin-top:12px;">每多一个直付新客，长期价值是平台客的 3 倍。</div>
   </div>
@@ -494,7 +496,7 @@ function renderCards(){
     <div class="insight insight-red" style="margin-top:12px;">陈燕军2.1单/天——边际贡献接近负数。周末排满核心技师，工作日让低效技师上。</div>
   </div>
   <div class="card span-4">
-    <div class="card-header"><div class="card-title">储值漏斗 · 8月</div><div class="card-subtitle">${D.storedFunnel.visitors}到店</div></div>
+    <div class="card-header"><div class="card-title">储值漏斗 · 9月</div><div class="card-subtitle">${D.storedFunnel.visitors}到店</div></div>
     <div style="text-align:center;padding:8px 0;">
       <div style="font-family:DM Mono;font-size:30px;color:var(--accent);">¥${(D.storedFunnel.inflow/10000).toFixed(1)}万</div>
       <div style="font-size:10px;color:var(--text-dim);margin-bottom:12px;">月流入（充值+开卡+套餐）</div>
@@ -565,7 +567,7 @@ function renderCards(){
 <div class="section-title">战略纵览</div>
 <div class="grid">
   <div class="card span-12">
-    <div class="card-header"><div class="card-title">盈亏双线 · 32个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
+    <div class="card-header"><div class="card-title">盈亏双线 · 33个月</div><div class="card-subtitle">营收（蓝） + 净利（金/红）</div></div>
     <svg viewBox="0 0 580 180" style="width:100%;height:auto;">
       <line x1="0" y1="40" x2="580" y2="40" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="90" x2="580" y2="90" stroke="#2a2d38" stroke-width="0.5"/><line x1="0" y1="140" x2="580" y2="140" stroke="#2a2d38" stroke-width="0.5"/>
       <text x="4" y="36" fill="#4a5568" font-size="8" font-family="monospace">15万</text><text x="4" y="86" fill="#4a5568" font-size="8">5万</text><text x="4" y="136" fill="#4a5568" font-size="8">-5万</text>
@@ -582,12 +584,12 @@ function renderCards(){
       <line x1="0" y1="90" x2="580" y2="90" stroke="#2a2d38" stroke-width="0.5" stroke-dasharray="2 4"/>
       <text x="560" y="15" text-anchor="end" fill="#4a5568" font-size="8">营收</text><text x="560" y="28" text-anchor="end" fill="#c89840" font-size="8">净利</text>
     </svg>
-    <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。32个月中19个月盈利。</div>
+    <div class="insight insight-green" style="margin-top:8px;">首次盈利月：2024.07（¥21,399）。33个月中20个月盈利。</div>
   </div>
 </div>
 <div class="grid">
   <div class="card span-12">
-    <div class="card-header"><div class="card-title">盈亏月历 · 32个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
+    <div class="card-header"><div class="card-title">盈亏月历 · 33个月逐月净利</div><div class="card-subtitle">🟢 盈利 · 🔴 亏损 · 数字为利润率%</div></div>
     <style>@media(max-width:600px){.mcal{flex-direction:column!important;gap:16px!important}.mcalYr{min-width:auto!important;width:100%!important}.mcalG{grid-template-columns:repeat(6,1fr)!important;gap:4px!important}.mcalC{min-height:32px!important;font-size:10px!important}.mcalL{display:inline!important}}</style>
     <div class="mcal" style="display:flex;gap:8px;overflow-x:auto;">
       ${[['2024',0],['2025',12],['2026',24]].map(([yr,start])=>{
@@ -623,12 +625,12 @@ function renderCards(){
 <div class="section-title">品牌 & 风险</div>
 <div class="grid">
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（8月）</div><div class="card-subtitle">全店风险指数${D.brandRiskIndex}% · 30.8%客户只消费1个技师</div></div>
+    <div class="card-header"><div class="card-title">品牌风险 · 技师独占率（9月）</div><div class="card-subtitle">全店风险指数${D.brandRiskIndex}% · 30.8%客户只消费1个技师</div></div>
     <table class="data-table"><thead><tr><th>技师</th><th>客户</th><th>独占率</th><th>单月偏</th><th>收入风险</th></tr></thead><tbody>${D.brandRisk.map(b=>`<tr><td>${b.n}</td><td>${b.cs}</td><td class="red">${b.rt}%</td><td>${b.ds}</td><td class="red">¥${f(b.rk)}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-red" style="margin-top:12px;">🔴 客户忠于技师个人，不是忠于十三绝。品牌资产缺失。</div>
   </div>
   <div class="card span-6">
-    <div class="card-header"><div class="card-title">客群价值分层 · 8月</div><div class="card-subtitle">储值客人均¥429 vs 平台客¥212（2.0倍）</div></div>
+    <div class="card-header"><div class="card-title">客群价值分层 · 8月</div><div class="card-subtitle">储值客人均¥456 vs 平台客¥223（2.0倍）</div></div>
     <table class="data-table"><thead><tr><th>客群</th><th>客户数</th><th>留存率</th><th>人均消费</th><th>相对价值</th><th>客群价值</th></tr></thead><tbody>${D.ltv.map(l=>`<tr><td>${l.ch}</td><td>${l.cs}</td><td class="${l.rc}">${l.rt}%</td><td>¥${l.m4}</td><td>${l.m5}×</td><td class="${l.lc}">¥${l.lv}</td></tr>`).join('')}</tbody></table>
     <div class="insight insight-amber" style="margin-top:12px;">LTV差距会随月数拉大。直付客12月LTV预计¥3,000+ vs 美团客<¥1,000——3倍差。</div>
   </div>
@@ -699,7 +701,7 @@ document.querySelectorAll('.dp').forEach(dp=>{
 
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,200);});});
 console.log('%c十三绝·玉林万达店 %c数字孪生','color:#8b7ec8;font-size:18px;font-weight:bold;','color:#8090a8;');
-console.log('%c32个月 · 4,246,754营收 · 64,389净利 · ▸ 看数据，做决策','color:#6e7280;font-size:11px;');
+console.log('%c33个月 · 4,432,408营收 · 90,349净利 · ▸ 看数据，做决策','color:#6e7280;font-size:11px;');
 </script>
 </body>
 </html>
